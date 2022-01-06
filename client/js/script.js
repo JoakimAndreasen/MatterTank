@@ -16,7 +16,7 @@ var engine = Engine.create({
 
 // create a renderer
 var render = Render.create({
-    element: document.body,
+    canvas: document.getElementsByClassName("canvas"),
     engine: engine,
     options: {
         width: Width,
