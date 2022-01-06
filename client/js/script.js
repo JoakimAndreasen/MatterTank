@@ -9,7 +9,7 @@ var Engine = Matter.Engine,
 let Height = document.body.clientHeight,
     Width = document.body.clientWidth;
 
-    // create an engine
+// create an engine
 var engine = Engine.create({
     gravity: { x: 0, y: 0 }
 });
@@ -25,7 +25,6 @@ var render = Render.create({
         wireframes: false
     }
 });
-
 
 function makeTank(size,color) {
 
@@ -66,9 +65,7 @@ function Player(size,color) {
 
 }
 
-
 var player1 = new Player(0.5, "#00FF00");
-
 
 function makeBox(xSize, ySize, thicness) {
     var w1 = Bodies.rectangle(thicness/2, ySize/2, thicness, ySize,{ isStatic: true, label: "left"});
@@ -134,6 +131,7 @@ Runner.run(runner, engine);
 generateMaze(grid);
 let keysDown = new Set();
 
+//Register when a key is pressed
 document.addEventListener('keydown', e => {
     if (e.key == " ") {
         player1.fire();
@@ -146,9 +144,9 @@ document.addEventListener('keydown', e => {
     }
     
 }, false);
+
+//Register when a key is released
 document.addEventListener('keyup', e => keysDown.delete(e.key), false);
-
-
 
 function drive(speed) {
     let direction = player1.getDirection();
@@ -157,27 +155,17 @@ function drive(speed) {
     Matter.Body.applyForce(player1.object, player1.object.position, direction);
 }
 
-
 function rotate(rotation) {
     player1.object.torque += rotation;
 }
+
 function movement() {
-    if(keysDown.has("w")) {
-        drive(0.01); //up
-    }
-    if(keysDown.has("s")) {
-        drive(-0.01); //down
-    }
-
-    if(keysDown.has("d")) {
-        rotate(0.2); //right
-    }
-
-    if(keysDown.has("a")) {
-        rotate(-0.2); //left
-    }
+    if(keysDown.has("w")) drive(0.01); //up
+    if(keysDown.has("s")) drive(-0.01); //down
+    if(keysDown.has("d")) rotate(0.2); //right
+    if(keysDown.has("a")) rotate(-0.2); //left
 }
+
 Matter.Events.on(engine, "beforeUpdate", event => {
     movement();
-
   });
