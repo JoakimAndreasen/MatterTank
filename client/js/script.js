@@ -27,11 +27,27 @@ var render = Render.create({
 });
 
 function makeTank(size,color) {
-
-    var tank = Bodies.fromVertices(Width/2, Height/2, [{x:0,y:0}, {x:0,y:100*size}, {x:100*size,y:100*size}, {x:100*size,y:0},{x:65*size,y:0},{x:65*size,y:-70*size},{x:35*size,y:-70*size},{x:35*size,y:0}],{
-        frictionAir: 0.5,
+    let barrel = Bodies.rectangle(Width/2, Height/2-(size-size/4), size/4, size,{
         render: {
-            fillStyle: color
+            fillStyle: "#FF0000"
+        }
+    });
+    let body = Bodies.rectangle(Width/2, Height/2, size, size, {
+        frictionAir: 0.5,
+
+        render: {
+            fillStyle: "#00FF00"
+        }
+    });
+    let tank = Matter.Body.create({
+        parts: [body, barrel],
+        mass: 5,
+        inertia: 5000,
+        frictionAir: 0.5,
+        collisionFilter: {
+
+            category: 0x0001,
+
         }
     });
 
@@ -42,6 +58,9 @@ function Player(size,color) {
     this.object = makeTank(size,color);
     this.color = color;
     this.bulletSpeed = 15;
+    this.detector = Matter.Detector.create({
+        Bodies: [this.object,engine.world],
+    });
     this.getDirection = function () {
         let up = Vector.create(0, -1)
         let direction = Vector.rotate(up, this.object.angle);
@@ -57,6 +76,12 @@ function Player(size,color) {
             restitution: 1,
             render: {
                 fillStyle: "#FFFFFF"
+            },
+            collisionFilter: {
+  
+                
+                mask: 0x0001
+          
             }
         });
         Matter.Body.setVelocity(bullet, Vector.mult(direction, this.bulletSpeed));
@@ -65,7 +90,9 @@ function Player(size,color) {
 
 }
 
-var player1 = new Player(0.5, "#00FF00");
+
+
+var player1 = new Player(50, "#00FF00");
 
 function makeBox(xSize, ySize, thicness) {
     var w1 = Bodies.rectangle(thicness/2, ySize/2, thicness, ySize,{ isStatic: true, label: "left"});
@@ -129,6 +156,9 @@ Runner.run(runner, engine);
 
 //Generates a maze from the mazeGenerator.js file
 generateMaze(grid);
+
+
+
 let keysDown = new Set();
 
 //Register when a key is pressed
@@ -168,4 +198,7 @@ function movement() {
 
 Matter.Events.on(engine, "beforeUpdate", event => {
     movement();
+    if (Matter.Detector.collisions(player1.detector).length > 0) {
+        Composite.remove(engine.world, player1.object);
+    }
   });
