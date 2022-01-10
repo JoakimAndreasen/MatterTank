@@ -84,4 +84,4 @@ Render.run(render);
 var runner = Runner.create();
 Runner.run(runner, engine);
 
-window.addEventListener('resize', canvas.resize()); 
+window.addEventListener('resize', canvas.resize());
