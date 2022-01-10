@@ -6,7 +6,6 @@ var Engine = Matter.Engine,
     Vector = Matter.Vector;
 
 
-let screenSize = 1000;
 var engine = Engine.create({
     gravity: { x: 0, y: 0 }
 });
@@ -38,68 +37,7 @@ function createBorder(screenSize,w){
     return Composite.add(border, [top,bot,left,right])
 }
 
-function makeTank(size,color) {
-    rsize = screenSize/8
-    let barrel = Bodies.rectangle(rsize, rsize-(size-size/4), size/4, size,{
-        render: {
-            fillStyle: "#FF0000"
-        }
-    });
-    let body = Bodies.rectangle(rsize, rsize, size, size, {
-        frictionAir: 0.5,
-
-        render: {
-            fillStyle: "#00FF00"
-        }
-    });
-    let tank = Matter.Body.create({
-        parts: [body, barrel],
-        mass: 3,
-        inertia: 5000,
-        frictionAir: 0.5,
-        collisionFilter: {
-            category: 0x0001,
-        }
-    });
-    return tank;
-}
-
-function Player(size,color) {
-    this.object = makeTank(size,color);
-    this.color = color;
-    this.bulletSpeed = 15;
-    this.detector = Matter.Detector.create({
-        Bodies: [this.object,engine.world],
-    });
-    this.getDirection = function () {
-        let up = Vector.create(0, -1)
-        let direction = Vector.rotate(up, this.object.angle);
-        direction = Vector.normalise(direction)
-        return direction
-    };
-    this.fire = function () {
-        let direction = this.getDirection();
-        let pos = Vector.add(this.object.position, Vector.mult(direction, screenSize/20));
-        let bullet = Bodies.circle(pos.x, pos.y, screenSize/80, {
-            label: "bullet",
-            frictionAir: 0,
-            restitution: 1,
-            render: {
-                fillStyle: "#FFFFFF"
-            },
-            collisionFilter: {
-                mask: 0x0001
-            }
-        });
-        Matter.Body.setVelocity(bullet, Vector.mult(direction, this.bulletSpeed));
-        Matter.World.add(engine.world, bullet);
-    }
-
-}
-
-
-
-var player = new Player(screenSize/16, "#00FF00");
+let player = new Player();
 
 function makeBox(xSize, ySize, w) {
     wallOptions = {
@@ -196,28 +134,13 @@ document.addEventListener('keydown', e => {
 //Register when a key is released
 document.addEventListener('keyup', e => keysDown.delete(e.key), false);
 
-function drive(speed) {
-    let direction = player.getDirection();
-    direction = Vector.mult(direction, speed)
-
-    Matter.Body.applyForce(player.body, player.body.position, direction);
-}
-
-function rotate(rotation) {
-    player.body.torque += rotation;
-}
-
 function movement() {
-    if(keysDown.has("w")) drive(0.01); //up
-    if(keysDown.has("s")) drive(-0.01); //down
-    if(keysDown.has("d")) rotate(0.2); //right
-    if(keysDown.has("a")) rotate(-0.2); //left
+    if(keysDown.has("w")) player.drive(0.1); //up
+    if(keysDown.has("s")) player.drive(-0.1); //down
+    if(keysDown.has("d")) player.rotate(0.2); //right
+    if(keysDown.has("a")) player.rotate(-0.2); //left
 }
 
 Matter.Events.on(engine, "beforeUpdate", event => {
     movement();
-    //console.log(Matter.Detector.collisions(player1.detector));
-    if (Matter.Detector.collisions(player1.detector).length > 0) {
-        Composite.remove(engine.world, player.body);
-    }
   });

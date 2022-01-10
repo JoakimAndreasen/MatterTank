@@ -1,22 +1,23 @@
+let screenSize = 1000
+
 class Player{
     constructor(){
+        this.tankSize = 50;
         this.body = this.createTank()
         this.color;
-        this.bulletspeed = 20*canvas.size;
-        this.speed = 5*canvas.size; 
-        this.tankSize = 1*canvas.size
+        this.bulletspeed = 20;
     }
 
     getDirection() {
         let up = Vector.create(0, -1)
-        let direction = Vector.rotate(up, this.object.angle);
+        let direction = Vector.rotate(up, this.body.angle);
         direction = Vector.normalise(direction)
         return direction
     };
 
-    drive() {
-        let direction = player1.getDirection();
-        direction = Vector.mult(direction, this.speed)
+    drive(speed) {
+        let direction = this.getDirection();
+        direction = Vector.mult(direction, speed)
     
         Matter.Body.applyForce(this.body, this.body.position, direction);
     }
@@ -27,8 +28,8 @@ class Player{
 
     fire() {
         let direction = this.getDirection();
-        let pos = Vector.add(this.object.position, Vector.mult(direction, screenSize/20));
-        let bullet = Bodies.circle(pos.x, pos.y, screenSize/80, {
+        let pos = Vector.add(this.body.position, Vector.mult(direction, screenSize/20));
+        let bullet = Bodies.circle(pos.x, pos.y, 10, {
             label: "bullet",
             frictionAir: 0,
             restitution: 1,
@@ -44,12 +45,12 @@ class Player{
     }
 
     createTank(){
-        this.barrel = Bodies.rectangle(this.tankSize, this.tankSize-(size-size/4), size/4, size,{
+        this.barrel = Bodies.rectangle(100,100, this.tankSize/2,this.tankSize/2,{
             render: {
                 fillStyle: "#00FF00"
             }
         });
-        this.body = Bodies.rectangle(this.tankSize, this.tankSize, size, size, {
+        this.body = Bodies.rectangle(100,100,10,10, {
             frictionAir: 0.5,
             render: {
                 fillStyle: "#00FF00"
@@ -57,7 +58,7 @@ class Player{
         });
         this.tank = Matter.Body.create({
             parts: [this.body, this.barrel],
-            mass: 3,
+            mass: 10,
             inertia: 5000,
             frictionAir: 0.5,
             collisionFilter: {
