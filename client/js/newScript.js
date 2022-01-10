@@ -3,6 +3,7 @@ var Engine = Matter.Engine,
     Render = Matter.Render,
     Runner = Matter.Runner,
     Bodies = Matter.Bodies,
+    Body = Matter.Body,
     Composite = Matter.Composite;
     Vector = Matter.Vector;
 
@@ -37,7 +38,7 @@ function createBox(x,y) {
     var w4 = Bodies.rectangle(xSize/2+x-xSize/2, ySize-0+y-ySize/2, xSize+width, width,wallOptions);
     
 
-    let Box = Matter.Body.create({
+    let Box = Body.create({
         parts: [w1, w2, w3, w4],
         isStatic: true,
         render: {
@@ -45,26 +46,44 @@ function createBox(x,y) {
             fillStyle: '#fff'
         }
     });
+    Box.removeWall = function(wallName) {
+        let walls = Box.parts;
+        let newWalls = walls.filter(e => e.label !== wallName);
+        Body.setParts(Box,newWalls);
+    }
     return Box;     
 }
 
-
-let box = createBox(0, 0);
-
-
-box.removeWall = function(wallName) {
-    let walls = Composite.allBodies(box);
-    let wall = walls.find(e => e.label == wallName);
-    Composite.remove(box, wall);
-}
 
 
 
 //let grid = Matter.Composites.stack(3, 3, 3, 3, 50, 50, createBox);
 
 var stack = Matter.Composites.stack(0, 0, gridSize, gridSize, -10, -10, createBox);
-console.log(stack);
-Composite.add(engine.world, [box,stack]);
+let grid = [];
+
+for (let i = 0; i < gridSize; i++) {
+    let row = [];
+    for (let j = 0; j < gridSize; j++) {
+        stack.bodies[i*gridSize+j].gridx = i;
+        stack.bodies[i*gridSize+j].gridy = j;
+        row.push(stack.bodies[i*gridSize+j]);
+        
+    }
+    grid.push(row);
+}
+grid[5][5].removeWall("top");
+grid[4][5].removeWall("bottom");
+grid[3][3].removeWall("top");
+grid[2][3].removeWall("bottom");
+
+
+//generateMaze(grid);
+console.log(grid);
+//console.log(generateMaze(grid));
+Composite.add(engine.world, [stack]);
+
+
 // create a renderer
 var render = Render.create({
     canvas: document.getElementById('canvas'),

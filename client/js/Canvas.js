@@ -10,20 +10,16 @@ class Canvas {
 
     resize() {
         console.log("Here")
-        //if (document.body.clientWidth > document.body.clientHeight) {
-            render.bounds.max.x = document.body.clientHeight;
-            render.bounds.max.y = document.body.clientHeight;
+        if (document.body.clientWidth > document.body.clientHeight) {
             render.options.width = document.body.clientHeight;
             render.options.height = document.body.clientHeight;
             render.canvas.width = document.body.clientHeight;
             render.canvas.height = document.body.clientHeight;
-        //} else {
-            render.bounds.max.x = document.body.clientWidth;
-            render.bounds.max.y = document.body.clientWidth;
+        } else {
             render.options.width = document.body.clientWidth;
             render.options.height = document.body.clientWidth;
             render.canvas.width = document.body.clientWidth;
             render.canvas.height = document.body.clientWidth;
-        //}
+        }
     }
 }

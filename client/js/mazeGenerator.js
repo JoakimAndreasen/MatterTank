@@ -1,5 +1,5 @@
 //generate maze "Iterative implementation" at https://en.wikipedia.org/wiki/Maze_generation_algorithm 
-function generateMaze(grid) {
+function generateMaze() {
     xSize = grid.length;
     ySize = grid[0].length;
     //start at random cell

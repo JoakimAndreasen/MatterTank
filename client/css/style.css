@@ -16,26 +16,38 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /*Font Sizes*/
 h1 {
     font-size: 5vh;
 }
+
+h2 {
+    color: white;
+    margin-top: 0.5rem;
+}
+
  /*Game*/
 #canvas {
-    position: fixed;
+/*     position: fixed;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%) scale(80%); */
+    width: 100px;
 }
 
 /*Left Container*/
 #leftContainer {
     display: flex;
+    width: 20vw;
     flex-direction: column;
     text-align: center;
     align-items: center;
-    position: fixed;
+    /* position: fixed; */
     height: 100vh;
     background-color: red;
 }
@@ -47,11 +59,10 @@ h1 {
     margin-bottom: 1vh;
 }
 
-#lobbyManager {
+.container {
     display: flex;
     flex-direction: column;
     width: 90%;
-    height: 40%;
     align-items: center;
     justify-content: center;
     background-color: #1c1c1e;
@@ -63,9 +74,9 @@ h1 {
 
 button {
     width: 90%;
-    height: 20%;
+    height: 2em;
     padding: 0;
-    margin-bottom: 0.5vh;
+    margin: 0.5rem;
     background: #444444;
     color: #757575;
     font-size: x-large;
@@ -82,13 +93,13 @@ button:hover {
 
 input {
     width: 90%;
-    height: 20%;
+    height: 2em;
     text-align: center;
     border: none;
     border-radius: 3px;
     outline: none;
     padding: 0;
-    margin-bottom: 0.5vh;
+    margin: 0.5rem;
     font-size: x-large;
     border-radius: 10px;
     outline: none;
@@ -112,22 +123,28 @@ input:focus::placeholder {
 }
   
 #joinLobbyForm {
-    margin-top: 0.5vh;
     width: 90%;
-    height: 20%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
   
-#joinLobbyInput {
-    width: 50%;
-    height: 100%;
+#joinLobbyInput,
+#joinLobbyButton{
+    width: 100%;
+    height: 2em;
+    margin-left: 0;
+    margin-right: 0;
+    
 }
-  
-#joinLobbyButton {
-    width: 50%;
-    height: 100%;
-    margin-left: 0.5vh;
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /*Right Container*/  
@@ -135,9 +152,11 @@ input:focus::placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
+    width: 20vw;
+    /* position: fixed; 
     left: 100%;
-    transform: translate(-100%);
+    transform: translate(-100%);*/
     height: 100vh;
     background-color: red;
 }
+
