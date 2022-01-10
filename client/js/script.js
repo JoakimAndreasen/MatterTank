@@ -6,8 +6,11 @@ var Engine = Matter.Engine,
     Composite = Matter.Composite;
     Vector = Matter.Vector;
 
-let Height = document.body.clientHeight,
-    Width = document.body.clientWidth;
+// let Height = document.body.clientHeight,
+//     Width = document.body.clientWidth;
+
+let screenSize = document.body.clientHeight
+
 
 // create an engine
 var engine = Engine.create({
@@ -16,23 +19,23 @@ var engine = Engine.create({
 
 // create a renderer
 var render = Render.create({
-    canvas: document.getElementsByClassName("canvas"),
+    canvas: document.getElementById('canvas'),
     engine: engine,
     options: {
-        width: Width,
-        height: Height,
+        width: screenSize,
+        height: screenSize,
         background: '#000',
         wireframes: false
     }
 });
 
 function makeTank(size,color) {
-    let barrel = Bodies.rectangle(Width/2, Height/2-(size-size/4), size/4, size,{
+    let barrel = Bodies.rectangle(100, 100-(size-size/4), size/4, size,{
         render: {
             fillStyle: "#FF0000"
         }
     });
-    let body = Bodies.rectangle(Width/2, Height/2, size, size, {
+    let body = Bodies.rectangle(100, 100, size, size, {
         frictionAir: 0.5,
 
         render: {
@@ -41,7 +44,7 @@ function makeTank(size,color) {
     });
     let tank = Matter.Body.create({
         parts: [body, barrel],
-        mass: 5,
+        mass: 3,
         inertia: 5000,
         frictionAir: 0.5,
         collisionFilter: {
@@ -50,6 +53,8 @@ function makeTank(size,color) {
 
         }
     });
+
+  
 
     return tank;
 }
@@ -121,8 +126,8 @@ function Cell(xSize, ySize, thicness,x,y) {
 }
 
 function makeGrid(size, thicness) {
-    let xSize = Width/size[0];
-    let ySize = Height/size[1];
+    let xSize = screenSize/size[0];
+    let ySize = screenSize/size[1];
 
     var grid = [];
     let gridComposite = Composite.create();
@@ -163,6 +168,7 @@ let keysDown = new Set();
 
 //Register when a key is pressed
 document.addEventListener('keydown', e => {
+    if (!e.repeat) {
     if (e.key == " ") {
         player1.fire();
     } else if (e.key == "b") {
@@ -171,6 +177,7 @@ document.addEventListener('keydown', e => {
         }
     } else {
         keysDown.add(e.key)
+    }
     }
     
 }, false);
