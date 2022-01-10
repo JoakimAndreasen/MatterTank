@@ -1,27 +1,31 @@
 let keysDown = new Set();
 
-document.addEventListener('keydown', e => {
+document.addEventListener(
+  "keydown",
+  (e) => {
     if (!e.repeat) {
-    if (e.key == " ") {
+      if (e.key == " ") {
         player.fire();
-    } else if (e.key == "b") {
-        for(let x=0;x<10;x++) {
-            player.fire();
+      } else if (e.key == "b") {
+        for (let x = 0; x < 10; x++) {
+          player.fire();
         }
-    } else {
-        keysDown.add(e.key)
+      } else {
+        keysDown.add(e.key);
+      }
     }
-    }
-    
-}, false);
-document.addEventListener('keyup', e => keysDown.delete(e.key), false);
+  },
+  false
+);
+document.addEventListener("keyup", (e) => keysDown.delete(e.key), false);
 
 function movement() {
-    if(keysDown.has("d")) player.rotate(0.4); //right
-    if(keysDown.has("a")) player.rotate(-0.4); //left
-    if(keysDown.has("w")) player.drive(0.06); player.dirController(1); //up
-    if(keysDown.has("s")) {
-        player.drive(-0.06); 
-        player.dirController(-1) 
-    }else player.dirController(1);
+  if (keysDown.has("d")) player.rotate(0.15); //right
+  if (keysDown.has("a")) player.rotate(-0.15); //left
+  if (keysDown.has("w")) player.drive(0.025);
+  player.dirController(1); //up
+  if (keysDown.has("s")) {
+    player.drive(-0.025);
+    player.dirController(-1);
+  } else player.dirController(1);
 }
