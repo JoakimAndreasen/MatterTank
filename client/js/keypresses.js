@@ -1,9 +1,27 @@
 let keysDown = new Set();
+
+document.addEventListener('keydown', e => {
+    if (!e.repeat) {
+    if (e.key == " ") {
+        player.fire();
+    } else if (e.key == "b") {
+        for(let x=0;x<10;x++) {
+            player.fire();
+        }
+    } else {
+        keysDown.add(e.key)
+    }
+    }
+    
+}, false);
 document.addEventListener('keyup', e => keysDown.delete(e.key), false);
 
 function movement() {
-    if(keysDown.has("w")) drive(0.01); //up
-    if(keysDown.has("s")) drive(-0.01); //down
-    if(keysDown.has("d")) rotate(0.2); //right
-    if(keysDown.has("a")) rotate(-0.2); //left
+    if(keysDown.has("d")) player.rotate(0.4); //right
+    if(keysDown.has("a")) player.rotate(-0.4); //left
+    if(keysDown.has("w")) player.drive(0.06); player.dirController(1); //up
+    if(keysDown.has("s")) {
+        player.drive(-0.06); 
+        player.dirController(-1) 
+    }else player.dirController(1);
 }

@@ -113,34 +113,6 @@ Runner.run(runner, engine);
 //Generates a maze from the mazeGenerator.js file
 generateMaze();
 
-let keysDown = new Set();
-
-//Register when a key is pressed
-document.addEventListener('keydown', e => {
-    if (!e.repeat) {
-    if (e.key == " ") {
-        player.fire();
-    } else if (e.key == "b") {
-        for(let x=0;x<10;x++) {
-            player.fire();
-        }
-    } else {
-        keysDown.add(e.key)
-    }
-    }
-    
-}, false);
-
-//Register when a key is released
-document.addEventListener('keyup', e => keysDown.delete(e.key), false);
-
-function movement() {
-    if(keysDown.has("w")) player.drive(0.1); //up
-    if(keysDown.has("s")) player.drive(-0.1); //down
-    if(keysDown.has("d")) player.rotate(0.2); //right
-    if(keysDown.has("a")) player.rotate(-0.2); //left
-}
-
 Matter.Events.on(engine, "beforeUpdate", event => {
     movement();
   });
