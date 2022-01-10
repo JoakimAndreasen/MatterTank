@@ -1,4 +1,4 @@
-function createLobby(room) {
+function createLobby(room, lobbys) {
     lobbys[room] = {};
     lobbys[room].players = [];
     lobbys[room].spectators = {};
@@ -7,6 +7,7 @@ function createLobby(room) {
         console.log(`room ${room} was created`);
         balls[room] = new ball();
     }
+    return 
 };
 
 function joinLobby() {
@@ -29,6 +30,7 @@ function joinLobby() {
             io.sockets.to(id).emit("spectator", true);
         }
     }
+    return 
 };
 
 function leaveLobby(room, id) {

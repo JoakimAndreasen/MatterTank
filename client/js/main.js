@@ -21,7 +21,7 @@ var render = Render.create({
 });
 
 let w = screenSize / 40;
-let player = new Player();
+let players = new Player();
 
 var { grid, gridComposite } = makeGrid([8, 8], w);
 

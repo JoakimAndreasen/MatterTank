@@ -16,20 +16,24 @@ io.sockets.on("connection", newConnection);
 
 let lobbys = [];
 
+//Create a new room
 io.of("/").adapter.on("create-room", (room) => {
     //createLobby(room);
 });
 
-io.of("/").adapter.on("create-room", (room) => {
-    //createLobby(room);
-});
-
+//Join a room
 io.of("/").adapter.on("join-room", (room, id) => {
     //joinLobby(room, id);
 });
 
+//leave a room
 io.of("/").adapter.on("leave-room", (room, id) => {
     //leaveLobby(room, id);
+});
+
+//Switch to another room
+io.of("/").adapter.on("switch-room", (room) => {
+    //createLobby(room);
 });
 
 function newConnection(socket) {
