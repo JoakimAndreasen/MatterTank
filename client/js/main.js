@@ -22,9 +22,7 @@ var render = Render.create({
     }
 });
 
-window.addEventListener('resize', function(event){
-    canvas.resize();
-  });
+
 
 function createBorder(screenSize,w){
     w = screenSize/20

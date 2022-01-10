@@ -9,6 +9,7 @@
     overflow: hidden;
     margin: 0;
     font-family: "noodle";
+    color: white;
 }
 
 body {
@@ -17,49 +18,46 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 80vh 1fr;
 }
 
 /*Font Sizes*/
 h1 {
-    font-size: 5vh;
+    font-size: 2em;
 }
 
 h2 {
-    color: white;
     margin-top: 0.5rem;
 }
 
  /*Game*/
-#canvas {
-/*     position: fixed;
-    left: 50%;
-    transform: translate(-50%) scale(80%); */
-    width: 500px;
-}
-
-/*Left Container*/
-#leftContainer {
+.game {
+    width: 100%;
     display: flex;
-    width: 20vw;
-    flex-direction: column;
-    text-align: center;
     align-items: center;
-    /* position: fixed; */
-    height: 100vh;
-    background-color: red;
 }
-
-#gameTitle {
-    margin-top: 1rem;
-    font-family: "noodle";
-    color: white;
-    margin-bottom: 1vh;
+#canvas {
+    height: auto;
+    width: 100%;
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+#gameTitle {
+    padding: 1rem 0;
+    
+}
+
+.box {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -147,16 +145,4 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/*Right Container*/  
-#rightContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20vw;
-    /* position: fixed; 
-    left: 100%;
-    transform: translate(-100%);*/
-    height: 100vh;
-    background-color: red;
-}
 
