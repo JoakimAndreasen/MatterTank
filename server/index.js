@@ -1,46 +1,54 @@
 //Import helper functions
-const { createLobby, joinLobby, leaveLobby, switchLobby } = require("./lobby.js");
+const {
+	createRoom,
+	joinLobby,
+	leaveLobby,
+	switchLobby,
+} = require("./rooms.js");
 
-//Setup express server to listen on port 3000
 const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
-var server = app.listen(3000);
 app.use(express.static("./client"));
-
-console.log("Server is running!");
-
-//start socket io and run "newConnection" for every new client
-var socket = require("socket.io");
-var io = socket(server);
-io.sockets.on("connection", newConnection);
-
-let lobbys = [];
-
-//Create a new room
-io.of("/").adapter.on("create-room", (room) => {
-    //createLobby(room);
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+	/* options */
 });
 
-//Join a room
-io.of("/").adapter.on("join-room", (room, id) => {
-    //joinLobby(room, id);
+let allRooms = {};
+
+io.on("connection", (socket) => {
+	let currentRoom;
+	console.log(socket.id, "joined the server");
+
+	socket.on("create-room", (seed) => {
+		let start = 10000,
+			range = 99999;
+		currentRoom = Math.floor(Math.random() * (range - start) + start);
+		allRooms[currentRoom] = createRoom(socket, seed, String(currentRoom));
+		socket.emit("reply", "Creating room with code: " + currentRoom);
+	});
+
+	socket.on("join-room", (roomID) => {
+		if (allRooms[roomID]) {
+			socket.join(roomID);
+			currentRoom = roomID;
+			console.log(socket.id + " joined room " + roomID);
+			socket.emit("reply", "Joined " + roomID);
+		} else {
+			socket.emit("reply", "Room not found");
+		}
+	});
+
+	socket.on("updatePlayers", (playerData) => {
+		if (currentRoom) {
+			socket.to(currentRoom).emit("update", [playerData, socket.id]);
+		}
+	});
 });
 
-//leave a room
-io.of("/").adapter.on("leave-room", (room, id) => {
-    //leaveLobby(room, id);
-});
+io.to("room1").emit("message", "Hello from room1");
 
-//Switch to another room
-io.of("/").adapter.on("switch-room", (room) => {
-    //createLobby(room);
-});
-
-function newConnection(socket) {
-    let lobbyNumber;
-    let username = "";
-    socket.on("switchLobby", switchLobby);
-    socket.on("createLobby", createLobby);
-
-    console.log("New connection: ", socket.id);
-}
+httpServer.listen(3000);

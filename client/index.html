@@ -10,13 +10,14 @@
         <script src="./lib/socket.io.js"></script>
         <script src="./lib/decomp.min.js" type="text/javascript"></script>
         <script src="./lib/matter.min.js"></script>
-
         <script src="./js/Player.js"></script>
-        <script src="./js/keypresses.js"></script>
         <script src="./js/map.js"></script>
         <script src="./js/mazeGenerator.js"></script>
+        <script src="./js/gameElements.js"></script>
+
+        <script src="./js/menu.js" defer></script>
+        <script src="./js/keypresses.js"></script>
         <script src="./js/main.js" defer></script>
-        <!-- <script src="./js/lobby.js"></script> -->
     </head>
     <body>
       <div class="container" >
@@ -35,6 +36,7 @@
           <div class="box">
             <h2>Create Lobby</h2>
             <input
+                id="seedInput"
                 type="text"
                 placeholder="Seed"
               />
@@ -42,7 +44,7 @@
           </div>
           <div class="box">
             <h2>Join Lobby</h2>
-            <form id="joinLobbyForm" autocomplete="off">
+            <div id="joinLobbyForm">
               <input
                 id="joinLobbyInput"
                 type="number"
@@ -51,14 +53,14 @@
                 placeholder="Lobby Code"
               />
               <button id="joinLobbyButton">Join Lobby</button>
-            </form>
+            </div>
           </div>
       </div>
       <div class="game">
         <canvas id="canvas"></canvas>
       </div>
       <div class="container"> 
-      
+        <h2 id="notification">This is a reply</h2>
       </div>
     </body>
 </html>

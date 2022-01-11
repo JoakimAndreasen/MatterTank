@@ -1,23 +1,23 @@
 var Engine = Matter.Engine,
-  Render = Matter.Render,
-  Runner = Matter.Runner,
-  Bodies = Matter.Bodies,
-  Composite = Matter.Composite;
+	Render = Matter.Render,
+	Runner = Matter.Runner,
+	Bodies = Matter.Bodies,
+	Composite = Matter.Composite;
 Vector = Matter.Vector;
 
 var engine = Engine.create({
-  gravity: { x: 0, y: 0 },
+	gravity: { x: 0, y: 0 },
 });
 
 var render = Render.create({
-  canvas: document.getElementById("canvas"),
-  engine: engine,
-  options: {
-    width: screenSize,
-    height: screenSize,
-    background: "#000",
-    wireframes: false,
-  },
+	canvas: document.getElementById("canvas"),
+	engine: engine,
+	options: {
+		width: screenSize,
+		height: screenSize,
+		background: "#000",
+		wireframes: false,
+	},
 });
 
 let w = screenSize / 40;
@@ -27,31 +27,28 @@ var { grid, gridComposite } = makeGrid([5, 5], w);
 
 let Border = createBorder(screenSize, w);
 
+let opponentsComposite = Composite.create({});
+Composite.add(opponentsComposite, opponents);
+//let powerup = new Powerup(100,100,);
 // add all of the bodies to the world
-Composite.add(engine.world, [player.body, gridComposite, Border]);
-
+Composite.add(engine.world, [
+	player.body,
+	gridComposite,
+	Border,
+	opponentsComposite,
+]);
+console.log(Matter.Query.ray(engine.world, { x: 0, y: 0 }, { x: 400, y: 400 }));
 // run the renderer
 Render.run(render);
 
-// create runner
+// create runner and run the engine
 var runner = Runner.create();
-
-// run the engine
 Runner.run(runner, engine);
 
 //Generates a maze from the mazeGenerator.js file
 generateMaze();
 
 Matter.Events.on(engine, "beforeUpdate", (event) => {
-  movement();
-  //Player collisions
-  let collitions = Matter.Detector.collisions(engine.world, player.body);
-  if (collitions.length > 0) {
-    collitions.forEach(element => {
-        let bodies = [element.parentA,element.parentB];
-        let player = bodies.find(body => body.label == "player");
-        if (player) {Matter.World.remove(engine.world, bodies)}; 
-      });
-  }
-
+	movement();
+	collisions();
 });
