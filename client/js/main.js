@@ -21,9 +21,9 @@ var render = Render.create({
 });
 
 let w = screenSize / 40;
-let players = new Player();
+let player = new Player();
 
-var { grid, gridComposite } = makeGrid([8, 8], w);
+var { grid, gridComposite } = makeGrid([5, 5], w);
 
 let Border = createBorder(screenSize, w);
 
@@ -44,4 +44,14 @@ generateMaze();
 
 Matter.Events.on(engine, "beforeUpdate", (event) => {
   movement();
+  //Player collisions
+  let collitions = Matter.Detector.collisions(engine.world, player.body);
+  if (collitions.length > 0) {
+    collitions.forEach(element => {
+        let bodies = [element.parentA,element.parentB];
+        let player = bodies.find(body => body.label == "player");
+        if (player) {Matter.World.remove(engine.world, bodies)}; 
+      });
+  }
+
 });

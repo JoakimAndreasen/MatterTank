@@ -22,9 +22,6 @@ class Player {
     Matter.Body.applyForce(this.body, this.body.position, direction);
   }
 
-  dirController(dir) {
-    this.dir = dir;
-  }
 
   rotate(rotation) {
     if (this.dir > 0) {
@@ -35,6 +32,7 @@ class Player {
   }
 
   fire() {
+    let collitionWaitTime = 100;
     let direction = this.getDirection();
     let pos = Vector.add(this.body.position, Vector.mult(direction, 40));
     let bullet = Bodies.circle(pos.x, pos.y, 10, {
@@ -50,6 +48,9 @@ class Player {
     });
     Matter.Body.setVelocity(bullet, Vector.mult(direction, 7));
     Matter.World.add(engine.world, bullet);
+    setTimeout(() => {
+      bullet.collisionFilter.mask = 0x0011;
+    }, collitionWaitTime);
   }
 
   createTank() {
@@ -124,8 +125,9 @@ class Player {
       mass: 10,
       inertia: 5000,
       frictionAir: 0.4,
+      label: "player",
       collisionFilter: {
-        category: 0x0001,
+        category: 0x0010,
       },
     });
     return this.tank;

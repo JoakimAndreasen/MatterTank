@@ -22,10 +22,9 @@ document.addEventListener("keyup", (e) => keysDown.delete(e.key), false);
 function movement() {
   if (keysDown.has("d")) player.rotate(0.15); //right
   if (keysDown.has("a")) player.rotate(-0.15); //left
-  if (keysDown.has("w")) player.drive(0.025);
-  player.dirController(1); //up
-  if (keysDown.has("s")) {
-    player.drive(-0.025);
-    player.dirController(-1);
-  } else player.dirController(1);
+  if (keysDown.has("w")) player.drive(0.025); //up
+  if (keysDown.has("s")) player.drive(-0.025); //down
+
+  keysDown.has("s") ? player.dir = -1 : player.dir = 1;
+
 }
