@@ -10,10 +10,12 @@ function createBorder(screenSize,w){
 }
 
 function makeBox(xSize, ySize, w) {
-    wallOptions = {
+    let wallOptions = {
         isStatic: true,
+        isSensor: false,
         render: {
             strokeStyle: 'rgb(0,0,0,0)',
+            visible: true,
         }
     }
     wallOptions.label = "left"
@@ -25,24 +27,38 @@ function makeBox(xSize, ySize, w) {
     wallOptions.label = "bottom"
     var w4 = Bodies.rectangle(xSize/2, ySize, xSize+w, w,wallOptions);
 
-    Box = Composite.create();
-    
-    Composite.add(Box, [w1, w2, w3, w4]);
-    return Box;
+
+
+    let box = Composite.create({bodies: [w1, w2, w3, w4]});
+    return box;
 }
 
 function Cell(xSize, ySize, w,x,y) {
     this.object = makeBox(xSize, ySize, w);
+    this.bodies = Composite.allBodies(this.object);
     this.xSize = xSize;
     this.ySize = ySize;
     this.x = x;
     this.y = y;
     this.w = w;
     this.visited = false;
+    
     this.removeWall = function(wallName) {
-        let walls = Composite.allBodies(this.object);
-        let wall = walls.find(e => e.label == wallName);
-        Composite.remove(this.object, wall);
+        let wall = this.object.bodies.find(e => e.label == wallName);
+        if (wall) {
+            wall.render.visible = false;
+            wall.isSensor = true;
+        }
+
+    }
+
+    this.reset = function () {
+        this.visited = false;
+        this.object.bodies.forEach(element => {
+            element.render.visible = true;
+            element.isSensor = false;
+        });
+
     }
 }
 

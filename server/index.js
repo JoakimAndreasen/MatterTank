@@ -14,21 +14,21 @@ const app = express();
 app.use(express.static("./client"));
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-	/* options */
+
 });
 
 let allRooms = {};
 
 io.on("connection", (socket) => {
-	let currentRoom;
+	let currentRoom = "";
 	console.log(socket.id, "joined the server");
 
 	socket.on("create-room", (seed) => {
 		let start = 10000,
 			range = 99999;
-		currentRoom = Math.floor(Math.random() * (range - start) + start);
-		allRooms[currentRoom] = createRoom(socket, seed, String(currentRoom));
-		socket.emit("reply", "Creating room with code: " + currentRoom);
+		currentRoom = String(Math.floor(Math.random() * (range - start) + start));
+		allRooms[currentRoom] = createRoom(socket, seed, currentRoom);
+		socket.emit("joinedRoom", allRooms[currentRoom].publicData);
 	});
 
 	socket.on("join-room", (roomID) => {
@@ -36,13 +36,14 @@ io.on("connection", (socket) => {
 			socket.join(roomID);
 			currentRoom = roomID;
 			console.log(socket.id + " joined room " + roomID);
-			socket.emit("reply", "Joined " + roomID);
+			socket.emit("joinedRoom", allRooms[roomID].publicData);
 		} else {
 			socket.emit("reply", "Room not found");
 		}
 	});
 
 	socket.on("updatePlayers", (playerData) => {
+		
 		if (currentRoom) {
 			socket.to(currentRoom).emit("update", [playerData, socket.id]);
 		}

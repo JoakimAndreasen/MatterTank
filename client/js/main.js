@@ -1,3 +1,10 @@
+
+let screenSize = 1000;
+let socket = io.connect("http://localhost:3000");
+console.log("Connected to Server");
+
+
+
 var Engine = Matter.Engine,
 	Render = Matter.Render,
 	Runner = Matter.Runner,
@@ -26,9 +33,8 @@ let player = new Player();
 var { grid, gridComposite } = makeGrid([5, 5], w);
 
 let Border = createBorder(screenSize, w);
-
 let opponentsComposite = Composite.create({});
-Composite.add(opponentsComposite, opponents);
+let opponents = {};
 //let powerup = new Powerup(100,100,);
 // add all of the bodies to the world
 Composite.add(engine.world, [
@@ -46,9 +52,9 @@ var runner = Runner.create();
 Runner.run(runner, engine);
 
 //Generates a maze from the mazeGenerator.js file
-generateMaze();
+generateMaze(grid);
 
 Matter.Events.on(engine, "beforeUpdate", (event) => {
 	movement();
-	collisions();
+	//collisions();
 });

@@ -1,5 +1,3 @@
-let screenSize = 1000;
-
 class Player {
 	constructor() {
 		this.tankSize = 50;
@@ -53,7 +51,7 @@ class Player {
 					fillStyle: "#FFFFFF",
 				},
 				collisionFilter: {
-					mask: 0x0001,
+					mask: 0x0101,
 				},
 			});
 			Matter.Body.setVelocity(bullet, Vector.mult(direction, 7));
@@ -69,6 +67,7 @@ class Opponent {
 	constructor() {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
+		this.body.collisionFilter.category = 0x0100;
 		this.position;
 		this.angle;
 		this.color;

@@ -5,6 +5,7 @@ class Room {
 		this.players = {};
 		this.gameState = "UNBORN";
 		this.score = [];
+		this.publicData = {seed:this.seed,id:this.id};
 	}
 
 	updatePlayers(room) {
