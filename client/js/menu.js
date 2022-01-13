@@ -24,23 +24,13 @@ socket.on("reply", (reply) => {
 	}
 	notifications.appendChild(notification);
 	
-	setTimeout(() => {notification.style.opacity = 0},3000)
-	setTimeout(() => {notification.style.display = "none"},3450)
+	setTimeout(() => {notification.style.opacity = 0},6000)
+	setTimeout(() => {notification.style.display = "none"},6450)
 });
 
 socket.on("joinedRoom", (roomData) => {
-	if (opponents.length !=0) {
-		opponents.forEach((opponent) => {
-			Composite.remove(engine.world, opponent.body);
-		});
-	}
+	resetLevel()
 	console.log("ROOMCODE: "+roomData.id);
-	grid.forEach((row) => {
-		row.forEach((cell) => {
-			cell.reset();
-			
-		});
-	});
 	let randFunc = randomSeededFunction(String(roomData.seed))
 	generateMaze(grid,randFunc);
 	//set spawn position
@@ -51,6 +41,7 @@ socket.on("joinedRoom", (roomData) => {
 	} else if (roomData.players == 3) {
 		Matter.Body.setPosition(player.body,{"x":900,"y":900});
 	}
+	
 });
 
 socket.on("leftRoom", (id) => {

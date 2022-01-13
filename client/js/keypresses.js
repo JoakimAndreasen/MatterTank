@@ -26,18 +26,7 @@ function movement() {
 	if (keysDown.has("s")) player.drive(-0.025); //down
 
 	keysDown.has("s") ? (player.dir = -1) : (player.dir = 1);
-	socket.emit("updatePlayers", {
-		position: player.body.position,
-		angle: player.body.angle,
-	});
-	socket.emit("updateBullets", getBulletData());
+
 
 }
 
-function getBulletData() {
-	let data = [];
-	player.bullets.forEach(e => {
-		data.push({"pos":e.body.position,"vel":e.body.velocity,"id":e.id});
-	});
-	return data
-}
