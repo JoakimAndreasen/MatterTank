@@ -146,6 +146,7 @@ input[type=number] {
 }
 
 .notification {
+    font-size: 2em;
     transition: opacity 0.5s;
 }
 
