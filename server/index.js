@@ -1,55 +1,53 @@
 //Import helper functions
-const {
-	createRoom,
-	joinLobby,
-	leaveLobby,
-	switchLobby,
-} = require("./rooms.js");
+const {createRoom,joinRoom} = require("./rooms.js");
 
-const express = require("express");
-const { createServer } = require("http");
-const { Server } = require("socket.io");
+//const express = require("express");
+//const { createServer } = require("http");
+//const { Server } = require("socket.io");
 
-const app = express();
+/*const app = express();
 app.use(express.static("./client"));
 const httpServer = createServer(app);
-const io = new Server(httpServer, {
+const io = new Server(httpServer, {});*/
 
-});
+const options = { cors: {
+    origin: "http://localhost:5500",
+    methods: ["GET", "POST"]
+  } };
+const io = require("socket.io")(3000,options);
 
-let allRooms = {};
+
+
 
 io.on("connection", (socket) => {
-	let currentRoom = "";
 	console.log(socket.id, "joined the server");
+	socket.data.currentRoom = "";
 
-	socket.on("create-room", (seed) => {
-		let start = 10000,
-			range = 99999;
-		currentRoom = String(Math.floor(Math.random() * (range - start) + start));
-		allRooms[currentRoom] = createRoom(socket, seed, currentRoom);
-		socket.emit("joinedRoom", allRooms[currentRoom].publicData);
-	});
+	socket.on("create-room", createRoom);
 
-	socket.on("join-room", (roomID) => {
-		if (allRooms[roomID]) {
-			socket.join(roomID);
-			currentRoom = roomID;
-			console.log(socket.id + " joined room " + roomID);
-			socket.emit("joinedRoom", allRooms[roomID].publicData);
-		} else {
-			socket.emit("reply", "Room not found");
-		}
-	});
+	socket.on("join-room", joinRoom);
 
 	socket.on("updatePlayers", (playerData) => {
-		
-		if (currentRoom) {
-			socket.to(currentRoom).emit("update", [playerData, socket.id]);
+		if (socket.data.currentRoom) {
+			socket.to(socket.data.currentRoom).emit("updatePlayers", [playerData, socket.id]);
 		}
 	});
+
+	socket.on("updateBullets", (bulletsData) => {
+		if (socket.data.currentRoom) {
+			socket.to(socket.data.currentRoom).emit("updateBullets", [bulletsData, socket.id]);
+		}
+	});
+
+	socket.on("disconnecting", (reason) => {
+		for (const room of socket.rooms) {
+		  if (room !== socket.id) {
+			socket.to(room).emit("leftRoom", socket.id);
+		  }
+		}
+	  });
 });
 
-io.to("room1").emit("message", "Hello from room1");
+//io.to("room1").emit("message", "Hello from room1");
+console.log("Server started");
 
-httpServer.listen(3000);

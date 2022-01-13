@@ -34,7 +34,8 @@ var { grid, gridComposite } = makeGrid([5, 5], w);
 
 let Border = createBorder(screenSize, w);
 let opponentsComposite = Composite.create({});
-let opponents = {};
+let opponents = [];
+let bullets = [];
 //let powerup = new Powerup(100,100,);
 // add all of the bodies to the world
 Composite.add(engine.world, [

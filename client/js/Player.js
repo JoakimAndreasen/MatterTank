@@ -4,6 +4,7 @@ class Player {
 		this.body = createTank(this.tankSize);
 		this.color = "hsl()";
 		this.bulletspeed = 0.01;
+		this.bullets = [];
 		this.driveSpeed = 1;
 		this.dir = 1;
 		this.health = 100;
@@ -43,39 +44,76 @@ class Player {
 			let collitionWaitTime = 100;
 			let direction = this.getDirection();
 			let pos = Vector.add(this.body.position, Vector.mult(direction, 40));
-			let bullet = Bodies.circle(pos.x, pos.y, 10, {
-				label: "bullet",
-				frictionAir: 0,
-				restitution: 1,
-				render: {
-					fillStyle: "#FFFFFF",
-				},
-				collisionFilter: {
-					mask: 0x0101,
-				},
-			});
-			Matter.Body.setVelocity(bullet, Vector.mult(direction, 7));
-			Matter.World.add(engine.world, bullet);
+			let velocity = Vector.mult(direction, 7);
+			let bullet = new Bullet(pos, velocity);
+			this.bullets.push(bullet);
+			Matter.World.add(engine.world, bullet.body);
 			setTimeout(() => {
-				bullet.collisionFilter.mask = 0x0011;
+				bullet.body.collisionFilter.mask = 0x0011;
 			}, collitionWaitTime);
 		}
 	}
 }
 
 class Opponent {
-	constructor() {
+	constructor(position,id) {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
 		this.body.collisionFilter.category = 0x0100;
-		this.position;
-		this.angle;
+		this.position = position;
 		this.color;
+		this.bullets = [];
+		this.id = id;
 	}
 	update(position, angle) {
 		Matter.Body.setPosition(this.body, position);
 		Matter.Body.setAngle(this.body, angle);
 	}
+	updateBullets(bulletsData) {
+		if (bulletsData.length > 0) {
+			
+			bulletsData.forEach((bulletData) => {
+				let exisitingBullet = this.bullets.find(e => e.id == bulletData.id)
+				if (!exisitingBullet) {
+					let newBullet = new Bullet(bulletData.pos,bulletData.vel,bulletData.id);
+					this.bullets.push(newBullet);
+					Composite.add(engine.world, newBullet.body);
+				} else {
+					exisitingBullet.update(bulletData.pos, bulletData.vel);
+				}
+			});
+		}
+	}
+}
+class Bullet {
+	constructor(position, velocity,id) {
+		this.position = position;
+		this.velocity = velocity;
+		this.body = createBullet(position, velocity);
+		//this.body.collisionFilter.category = 0x0100;
+		this.id = id ?? Math.floor(Math.random()*100000);
+	}
+	update(position, velocity) {
+		Matter.Body.setPosition(this.body, position);
+		Matter.Body.setVelocity(this.body, velocity);
+	}
+}
+
+function createBullet(pos, velocity) {
+	let body = Bodies.circle(pos.x, pos.y, 10, {
+		label: "bullet",
+		frictionAir: 0,
+		restitution: 1,
+		velocity: velocity,
+		render: {
+			fillStyle: "#FFFFFF",
+		},
+		collisionFilter: {
+			mask: 0x0111,
+		},
+	});
+	Matter.Body.setVelocity(body, velocity);
+	return body
 }
 
 function createTank(tankSize) {

@@ -30,4 +30,14 @@ function movement() {
 		position: player.body.position,
 		angle: player.body.angle,
 	});
+	socket.emit("updateBullets", getBulletData());
+
+}
+
+function getBulletData() {
+	let data = [];
+	player.bullets.forEach(e => {
+		data.push({"pos":e.body.position,"vel":e.body.velocity,"id":e.id});
+	});
+	return data
 }

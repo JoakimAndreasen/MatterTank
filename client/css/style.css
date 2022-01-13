@@ -145,4 +145,14 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.notification {
+    transition: opacity 0.5s;
+}
 
+.error {
+    color:red;
+}
+
+.success {
+    color:green;
+}
