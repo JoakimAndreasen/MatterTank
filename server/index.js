@@ -1,10 +1,8 @@
 //Import helper functions
 const {createRoom,joinRoom} = require("./rooms.js");
 
-const options = { cors: {
-    origin: ["http://localhost:5500","http://127.0.0.1:5500"],
-    methods: ["GET", "POST"]
-  } };
+const options = {cors: {origin: '*'} };
+
 const io = require("socket.io")(3000,options);
 
 
