@@ -57,6 +57,6 @@ generateMaze(grid);
 
 Matter.Events.on(engine, "beforeUpdate", (event) => {
 	movement();
-	//collisions();
+	collisions();
 	sendData();
 });

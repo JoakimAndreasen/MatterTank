@@ -11,6 +11,16 @@ function collisions() {
 	}
 }
 
+function clearBullets(){
+	//remove old bullets
+	if (player.bullets.length !=0) {
+		player.bullets.forEach((bullet) => {
+			Composite.remove(engine.world, bullet.body);
+		});
+	}
+	player.bullets = [];
+}
+
 function resetLevel() {
 	//remove old players
 	if (opponents.length !=0) { 
@@ -19,13 +29,8 @@ function resetLevel() {
 		});
 	}
 	opponents = [];
-	//remove old bullets
-	if (player.bullets.length !=0) {
-		player.bullets.forEach((bullet) => {
-			Composite.remove(engine.world, bullet.body);
-		});
-	}
-	player.bullets = [];
+	clearBullets();
+	
 	grid.forEach((row) => {
 		row.forEach((cell) => {
 			cell.reset();
@@ -49,3 +54,13 @@ function getBulletData() {
 	});
 	return data
 }
+
+function startNewGame() {
+
+	player.body.collisionFilter.mask = 0x0000;
+	setTimeout(() => {
+		player.body.collisionFilter.mask = 0x0111;
+	});
+
+}
+

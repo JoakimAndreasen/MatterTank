@@ -2,6 +2,7 @@ class Player {
 	constructor() {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
+		this.startingPosition = { x: 100, y: 100 };
 		this.color = "hsl()";
 		this.bulletspeed = 0.01;
 		this.bullets = [];
@@ -41,16 +42,13 @@ class Player {
 
 	fire() {
 		if (this.state !== "dead") {
-			let collitionWaitTime = 100;
 			let direction = this.getDirection();
 			let pos = Vector.add(this.body.position, Vector.mult(direction, 40));
 			let velocity = Vector.mult(direction, 7);
 			let bullet = new Bullet(pos, velocity);
 			this.bullets.push(bullet);
 			Matter.World.add(engine.world, bullet.body);
-			setTimeout(() => {
-				bullet.body.collisionFilter.mask = 0x0011;
-			}, collitionWaitTime);
+
 		}
 	}
 }
@@ -60,14 +58,21 @@ class Opponent {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
 		this.body.collisionFilter.category = 0x0100;
+		this.body.collisionFilter.mask = 0x0001;
 		this.position = position;
 		this.color;
 		this.bullets = [];
 		this.id = id;
+		setTimeout(() => {
+			this.OppnonentAddCollision();
+		},1000);
 	}
 	update(position, angle) {
 		Matter.Body.setPosition(this.body, position);
 		Matter.Body.setAngle(this.body, angle);
+	}
+	OppnonentAddCollision() {
+		this.body.collisionFilter.mask = 0x0111;
 	}
 	updateBullets(bulletsData) {
 		if (bulletsData.length > 0) {
@@ -90,12 +95,18 @@ class Bullet {
 		this.position = position;
 		this.velocity = velocity;
 		this.body = createBullet(position, velocity);
-		//this.body.collisionFilter.category = 0x0100;
+		this.body.collisionFilter.mask = 0x0001;
 		this.id = id ?? Math.floor(Math.random()*100000);
+		setTimeout(() => {
+			this.bulletAddCollision();
+		}, 1000);
 	}
 	update(position, velocity) {
 		Matter.Body.setPosition(this.body, position);
 		Matter.Body.setVelocity(this.body, velocity);
+	}
+	bulletAddCollision() {
+		this.body.collisionFilter.mask = 0x0111;
 	}
 }
 
@@ -109,7 +120,7 @@ function createBullet(pos, velocity) {
 			fillStyle: "#FFFFFF",
 		},
 		collisionFilter: {
-			mask: 0x0111,
+			mask: 0x0101,
 		},
 	});
 	Matter.Body.setVelocity(body, velocity);

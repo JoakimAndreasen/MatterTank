@@ -29,18 +29,22 @@ socket.on("reply", (reply) => {
 });
 
 socket.on("joinedRoom", (roomData) => {
+	startNewGame();
+	//set spawn position
+	if (roomData.players == 1) {
+		player.startingPosition = {"x":900,"y":100}
+	} else if (roomData.players == 2) {
+		player.startingPosition = {"x":100,"y":900}
+	} else if (roomData.players == 3) {
+		player.startingPosition = {"x":900,"y":900}
+	}
+	Matter.Body.setPosition(player.body,player.startingPosition);
+
 	resetLevel()
 	console.log("ROOMCODE: "+roomData.id);
 	let randFunc = randomSeededFunction(String(roomData.seed))
 	generateMaze(grid,randFunc);
-	//set spawn position
-	if (roomData.players == 1) {
-		Matter.Body.setPosition(player.body,{"x":900,"y":100});
-	} else if (roomData.players == 2) {
-		Matter.Body.setPosition(player.body,{"x":100,"y":900});
-	} else if (roomData.players == 3) {
-		Matter.Body.setPosition(player.body,{"x":900,"y":900});
-	}
+	
 	
 });
 
@@ -61,6 +65,7 @@ socket.on("updatePlayers", (data) => {
 		let newOpponent = new Opponent(position, id);
 		opponents.push(newOpponent);
 		Composite.add(engine.world, newOpponent.body);
+		startNewGame();
 
 	} else {
 		opponent.update(position.position, position.angle);
