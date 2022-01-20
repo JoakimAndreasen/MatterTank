@@ -3,9 +3,10 @@ function collisions() {
 	if (collisions.length > 0) {
 		collisions.forEach((element) => {
 			let bodies = [element.parentA, element.parentB];
-			let player = bodies.find((body) => body.label == "player");
-			if (player) {
-				Matter.World.remove(engine.world, bodies);
+			let bullet = bodies.find((body) => body.label == "bullet");
+			let playerBody = bodies.find((body) => body.label == "player");
+			if (bullet && playerBody) {
+				player.die();	
 			}
 		});
 	}
@@ -21,14 +22,17 @@ function clearBullets(){
 	player.bullets = [];
 }
 
-function resetLevel() {
-	//remove old players
+function removeOpponents() {
 	if (opponents.length !=0) { 
 		opponents.forEach((opponent) => {
 			Composite.remove(engine.world, opponent.body);
 		});
 	}
 	opponents = [];
+}
+
+function resetLevel() {
+
 	clearBullets();
 	
 	grid.forEach((row) => {
@@ -55,12 +59,18 @@ function getBulletData() {
 	return data
 }
 
-function startNewGame() {
+function pausePlayerCollision() {
 
 	player.body.collisionFilter.mask = 0x0000;
 	setTimeout(() => {
-		player.body.collisionFilter.mask = 0x0111;
-	});
+		player.body.collisionFilter.mask = 0x0011;
+	},2000);
 
 }
 
+function checkForWin() {
+	if (opponents.length == 0 && player.state == "alive") {
+		player.win();
+	}
+
+}

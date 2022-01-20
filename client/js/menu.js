@@ -29,17 +29,26 @@ socket.on("reply", (reply) => {
 });
 
 socket.on("joinedRoom", (roomData) => {
-	startNewGame();
+	pausePlayerCollision();
+	
 	//set spawn position
-	if (roomData.players == 1) {
-		player.startingPosition = {"x":900,"y":100}
-	} else if (roomData.players == 2) {
-		player.startingPosition = {"x":100,"y":900}
-	} else if (roomData.players == 3) {
-		player.startingPosition = {"x":900,"y":900}
+	switch (roomData.players) {
+		case 0:
+			player.startingPosition = {"x":100,"y":100};
+			break;
+		case 1:
+			player.startingPosition = {"x":900,"y":100};
+			break;
+		case 2:
+			player.startingPosition = {"x":100,"y":900};
+			break;
+		case 3:
+			player.startingPosition = {"x":900,"y":900};
+			break;
 	}
-	Matter.Body.setPosition(player.body,player.startingPosition);
 
+	Matter.Body.setPosition(player.body,player.startingPosition);
+	removeOpponents()
 	resetLevel()
 	console.log("ROOMCODE: "+roomData.id);
 	let randFunc = randomSeededFunction(String(roomData.seed))
@@ -63,9 +72,9 @@ socket.on("updatePlayers", (data) => {
 
 	if (!opponent) {
 		let newOpponent = new Opponent(position, id);
+		pausePlayerCollision();
 		opponents.push(newOpponent);
 		Composite.add(engine.world, newOpponent.body);
-		startNewGame();
 
 	} else {
 		opponent.update(position.position, position.angle);
@@ -74,12 +83,16 @@ socket.on("updatePlayers", (data) => {
 
 socket.on("updateBullets", (data) => {
 	let [bulletsData,id] = data;
-
 	let opponent = opponents.find(e => e.id==id);
-
 	if (opponent) {
-		
 		opponent.updateBullets(bulletsData);
 	}
+});
 
+socket.on("playerDied", (id) => {
+	let opponent = opponents.find(e => e.id==id);
+	if (opponent) {
+		console.log("Player died: " + opponent.id);
+		opponent.die();
+	}
 });
