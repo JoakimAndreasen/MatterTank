@@ -1,3 +1,5 @@
+
+
 class Player {
 	constructor() {
 		this.tankSize = 50;
@@ -15,6 +17,8 @@ class Player {
 	die() {
 		this.state = "dead";
 		this.health = 0;
+		Matter.World.remove(engine.world, this.body);
+		socket.emit("playerDied");
 	}
 
 	getDirection() {
@@ -58,25 +62,29 @@ class Opponent {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
 		this.body.collisionFilter.category = 0x0100;
-		this.body.collisionFilter.mask = 0x0001;
+		this.body.collisionFilter.mask = 0x0011;
 		this.position = position;
 		this.color;
 		this.bullets = [];
 		this.id = id;
-		setTimeout(() => {
-			this.OppnonentAddCollision();
-		},1000);
+		this.health = 100;
+		this.state = "alive";
 	}
+
+	die() {
+		this.state = "dead";
+		this.health = 0;
+		Matter.World.remove(engine.world, this.body);
+	}
+
 	update(position, angle) {
-		Matter.Body.setPosition(this.body, position);
-		Matter.Body.setAngle(this.body, angle);
-	}
-	OppnonentAddCollision() {
-		this.body.collisionFilter.mask = 0x0111;
+		if (this.state !== "dead") {
+			Matter.Body.setPosition(this.body, position);
+			Matter.Body.setAngle(this.body, angle);
+		}
 	}
 	updateBullets(bulletsData) {
 		if (bulletsData.length > 0) {
-			
 			bulletsData.forEach((bulletData) => {
 				let exisitingBullet = this.bullets.find(e => e.id == bulletData.id)
 				if (!exisitingBullet) {
@@ -99,14 +107,14 @@ class Bullet {
 		this.id = id ?? Math.floor(Math.random()*100000);
 		setTimeout(() => {
 			this.bulletAddCollision();
-		}, 1000);
+		}, 100);
 	}
 	update(position, velocity) {
 		Matter.Body.setPosition(this.body, position);
 		Matter.Body.setVelocity(this.body, velocity);
 	}
 	bulletAddCollision() {
-		this.body.collisionFilter.mask = 0x0111;
+		this.body.collisionFilter.mask = 0x0011;
 	}
 }
 
@@ -120,8 +128,9 @@ function createBullet(pos, velocity) {
 			fillStyle: "#FFFFFF",
 		},
 		collisionFilter: {
-			mask: 0x0101,
+			mask: 0x0001,
 		},
+		label: "bullet",
 	});
 	Matter.Body.setVelocity(body, velocity);
 	return body

@@ -25,6 +25,12 @@ io.on("connection", (socket) => {
 		}
 	});
 
+	socket.on("playerDied", () => {
+		if (socket.data.currentRoom) {
+			socket.to(socket.data.currentRoom).emit("playerDied", socket.id);
+		}
+	});
+
 	socket.on("disconnecting", (reason) => {
 		for (const room of socket.rooms) {
 		  if (room !== socket.id) {
