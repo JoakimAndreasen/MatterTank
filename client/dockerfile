@@ -9,4 +9,4 @@ COPY ./css/*.css /usr/share/nginx/html/css/
 COPY ./js/*.js /usr/share/nginx/html/js/
 COPY ./lib/*.js /usr/share/nginx/html/lib/
 COPY ./fonts/*.ttf /usr/share/nginx/html/fonts/
-COPY ./assets/*.png /usr/share/nginx/html/assets/
+#COPY ./assets/*.png /usr/share/nginx/html/assets/
