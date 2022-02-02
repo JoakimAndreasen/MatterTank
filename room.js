@@ -5,9 +5,12 @@ class Room {
 
 		this.gameState = "UNBORN";
 		this.score = [];
-		this.publicData = {seed:this.seed,id:this.id,players:0};
+		this.players = [];
+		this.publicData = {seed:this.seed,id:this.id,players:this.players};
 	}
-
+	addToScore() {
+		
+	}
 }
 
 module.exports = Room;

@@ -1,5 +1,5 @@
 //Import helper functions
-const {createRoom,joinRoom} = require("./rooms.js");
+const {createRoom,joinRoom} = require("./socketFunctions.js");
 
 const options = {cors: {origin: '*'} };
 
@@ -28,6 +28,13 @@ io.on("connection", (socket) => {
 	socket.on("playerDied", () => {
 		if (socket.data.currentRoom) {
 			socket.to(socket.data.currentRoom).emit("playerDied", socket.id);
+		}
+	});
+
+	socket.on("addToScore", () => {
+		if (socket.data.currentRoom) {
+			allRooms[socket.data.currentRoom].publicData.score++; ///
+			socket.to(socket.data.currentRoom).emit("updatePlayers", [playerData, socket.id]);
 		}
 	});
 
