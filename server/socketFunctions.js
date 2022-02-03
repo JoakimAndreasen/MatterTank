@@ -44,12 +44,12 @@ function leaveCurrentRoom(socket) {
 function joinRoom(roomID) {
 	const socket = this;
 	leaveCurrentRoom(socket);
-	if (allRooms[roomID] && allRooms[roomID].publicData.players < 4) {
+	if (allRooms[roomID] && allRooms[roomID].players.length < 4) {
 		socket.join(roomID);
 		socket.data.currentRoom = roomID;
 		allRooms[roomID].publicData.players++;
 		console.log(socket.id + " joined room " + roomID);
-		socket.emit("joinedRoom", allRooms[roomID].publicData);
+		socket.emit("joinedRoom", allRooms[roomID].getPublicData());
 		replyToSocket(socket,"Joining room " + roomID, "success");
 	} else {
 		replyToSocket(socket,"Room not found or is full", "error");
@@ -59,7 +59,7 @@ function joinRoom(roomID) {
 function addToScore() {
 	const socket = this;
 	if (socket.data.currentRoom) {
-		allRooms[socket.data.currentRoom].publicData.score++;
+		allRooms[socket.data.currentRoom].playerScores[socket.id]++;
 
 	}
 }
