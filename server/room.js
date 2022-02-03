@@ -15,8 +15,8 @@ class Room {
 			players:this.players
 		};
 	}
-	addToScore() {
-		
+	addToScore(playID) {
+		this.playerScores[playID]++;
 	}
 }
 

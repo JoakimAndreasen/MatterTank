@@ -1,6 +1,6 @@
 
 let screenSize = 1000;
-let socket = io.connect("http://localhost:9090");
+let socket = io.connect("http://localhost:3000");
 console.log("Connected to Server");
 
 var Engine = Matter.Engine,
