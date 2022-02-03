@@ -7,6 +7,16 @@ let notafications = document.getElementById("notifications");
 let startGameButton = document.getElementById("startGameButton");
 let lobbyInfo = document.getElementById("lobbyInfo");
 let joinLobbyInput = document.getElementById("joinLobbyInput");
+let usernameInput = document.getElementById("usernameInput");
+
+let sendUsername = debounce( (e) => {
+	socket.emit("updateUsername", usernameInput.value);
+}, 300);
+
+document.addEventListener('keyup', () => {
+	sendUsername();
+});
+
 
 createLobbyButton.onclick = function () {
 	socket.emit("create-room", seedInput.value);
@@ -20,18 +30,7 @@ startGameButton.onclick = function () {
 	socket.emit("start-game");
 }
 socket.on("reply", (reply) => {
-	let notification = document.createElement("p");
-	notification.innerHTML = reply.message;
-	notification.classList.add("notification");
-	if (reply.type === "success") {
-		notification.classList.add("success");
-	} else if (reply.type === "error") {
-		notification.classList.add("error");
-	}
-	notifications.appendChild(notification);
-	
-	setTimeout(() => {notification.style.opacity = 0},6000)
-	setTimeout(() => {notification.style.display = "none"},6450)
+	notification(reply.message, reply.type);
 });
 
 socket.on("joinedRoom", (roomData) => {
@@ -45,19 +44,19 @@ socket.on("joinedRoom", (roomData) => {
 	}
 	
 	removeOpponents()
-	resetLevel()
+	regenerateLevel(roomData.seed)
+	resetLevel();
 	console.log("ROOMCODE: "+roomData.id);
-	let randFunc = randomSeededFunction(String(roomData.seed))
-	generateMaze(grid,randFunc);
+
 	updateLobbyInfo(roomData.players);
 	
 });
 
 socket.on("leftRoom", (id) => {
 	console.log("Left room: " + id);
-	console.log("Opponents: " + opponents[0].id);
 	let opponent = opponents.find( e => e.id==id);
 	if (opponent) {
+		opponents.splice(opponents.indexOf(opponent), 1);
 		Composite.remove(engine.world, opponent.body);
 	}
 });
@@ -68,7 +67,7 @@ socket.on("updatePlayers", (data) => {
 	let opponent = opponents.find(e => e.id==id)
 
 	if (!opponent) {
-		let newOpponent = new Opponent(position, id);
+		let newOpponent = new Opponent(id);
 		pausePlayerCollision();
 		opponents.push(newOpponent);
 		Composite.add(engine.world, newOpponent.body);
@@ -96,11 +95,4 @@ socket.on("playerDied", (id) => {
 
 socket.on("updateLobbyInfo", updateLobbyInfo);
 
-socket.on("newRound", (playerInfo) => {
-	console.log("New round");
-	clearBullets();
-	player.reset();
-	opponents.forEach((opponent) => {
-		opponent.reset();
-	});
-});
+socket.on("newRound", newRound);

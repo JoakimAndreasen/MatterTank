@@ -45,40 +45,36 @@
             <!--Create Lobby-->
             <div class="box">
               <h2>Create Lobby</h2>
-              <div class="fields">
-                <div id="createLobbyForm">
-                  <input
-                  id="seedInput"
-                  type="text"
-                  placeholder="Seed"
-                  />
-                  <button id="createLobbyButton">Create Lobby</button>
-                </div>
+              <div class="fields" id="createLobbyForm">
+                <input
+                id="seedInput"
+                type="text"
+                placeholder="Seed"
+                />
+                <button id="createLobbyButton">Create Lobby</button>
               </div>
             </div>
             <!--Join Lobby-->
             <div class="box">
               <h2>Join Lobby</h2>
-              <div class="fields">
-                <div id="joinLobbyForm">
-                  <input
-                    id="joinLobbyInput"
-                    type="number"
-                    max="99999"
-                    name="chat"
-                    placeholder="Lobby Code"
-                  />
-                  <button id="joinLobbyButton">Join Lobby</button>
-                </div>
+              <div class="fields" id="joinLobbyForm">
+                <input
+                  id="joinLobbyInput"
+                  type="number"
+                  max="99999"
+                  name="chat"
+                  placeholder="Lobby Code"
+                />
+                <button id="joinLobbyButton">Join Lobby</button>
               </div>
             </div>
             <!--Color Scheme-->
             <div class="box">
               <h2>Color Scheme</h2>
               <div class="fields">
-                  <button id="darkColorScheme" onclick="darkTheme();">Dark</button>
-                  <button id="lightColorScheme" onclick="lightTheme();">Light</button>
-                  <button id="colorfulColorScheme" onclick="colorfulTheme();">Color</button>
+                  <button class="themeChangeButton" id="dark">Dark</button>
+                  <button class="themeChangeButton" id="light">Light</button>
+                  <button class="themeChangeButton" id="colorful">Color</button>
                 </div>
               </div>
             </div>
@@ -96,16 +92,16 @@
       </div>
       <div class="container"> 
         <div></div>
-        <div class="containerFields">
+        <div class="containerFields right">
           <!--Current lobby-->
-          <div class="box tall">
+          <div class="box">
             <h2>Current Lobby</h2>
             <div class="fields">
               <p>Lorem</p>
             </div>
           </div>
           <!--Chat-->
-          <div class="box tall">
+          <div class="box">
             <h2>Chat</h2>
             <div class="fields">
               <p>Lorem</p>
@@ -117,10 +113,12 @@
             placeholder="Type something!"
             />
           </div>
-        <div id="notifications"></div>
         <div class="box">
           <button id="startGameButton">Start Game</button>
         </div>
+        <div id="notifications"></div>
+        <h2 id="countDown"></h2>
+        <h2 id="winnerText"></h2>
       </div>
     </div>
   </body>

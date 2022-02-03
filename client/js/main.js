@@ -5,7 +5,10 @@ socket.on("connect_error", (err) => {
 	if (err = "xhr poll error") console.log("Couldn't connect to server... trying again."); 
 });
 
-console.log("Connected to Server");
+socket.on("connect", () => {
+	notification("Connected to server!", "success");
+});
+
 
 var Engine = Matter.Engine,
 	Render = Matter.Render,
@@ -20,14 +23,13 @@ var engine = Engine.create({
 		isFixed: true,
 	}
 });
-
 var render = Render.create({
 	canvas: document.getElementById("canvas"),
 	engine: engine,
 	options: {
 		width: screenSize,
 		height: screenSize,
-		background: "#000",
+		background: 'rgb(0,0,0,255)',
 		wireframes: false,
 	},
 });

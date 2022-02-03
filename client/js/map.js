@@ -91,3 +91,19 @@ function makeGrid(size, w) {
     return {grid, gridComposite};
     
 }
+
+function setGridColor(grid, color) {
+	grid.forEach((row) => {
+		row.forEach((cell) => {
+			cell.bodies.forEach(element => {
+                element.render.fillStyle=color;
+            });
+		});
+	});
+}
+
+function setBorderColor(border, color) {
+	border.bodies.forEach((wall) => {
+        wall.render.fillStyle=color;
+	});
+}

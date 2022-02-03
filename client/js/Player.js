@@ -11,6 +11,8 @@ class Player {
 		this.health = 100;
 		this.state = "alive";
 		this.rotationSpeed = 1;
+		this.canMove = true;
+		this.canFire = true;
 	}
 
 	die() {
@@ -28,7 +30,7 @@ class Player {
 	}
 
 	drive(speed) {
-		if (this.state !== "dead") {
+		if (this.state != "dead" && this.canMove) {
 			let direction = this.getDirection();
 			direction = Vector.mult(direction, speed * this.driveSpeed);
 			Matter.Body.applyForce(this.body, this.body.position, direction);
@@ -36,15 +38,17 @@ class Player {
 	}
 
 	rotate(rotation) {
-		if (this.dir > 0) {
-			this.body.torque += rotation * this.rotationSpeed;
-		} else if (this.dir < 0) {
-			this.body.torque -= rotation * this.rotationSpeed;
+		if (this.state != "dead" && this.canMove) {
+			if (this.dir > 0) {
+				this.body.torque += rotation * this.rotationSpeed;
+			} else if (this.dir < 0) {
+				this.body.torque -= rotation * this.rotationSpeed;
+			}
 		}
 	}
 
 	fire() {
-		if (this.state !== "dead") {
+		if (this.state != "dead" && this.canFire) {
 			let direction = this.getDirection();
 			let pos = Vector.add(this.body.position, Vector.mult(direction, 40));
 			let velocity = Vector.mult(direction, 7);
@@ -86,12 +90,12 @@ class Player {
 }
 
 class Opponent {
-	constructor(position, id) {
+	constructor(id) {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
 		this.body.collisionFilter.category = 0x0100;
 		this.body.collisionFilter.mask = 0x0011;
-		this.position = position;
+		this.position = { x: -100, y: -100 };
 		this.color;
 		this.bullets = [];
 		this.id = id;
