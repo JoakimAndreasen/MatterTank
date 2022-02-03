@@ -1,5 +1,10 @@
 let screenSize = 1000;
+
 let socket = io.connect("http://localhost:3000");
+socket.on("connect_error", (err) => {
+	if (err = "xhr poll error") console.log("Couldn't connect to server... trying again."); 
+});
+
 console.log("Connected to Server");
 
 var Engine = Matter.Engine,
