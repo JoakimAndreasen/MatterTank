@@ -5,23 +5,27 @@ class PowerUp {
 		this.width = 50;
 		this.height = 50;
 		this.active = true;
-		this.body = createPowerup();
+		this.body = this.createPowerup();
+		Composite.add(engine.world, this.body);
 	}
 	createPowerup() {
-		Matter.Bodies.circle(this.x, this.y, this.width, {
-			isStatic: true,
+		let body = Matter.Bodies.circle(this.x, this.y, this.width, {
+			isStatic: false,
 			label: "powerup",
-			render: {
-				fillStyle: "transparent",
-				strokeStyle: "transparent",
-				sprite: {
-					texture: this.imagePath,
-				},
-			},
+
+			// render: {
+			// 	fillStyle: "transparent",
+			// 	strokeStyle: "transparent",
+			// 	sprite: {
+			// 		texture: this.imagePath,
+			// 	},
+			// },
 		});
+		body.object = this;
+		return body;
 	}
 	pickUp() {
-		this.active = false;
+		Matter.World.remove(engine.world, this.body);
 		this.effect();
 	}
 	effect() {
@@ -35,9 +39,11 @@ class speedBoost extends PowerUp {
 		this.imagePath = "../assets/images/powerup.png";
 	}
 	effect() {
-		player.speed = player.speed * 2;
+		player.driveSpeed = player.driveSpeed * 2;
+		player.rotationSpeed = player.rotationSpeed * 2;
 		setTimeout(() => {
-			player.speed = player.speed / 2;
+			player.driveSpeed = player.driveSpeed / 2;
+			player.rotationSpeed = player.rotationSpeed / 2;
 		}, 5000);
 	}
 }
@@ -48,9 +54,10 @@ class laser extends PowerUp {
 		this.imagePath = "../assets/images/powerup.png";
 	}
 	effect() {
-		player.speed = player.speed * 2;
+		player.driveSpeed = player.driveSpeed * 2;
+		console.log(player.driveSpeed);
 		setTimeout(() => {
-			player.speed = player.speed / 2;
+			player.driveSpeed = player.driveSpeed / 2;
 		}, 5000);
 	}
 }
