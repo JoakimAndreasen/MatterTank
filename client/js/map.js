@@ -1,9 +1,19 @@
 function createBorder(screenSize,w){
     w = screenSize/20
-    let top = Bodies.rectangle(screenSize/2,1,screenSize,w,{isStatic: true});
-    let bot = Bodies.rectangle(screenSize/2,screenSize-1,screenSize,w,{isStatic: true});
-    let left = Bodies.rectangle(1,screenSize/2,w,screenSize,{isStatic: true});
-    let right = Bodies.rectangle(screenSize,screenSize/2,w,screenSize,{isStatic: true});
+
+    let wallOptions = {
+        isStatic: true,
+        isSensor: false,
+        render: {
+            strokeStyle: 'rgb(0,0,0,0)',
+            visible: true,
+        }
+    }
+
+    let top = Bodies.rectangle(screenSize/2,1,screenSize,w,wallOptions);
+    let bot = Bodies.rectangle(screenSize/2,screenSize-1,screenSize,w,wallOptions);
+    let left = Bodies.rectangle(1,screenSize/2,w,screenSize,wallOptions);
+    let right = Bodies.rectangle(screenSize,screenSize/2,w,screenSize,wallOptions);
 
     let border = Composite.create()
     return Composite.add(border, [top,bot,left,right])
