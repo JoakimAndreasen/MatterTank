@@ -181,3 +181,10 @@ input[type=number] {
 .success {
     color:green;
 }
+
+#lobbyInfo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}

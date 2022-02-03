@@ -4,6 +4,8 @@
 let createLobbyButton = document.getElementById("createLobbyButton");
 let seedInput = document.getElementById("seedInput");
 let notafications = document.getElementById("notifications");
+let startGameButton = document.getElementById("startGameButton");
+let lobbyInfo = document.getElementById("lobbyInfo");
 
 createLobbyButton.onclick = function () {
 	socket.emit("create-room", seedInput.value);
@@ -13,6 +15,9 @@ joinLobbyButton.onclick = function () {
 	socket.emit("join-room", joinLobbyInput.value);
 };
 
+startGameButton.onclick = function () {
+	socket.emit("start-game");
+}
 socket.on("reply", (reply) => {
 	let notification = document.createElement("p");
 	notification.innerHTML = reply.message;
@@ -32,28 +37,18 @@ socket.on("joinedRoom", (roomData) => {
 	pausePlayerCollision();
 	
 	//set spawn position
-	switch (roomData.players) {
-		case 0:
-			player.startingPosition = {"x":100,"y":100};
-			break;
-		case 1:
-			player.startingPosition = {"x":900,"y":100};
-			break;
-		case 2:
-			player.startingPosition = {"x":100,"y":900};
-			break;
-		case 3:
-			player.startingPosition = {"x":900,"y":900};
-			break;
-	}
+	player.setStartingPos(roomData.playerAmount)
 
-	Matter.Body.setPosition(player.body,player.startingPosition);
+	if (roomData.playerAmount == 4) {
+		startGameButton.style.display = "block";
+	}
+	
 	removeOpponents()
 	resetLevel()
 	console.log("ROOMCODE: "+roomData.id);
 	let randFunc = randomSeededFunction(String(roomData.seed))
 	generateMaze(grid,randFunc);
-	
+	updateLobbyInfo(roomData.players);
 	
 });
 
@@ -61,8 +56,9 @@ socket.on("leftRoom", (id) => {
 	console.log("Left room: " + id);
 	console.log("Opponents: " + opponents[0].id);
 	let opponent = opponents.find( e => e.id==id);
-	Composite.remove(engine.world, opponent.body);
-
+	if (opponent) {
+		Composite.remove(engine.world, opponent.body);
+	}
 });
 
 socket.on("updatePlayers", (data) => {
@@ -95,4 +91,15 @@ socket.on("playerDied", (id) => {
 		console.log("Player died: " + opponent.id);
 		opponent.die();
 	}
+});
+
+socket.on("updateLobbyInfo", updateLobbyInfo);
+
+socket.on("newRound", (playerInfo) => {
+	console.log("New round");
+	clearBullets();
+	player.reset();
+	opponents.forEach((opponent) => {
+		opponent.reset();
+	});
 });
