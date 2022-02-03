@@ -1,4 +1,3 @@
-
 let screenSize = 1000;
 let socket = io.connect("http://localhost:3000");
 console.log("Connected to Server");
@@ -34,6 +33,13 @@ let Border = createBorder(screenSize, w);
 let opponentsComposite = Composite.create({});
 let opponents = [];
 let bullets = [];
+const d = new Date();
+let time = d.getSeconds();
+powerups = [];
+
+powerups.push(new speedBoost(500, 100));
+powerups.push(new speedBoost(300, 100));
+
 //let powerup = new Powerup(100,100,);
 // add all of the bodies to the world
 Composite.add(engine.world, [

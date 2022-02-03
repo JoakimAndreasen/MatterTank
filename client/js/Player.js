@@ -1,5 +1,3 @@
-
-
 class Player {
 	constructor() {
 		this.tankSize = 50;
@@ -12,6 +10,7 @@ class Player {
 		this.dir = 1;
 		this.health = 100;
 		this.state = "alive";
+		this.rotationSpeed = 1;
 	}
 
 	die() {
@@ -38,9 +37,9 @@ class Player {
 
 	rotate(rotation) {
 		if (this.dir > 0) {
-			this.body.torque += rotation;
+			this.body.torque += rotation * this.rotationSpeed;
 		} else if (this.dir < 0) {
-			this.body.torque -= rotation;
+			this.body.torque -= rotation * this.rotationSpeed;
 		}
 	}
 
@@ -52,13 +51,12 @@ class Player {
 			let bullet = new Bullet(pos, velocity);
 			this.bullets.push(bullet);
 			Matter.World.add(engine.world, bullet.body);
-
 		}
 	}
 }
 
 class Opponent {
-	constructor(position,id) {
+	constructor(position, id) {
 		this.tankSize = 50;
 		this.body = createTank(this.tankSize);
 		this.body.collisionFilter.category = 0x0100;
@@ -86,9 +84,13 @@ class Opponent {
 	updateBullets(bulletsData) {
 		if (bulletsData.length > 0) {
 			bulletsData.forEach((bulletData) => {
-				let exisitingBullet = this.bullets.find(e => e.id == bulletData.id)
+				let exisitingBullet = this.bullets.find((e) => e.id == bulletData.id);
 				if (!exisitingBullet) {
-					let newBullet = new Bullet(bulletData.pos,bulletData.vel,bulletData.id);
+					let newBullet = new Bullet(
+						bulletData.pos,
+						bulletData.vel,
+						bulletData.id
+					);
 					this.bullets.push(newBullet);
 					Composite.add(engine.world, newBullet.body);
 				} else {
@@ -99,12 +101,12 @@ class Opponent {
 	}
 }
 class Bullet {
-	constructor(position, velocity,id) {
+	constructor(position, velocity, id) {
 		this.position = position;
 		this.velocity = velocity;
 		this.body = createBullet(position, velocity);
 		this.body.collisionFilter.mask = 0x0001;
-		this.id = id ?? Math.floor(Math.random()*100000);
+		this.id = id ?? Math.floor(Math.random() * 100000);
 		setTimeout(() => {
 			this.bulletAddCollision();
 		}, 100);
@@ -133,7 +135,7 @@ function createBullet(pos, velocity) {
 		label: "bullet",
 	});
 	Matter.Body.setVelocity(body, velocity);
-	return body
+	return body;
 }
 
 function createTank(tankSize) {
