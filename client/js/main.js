@@ -5,8 +5,6 @@ socket.on("connect_error", (err) => {
 	if (err = "xhr poll error") console.log("Couldn't connect to server... trying again."); 
 });
 
-console.log("Connected to Server");
-
 var Engine = Matter.Engine,
 	Render = Matter.Render,
 	Runner = Matter.Runner,
@@ -75,3 +73,6 @@ Matter.Events.on(runner, "tick", (event) => {
 	collisions();
 	sendData();
 });
+
+//Color Theme
+darkTheme();

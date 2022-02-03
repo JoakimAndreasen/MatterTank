@@ -5,6 +5,7 @@ function createBorder(screenSize,w){
         isStatic: true,
         isSensor: false,
         render: {
+            fillStyle: "#000000",
             strokeStyle: 'rgb(0,0,0,0)',
             visible: true,
         }
@@ -24,6 +25,7 @@ function makeBox(xSize, ySize, w) {
         isStatic: true,
         isSensor: false,
         render: {
+            fillStyle: "#000000",
             strokeStyle: 'rgb(0,0,0,0)',
             visible: true,
         }
@@ -37,10 +39,7 @@ function makeBox(xSize, ySize, w) {
     wallOptions.label = "bottom"
     var w4 = Bodies.rectangle(xSize/2, ySize, xSize+w, w,wallOptions);
 
-
-
-    let box = Composite.create({bodies: [w1, w2, w3, w4]});
-    return box;
+    return Composite.create({bodies: [w1, w2, w3, w4]});
 }
 
 function Cell(xSize, ySize, w,x,y) {

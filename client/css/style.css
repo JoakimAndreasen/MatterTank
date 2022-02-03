@@ -14,6 +14,16 @@
     src: url("../fonts/Asap-Regular.ttf");
 }
 
+:root {
+    --title: ;
+    --background: ;
+    --card-title: ;
+    --card-text: ;
+    --card-background: ;
+    --card-field: ;
+    --card-field-hover: ;
+}
+
 /*General*/
 * {
     overflow: hidden;
@@ -26,7 +36,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: #121212;
+    background-color: var(--background);
     display: grid;
     grid-template-columns: 1fr 80vh 1fr;
     /*background-image: url("../assets/background.svg");
@@ -35,16 +45,21 @@ body {
     -webkit-background-size: 100% 100%;
     background-size:cover;
     background-repeat: no-repeat;*/
+    transition: 0.5s ease-in-out;
 }
 
 /*Font Sizes*/
 h1 {
     font-size: 2.5em;
     padding: 1rem 0;
+    color: var(--title);
+    transition: 0.5s ease-in-out;
 }
 
 h3 {
     padding: 1rem 0;
+    color: var(--title);
+    transition: 0.5s ease-in-out;
 }
 
  /*Game*/
@@ -81,7 +96,7 @@ h3 {
     grid-template-rows: 1fr 70% 1fr;
     align-items: center;
     justify-items: center;
-    background-color: #14151f;
+    background-color: var(--card-background);
     border-radius: 30px;
     margin-top: 2vh;
     margin-bottom: 2vh;
@@ -109,7 +124,7 @@ button {
     padding: 0;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    background: black;
+    background: var(--card-field);
     color: #757575;
     font-size: x-large;
     border-radius: 10px;
@@ -119,7 +134,7 @@ button {
 }
 
 button:hover {
-    background:#333333;
+    background: var(--card-field-hover);
     transform: scale(0.95);
 }
 
@@ -139,13 +154,13 @@ input {
     -ms-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: black;
+    background: var(--card-field);
     color: white;
     transition: 0.3s ease;
 }
   
 input:hover {
-    background: #333333;
+    background: var(--card-field-hover);
     transform: scale(0.95);
 }
 
