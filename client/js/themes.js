@@ -1,48 +1,24 @@
-let themes = {
-    dark: {
-        background: "#121212",
-        title: "#",
+const title = document.getElementById("title");
+const cards = document.getElementsByClassName("box");
 
-        game: {
-            background: "#",
-            border: "#"
-        },
-        card: {
-            background: "#",
-            button: "#",
-            text: "#",
-            title: "#"
-        }
-    },
+let currentTheme = darkTheme;
 
-    light: {
-        background: "#",
-        title: "#",
-        game: {
-            background: "#",
-            border: "#"
-        },
-        card: {
-            background: "#",
-            button: "#",
-            text: "#",
-            title: "#"
-        }
-    },
+function applyTheme() {
+    
+}
 
-    colorful: {
-        background: "#",
-        title: "#",
-        game: {
-            background: "#",
-            border: "#"
-        },
-        card: {
-            background: "#",
-            button: "#",
-            text: "#",
-            title: "#"
-        }
+function darkTheme() {
+    if(curentTheme != darkTheme) {
+        currentTheme();
+        title.classList.toggle("dark-title");
     }
-};
+}
 
+function lightTheme() {
+    currentTheme();
+    title.classList.toggle("white-title");
+}
+
+function colorfulTheme() {
+    currentTheme();
+}

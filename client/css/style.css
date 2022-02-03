@@ -9,12 +9,16 @@
     src: url("../fonts/Meedori_Sans_Regular.ttf");
 }
 
+@font-face {
+    font-family: "asap";
+    src: url("../fonts/Asap-Regular.ttf");
+}
+
 /*General*/
 * {
     overflow: hidden;
     margin: 0;
-    font-family: "Lobster";
-    color: white;
+    font-family: "asap";
 }
 
 body {
@@ -185,11 +189,4 @@ input[type=number] {
 
 .success {
     color:green;
-}
-
-#lobbyInfo {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
 }

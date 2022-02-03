@@ -16,6 +16,9 @@ Vector = Matter.Vector;
 
 var engine = Engine.create({
 	gravity: { x: 0, y: 0 },
+	timing: {
+		isFixed: true,
+	}
 });
 
 var render = Render.create({
@@ -60,12 +63,14 @@ Render.run(render);
 
 // create runner and run the engine
 var runner = Runner.create();
-Runner.run(runner, engine);
-
+//Runner.run(runner, engine);
+setInterval(() => {
+	Matter.Runner.tick(runner, engine, 1000 / 60);
+}, 16);
 //Generates a maze from the mazeGenerator.js file
 generateMaze(grid);
 
-Matter.Events.on(engine, "beforeUpdate", (event) => {
+Matter.Events.on(runner, "tick", (event) => {
 	movement();
 	collisions();
 	sendData();

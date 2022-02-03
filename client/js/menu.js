@@ -6,6 +6,7 @@ let seedInput = document.getElementById("seedInput");
 let notafications = document.getElementById("notifications");
 let startGameButton = document.getElementById("startGameButton");
 let lobbyInfo = document.getElementById("lobbyInfo");
+let joinLobbyInput = document.getElementById("joinLobbyInput");
 
 createLobbyButton.onclick = function () {
 	socket.emit("create-room", seedInput.value);
