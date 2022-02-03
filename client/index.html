@@ -21,46 +21,100 @@
     </head>
     <body>
       <div class="container" >
-          <h1 id="gameTitle">Matter Tank</h1>
-          <div class="box">
-            <h2>Login</h2>
-            <button id="login">Login</button>
-            <input
-                id="usernameInput"
-                autocomplete="off"
-                type="text"
-                name="username"
-                placeholder="Username"
-              />
-          </div>
-          <div class="box">
-            <h2>Create Lobby</h2>
-            <input
-                id="seedInput"
-                type="text"
-                placeholder="Seed"
-              />
-              <button id="createLobbyButton">Create Lobby</button>
-          </div>
-          <div class="box">
-            <h2>Join Lobby</h2>
-            <div id="joinLobbyForm">
-              <input
-                id="joinLobbyInput"
-                type="number"
-                max="99999"
-                name="chat"
-                placeholder="Lobby Code"
-              />
-              <button id="joinLobbyButton">Join Lobby</button>
+        <h1>Tankz</h1>
+          <div class="containerFields">
+            <!--Login-->
+            <div class="box">
+              <h2>Login</h2>
+              <div class="fields">
+                <button id="login">Login</button>
+                <input
+                    id="usernameInput"
+                    autocomplete="off"
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                  />
+              </div>
+            </div>
+            <!--Create Lobby-->
+            <div class="box">
+              <h2>Create Lobby</h2>
+              <div class="fields">
+                <div id="createLobbyForm">
+                  <input
+                  id="seedInput"
+                  type="text"
+                  placeholder="Seed"
+                  />
+                  <button id="createLobbyButton">Create Lobby</button>
+                </div>
+              </div>
+            </div>
+            <!--Join Lobby-->
+            <div class="box">
+              <h2>Join Lobby</h2>
+              <div class="fields">
+                <div id="joinLobbyForm">
+                  <input
+                    id="joinLobbyInput"
+                    type="number"
+                    max="99999"
+                    name="chat"
+                    placeholder="Lobby Code"
+                  />
+                  <button id="joinLobbyButton">Join Lobby</button>
+                </div>
+              </div>
+            </div>
+            <!--Options-->
+            <div class="box">
+              <h2>Options</h2>
+              <div class="fields">
+                <div id="joinLobbyForm">
+                  <input
+                    id="joinLobbyInput"
+                    type="number"
+                    max="99999"
+                    name="chat"
+                    placeholder="Lobby Code"
+                  />
+                  <button id="joinLobbyButton">Join Lobby</button>
+                </div>
+              </div>
             </div>
           </div>
+          <h3>Made with love ❤</h3>
       </div>
       <div class="game">
+        <h1 id="gameTitle"></h1>
         <canvas id="canvas"></canvas>
       </div>
       <div class="container"> 
-        <div id="notifications"></div>
+        <div></div>
+        <div class="containerFields">
+          <!--Current lobby-->
+          <div class="box tall">
+            <h2>Current Lobby</h2>
+            <div class="fields">
+              <p>Lorem</p>
+            </div>
+          </div>
+          <!--Chat-->
+          <div class="box tall">
+            <h2>Chat</h2>
+            <div class="fields">
+              <p>Lorem</p>
+            </div>
+            <input
+            id="joinLobbyInput"
+            type="text"
+            name="chat"
+            placeholder="Type something!"
+            />
+          </div>
+        </div>
       </div>
-    </body>
+    </div>
+  </body>
 </html>

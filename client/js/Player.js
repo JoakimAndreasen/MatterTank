@@ -1,5 +1,3 @@
-
-
 class Player {
 	constructor() {
 		this.tankSize = 50;

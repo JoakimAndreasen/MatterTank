@@ -6,7 +6,8 @@ function collisions() {
 			let bullet = bodies.find((body) => body.label == "bullet");
 			let playerBody = bodies.find((body) => body.label == "player");
 			if (bullet && playerBody) {
-				player.die();	
+				player.die();
+				Matter.World.remove(engine.world, bullet);
 			}
 		});
 	}

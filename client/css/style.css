@@ -20,63 +20,86 @@ body {
     background-color: black;
     display: grid;
     grid-template-columns: 1fr 80vh 1fr;
-    background-image: url("data:assets/background.svg");
+    background-image: url("../assets/background.svg");
+    background-size:100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size:cover;
     background-repeat: no-repeat;
 }
 
 /*Font Sizes*/
 h1 {
-    font-size: 2em;
+    font-size: 2.5em;
+    padding: 1rem 0;
 }
 
-h2 {
-    margin-top: 0.5rem;
+h3 {
+    padding: 1rem 0;
 }
 
  /*Game*/
 .game {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 80vh 1fr;
+    text-align: center;
     align-items: center;
+    justify-items: center;
 }
+
 #canvas {
     height: auto;
     width: 100%;
+    border-radius: 30px;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 80vh 1fr;
     text-align: center;
     align-items: center;
+    justify-items: center;
     height: 100vh;
 }
 
-
-
-#gameTitle {
-    padding: 1rem 0;
-    
+.containerFields {
+    width: 70%;
 }
 
 .box {
+    display: grid;
+    grid-template-rows: 1fr 70% 1fr;
+    align-items: center;
+    justify-items: center;
+    background-color: #1c1c1e;
+    border-radius: 30px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    color: #757575;
+    height: 200px;
+}
+
+.tall {
+    height: 400px;
+}
+
+.fields,
+#createLobbyForm,
+#joinLobbyForm {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    align-items: center;
-    justify-content: center;
-    background-color: #1c1c1e;
-    border-radius: 10px;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    color: #757575;
+}
+
+.fields {
+    width: 85%;
 }
 
 button {
-    width: 90%;
     height: 2em;
     padding: 0;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     background: #444444;
     color: #757575;
     font-size: x-large;
@@ -92,14 +115,14 @@ button:hover {
 }
 
 input {
-    width: 90%;
     height: 2em;
     text-align: center;
     border: none;
     border-radius: 3px;
     outline: none;
     padding: 0;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     font-size: x-large;
     border-radius: 10px;
     outline: none;
@@ -123,7 +146,6 @@ input:focus::placeholder {
 }
   
 #joinLobbyForm {
-    width: 90%;
     display: flex;
     flex-direction: column;
 }
