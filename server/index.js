@@ -1,5 +1,5 @@
 //Import helper functions
-const {createRoom,joinRoom} = require("./socketFunctions.js");
+const {createRoom,joinRoom, callRoomFunction,leaveCurrentRoom } = require("./socketFunctions.js");
 
 const options = {cors: {origin: '*'} };
 
@@ -9,9 +9,11 @@ io.on("connection", (socket) => {
 	console.log(socket.id, "joined the server");
 	socket.data.currentRoom = "";
 
-	socket.on("create-room", createRoom);
+	socket.on("create-room", (seed) => {createRoom(socket,seed,io)});
 
 	socket.on("join-room", joinRoom);
+	socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});
+	socket.on("playerDied", () =>{callRoomFunction(socket,"playerDied")});
 
 	socket.on("updatePlayers", (playerData) => {
 		if (socket.data.currentRoom) {
@@ -25,28 +27,15 @@ io.on("connection", (socket) => {
 		}
 	});
 
-	socket.on("playerDied", () => {
-		if (socket.data.currentRoom) {
-			socket.to(socket.data.currentRoom).emit("playerDied", socket.id);
-		}
-	});
+	
 
-	socket.on("addToScore", () => {
-		if (socket.data.currentRoom) {
-			allRooms[socket.data.currentRoom].publicData.score++; ///
-			socket.to(socket.data.currentRoom).emit("updatePlayers", [playerData, socket.id]);
-		}
-	});
+
 
 	socket.on("disconnecting", (reason) => {
-		for (const room of socket.rooms) {
-		  if (room !== socket.id) {
-			socket.to(room).emit("leftRoom", socket.id);
-		  }
-		}
+		leaveCurrentRoom(socket);
 	  });
 });
 
-//io.to("room1").emit("message", "Hello from room1");
+
 console.log("Server started");
 

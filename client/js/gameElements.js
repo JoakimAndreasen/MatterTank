@@ -26,6 +26,13 @@ function clearBullets() {
 			Composite.remove(engine.world, bullet.body);
 		});
 	}
+	if (opponents.length !=0) { 
+		opponents.forEach((opponent) => {
+			opponent.bullets.forEach((bullet) => {
+				Composite.remove(engine.world, bullet.body);
+			});
+		});
+	}
 	player.bullets = [];
 }
 
@@ -71,8 +78,19 @@ function pausePlayerCollision() {
 	}, 2000);
 }
 
-function checkForWin() {
-	if (opponents.length == 0 && player.state == "alive") {
-		player.win();
-	}
+function updateLobbyInfo(players) {
+	lobbyInfo.innerHTML = "";
+	players.forEach(player => {
+		let playerInfo = document.createElement("div");
+
+		let name = document.createElement("h2");
+		name.innerHTML = player.id;
+
+		let score = document.createElement("p");
+		score.innerHTML = player.score;
+
+		playerInfo.appendChild(name);
+		playerInfo.appendChild(score);
+		lobbyInfo.appendChild(playerInfo);
+	});
 }

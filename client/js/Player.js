@@ -53,6 +53,36 @@ class Player {
 			Matter.World.add(engine.world, bullet.body);
 		}
 	}
+	resetPos() {
+		Matter.Body.setPosition(this.body,this.startingPosition);
+		Matter.Body.setAngle(this.body,0);
+	}
+	reset() {
+		this.resetPos();
+		this.health = 100;
+		if (this.state === "dead") {
+			Matter.World.add(engine.world, this.body);
+			this.state = "alive";
+
+		}
+	}
+	setStartingPos(n) {
+		switch (n) {
+			case 1:
+				this.startingPosition = {"x":100,"y":100};
+				break;
+			case 2:
+				this.startingPosition = {"x":900,"y":100};
+				break;
+			case 3:
+				this.startingPosition = {"x":100,"y":900};
+				break;
+			case 4:
+				this.startingPosition = {"x":900,"y":900};
+				break;
+		}
+		this.resetPos();
+	}
 }
 
 class Opponent {
@@ -74,7 +104,11 @@ class Opponent {
 		this.health = 0;
 		Matter.World.remove(engine.world, this.body);
 	}
-
+	reset() {
+		this.state = "alive";
+		this.health = 100;
+		Matter.World.add(engine.world, this.body);
+	}
 	update(position, angle) {
 		if (this.state !== "dead") {
 			Matter.Body.setPosition(this.body, position);

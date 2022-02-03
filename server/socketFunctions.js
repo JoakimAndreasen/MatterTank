@@ -8,8 +8,7 @@ function randomNumber() {
 	return String(Math.floor(Math.random() * (range - start) + start));
 }
 
-function createRoom(seed) {
-	const socket = this;
+function createRoom(socket,seed,io) {
 	//Checks if the seed only conatins digits
 	seed = /^\d+$/.test(seed) ? seed : randomNumber();
 	roomID = randomNumber();
@@ -17,7 +16,7 @@ function createRoom(seed) {
 	console.log("Creating room with code: " + roomID, " and seed: " + seed);
 
 	//create and save room instance
-	allRooms[roomID] = new Room(roomID, seed);;
+	allRooms[roomID] = new Room(roomID, seed,io);
 	
 	joinRoom.call(socket, roomID);
 
@@ -34,9 +33,9 @@ function replyToSocket(socket, message, type) {
 function leaveCurrentRoom(socket) {
 	let currentRoom = socket.data.currentRoom;
 	if (currentRoom != "") {
-		allRooms[currentRoom].players--;
+		allRooms[currentRoom].removePlayer(socket.id);
 		socket.leave(currentRoom);
-		socket.to(currentRoom).emit("leftRoom", socket.id);
+		socket.to(currentRoom).emit("leftRoom", allRooms[roomID].getRoomData(),socket.id);
 		replyToSocket(socket, "Left Room", "success");
 	}
 }
@@ -47,24 +46,26 @@ function joinRoom(roomID) {
 	if (allRooms[roomID] && allRooms[roomID].players.length < 4) {
 		socket.join(roomID);
 		socket.data.currentRoom = roomID;
-		allRooms[roomID].publicData.players++;
+		
+		allRooms[roomID].addPlayer(socket.id);
 		console.log(socket.id + " joined room " + roomID);
-		socket.emit("joinedRoom", allRooms[roomID].getPublicData());
+		socket.emit("joinedRoom", allRooms[roomID].getRoomData());
 		replyToSocket(socket,"Joining room " + roomID, "success");
 	} else {
 		replyToSocket(socket,"Room not found or is full", "error");
 	}
 }
 
-function addToScore() {
-	const socket = this;
+function callRoomFunction(socket,func,...args) {
 	if (socket.data.currentRoom) {
-		allRooms[socket.data.currentRoom].playerScores[socket.id]++;
-
+		allRooms[socket.data.currentRoom][func](socket,...args);
 	}
 }
 
 module.exports = {
 	createRoom: createRoom,
-	joinRoom: joinRoom
+	joinRoom: joinRoom,
+	leaveCurrentRoom: leaveCurrentRoom,
+	callRoomFunction: callRoomFunction
+
 };

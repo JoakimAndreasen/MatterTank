@@ -31,6 +31,7 @@ var render = Render.create({
 
 let w = screenSize / 40;
 let player = new Player();
+let lobbyLeader = false;
 
 var { grid, gridComposite } = makeGrid([5, 5], w);
 
@@ -53,7 +54,7 @@ Composite.add(engine.world, [
 	Border,
 	opponentsComposite,
 ]);
-console.log(Matter.Query.ray(engine.world, { x: 0, y: 0 }, { x: 400, y: 400 }));
+
 // run the renderer
 Render.run(render);
 
