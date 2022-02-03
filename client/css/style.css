@@ -4,11 +4,16 @@
     src: url("../fonts/big_noodle_titling.ttf");
 }
 
+@font-face {
+    font-family: "sans";
+    src: url("../fonts/Meedori_Sans_Regular.ttf");
+}
+
 /*General*/
 * {
     overflow: hidden;
     margin: 0;
-    font-family: "noodle";
+    font-family: "Lobster";
     color: white;
 }
 
@@ -17,15 +22,15 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: #121212;
     display: grid;
     grid-template-columns: 1fr 80vh 1fr;
-    background-image: url("../assets/background.svg");
+    /*background-image: url("../assets/background.svg");
     background-size:100% 100%;
     -o-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size:cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;*/
 }
 
 /*Font Sizes*/
@@ -72,12 +77,12 @@ h3 {
     grid-template-rows: 1fr 70% 1fr;
     align-items: center;
     justify-items: center;
-    background-color: #1c1c1e;
+    background-color: #14151f;
     border-radius: 30px;
     margin-top: 2vh;
     margin-bottom: 2vh;
     color: #757575;
-    height: 200px;
+    height: 15vh;
 }
 
 .tall {
@@ -96,11 +101,11 @@ h3 {
 }
 
 button {
-    height: 2em;
+    height: 2.5vh;
     padding: 0;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    background: #444444;
+    background: black;
     color: #757575;
     font-size: x-large;
     border-radius: 10px;
@@ -115,7 +120,7 @@ button:hover {
 }
 
 input {
-    height: 2em;
+    height: 2.5vh;
     text-align: center;
     border: none;
     border-radius: 3px;
@@ -130,7 +135,7 @@ input {
     -ms-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: #444444;
+    background: black;
     color: white;
     transition: 0.3s ease;
 }
