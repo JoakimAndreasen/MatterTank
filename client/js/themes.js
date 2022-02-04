@@ -1,5 +1,58 @@
+const themes = {
+    dark: {
+        title: "#9c9c9c",
+        background: "#111111",
+        game: {
+            background: "#000000",
+            border: "#14151f"
+        },
+        card: {
+            title: "#9c9c9c",
+            text: "#494949",
+            background: "#070707",
+            field: "#14151f",
+            fieldHover: "#333333"
+        }
+    },
+    light: {
+        title: "#000000",
+        background: "#d8d8d8",
+        game: {
+            background: "#aaaaaa",
+            border: "#ffffff"
+        },
+        card: {
+            title: "#000000",
+            text: "#2a2a2a",
+            background: "#a7a7a7",
+            field: "#8b92e2",
+            fieldHover: "#1f1f1f"
+        }
+    },
+    colorful: {
+        title: "#ffd900",
+        background: "#ff0000",
+        game: {
+            background: "#33FF33",
+            border: "#ff6600"
+        },
+        card: {
+            title: "#ffd900",
+            text: "#ff00d4",
+            background: "#119200",
+            field: "#0015ff",
+            fieldHover: "#8c00ff"
+        }
+    }
+}
+
+//Get the last applied theme
+let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : JSON.stringify(themes.dark);
+currentTheme = JSON.parse(currentTheme);
+
 let r = document.querySelector(':root');
 
+/*Theme changer*/
 function changeTheme(theme) {
     r.style.setProperty('--title', theme.title);
     r.style.setProperty('--background', theme.background);
@@ -12,106 +65,22 @@ function changeTheme(theme) {
     render.options.background = theme.game.background;
 
     //Set border colors
-    for (let i = 0; i < Border.bodies.length; i++) {
-        Border.bodies[i].render.fillStyle = theme.game.border;
-    }
-
-    for (let i = 0; i < gridComposite.composites.length; i++) {
-        for (let j = 0; j < gridComposite.composites[i].bodies.length; j++) {
-            gridComposite.composites[i].bodies[j].render.fillStyle = theme.game.border;
-        }
-    }
+    setGridColor(grid, theme.game.border);
+    setBorderColor(Border, theme.game.border);
 }
 
+/*Themes*/
 function darkTheme() {
-    let theme = {
-        title: "#ffffff",
-        background: "#080808",
-        game: {
-            background: "#080808",
-            border: "#272727"
-        },
-        card: {
-            background: "#",
-            field: "#",
-            text: "#",
-            title: "#"
-        }
-    }
-    
-    changeTheme(theme);
+    localStorage.setItem('theme', JSON.stringify(themes.dark));
+    changeTheme(themes.dark);
 }
 
 function lightTheme() {
-    let theme = {
-        title: "#",
-        background: "#ffffff",
-        game: {
-            background: "#ffffff",
-            border: "#000000"
-        },
-        card: {
-            background: "#",
-            field: "#",
-            text: "#",
-            title: "#"
-        }
-    }
-
-    changeTheme(theme);
+    localStorage.setItem('theme', JSON.stringify(themes.light));
+    changeTheme(themes.light);
 }
 
 function colorfulTheme() {
-    let theme = {
-        title: "#",
-        background: "#",
-        game: {
-            background: "#",
-            border: "#"
-        },
-        card: {
-            background: "#",
-            field: "#",
-            text: "#",
-            title: "#"
-        }
-    }
-
-    currentTheme(theme);
+    localStorage.setItem('theme', JSON.stringify(themes.colorful));
+    changeTheme(themes.colorful);
 }
-
-/*Needs to be looked through :)
-let gameThemes = {
-    "dark": {
-        "background": "#000000",
-        "map":'#14151f',
-    },
-    "light": {
-        "background": "#aaaaaa",
-        "map":'rgb(255,255,255,255)',
-    },
-    "colorful": {
-        "background": "#33FF33",
-        "map":'rgb(255,100,0,255)'
-    }
-} 
-
-let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : "dark";
-document.documentElement.setAttribute('data-theme', currentTheme);
-updateGameColors(currentTheme);
-
-document.querySelectorAll('.themeChangeButton').forEach(button => {
-    button.addEventListener('click', () => {
-        
-        currentTheme = button.id;
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        localStorage.setItem('theme', currentTheme);
-        updateGameColors(currentTheme);
-    });
-});
-
-function updateGameColors(theme) {
-    setGridColor(grid, gameThemes[theme].map);
-    setBorderColor(Border, gameThemes[theme].map);
-    render.options.background = gameThemes[theme].background;
-}*/

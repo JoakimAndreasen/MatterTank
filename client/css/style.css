@@ -24,34 +24,6 @@
     --card-field-hover: ;
 }
 
-/*General*/
-:root {
-    --background-color: #111111;
-    --blue-background-color: #14151f;
-    --dark-background-color: rgb(7, 7, 7);
-    --font-color: #9c9c9c;
-    --placeholder-font-color: #494949;
-    --hover-color: #333333;
-}
-
-[data-theme="light"] {
-    --background-color: #d8d8d8;
-    --blue-background-color: #8b92e2;
-    --dark-background-color: rgb(167, 167, 167);
-    --font-color: #000000;
-    --placeholder-font-color: #2a2a2a;
-    --hover-color: #1f1f1f;
-}
-
-[data-theme="colorful"] {
-    --background-color: #ff0000;
-    --blue-background-color: #0015ff;
-    --dark-background-color: rgb(17, 146, 0);
-    --font-color: #ffd900;
-    --placeholder-font-color: #ff00d4;
-    --hover-color: #8c00ff;
-}
-
 * {
     /*overflow: hidden;*/
     margin: 0;
@@ -66,7 +38,7 @@ body {
     background-color: var(--background);
     display: grid;
     grid-template-columns: minmax(2em,1fr) 2fr minmax(2em,1fr);
-    color: var(--font-color);
+    color: var(--title);
     /*background-image: url("../assets/background.svg");
     background-size:100% 100%;
     -o-background-size: 100% 100%;

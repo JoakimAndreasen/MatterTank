@@ -79,4 +79,4 @@ Matter.Events.on(runner, "tick", (event) => {
 });
 
 //Color Theme
-darkTheme();
+changeTheme(currentTheme);
