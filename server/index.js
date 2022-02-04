@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
 
 	socket.on('send-chat-message',message => {
         socket.to(socket.data.currentRoom).emit('chat-message', {message: message, username: socket.data.username})
-		console.log(socket.data.username)
+		callRoomFunction(socket,"addChatMessage",{message: message, username: socket.data.username})
     })
 
 	socket.on("disconnecting", (reason) => {

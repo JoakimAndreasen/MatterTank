@@ -6,6 +6,7 @@ class Room {
 		this.gameState = "PLAYING";
 		this.players = [];
 		this.deadPlayers = [];
+		this.chat = [];
 	}
 
 	getRoomData() {
@@ -22,6 +23,12 @@ class Room {
 			player.score += amount;
 		}
 	}*/
+
+	addChatMessage(socket,messageData) {
+		this.chat.push(messageData)
+		console.log(this.chat)
+	}
+
 	addPlayer(socket) {
 		let newPlayer = {
 			score: 0,
