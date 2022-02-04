@@ -88,6 +88,10 @@ h2 {
     font-size: 2vh;
 }
 
+p {
+    font-size: 1.5vh;
+}
+
  /*Game*/
 .game {
     width: 100%;
@@ -190,6 +194,8 @@ button {
     border: none;
     outline: none;
     transition: 0.3s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 button:hover {
@@ -282,4 +288,13 @@ input[type=number] {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2.5em;
+}
+
+#lobbyInfo {
+    display: flex;
+    flex-direction: row;
+}
+
+#lobbyInfo div + div {
+    margin-left: 1em;
 }

@@ -10,7 +10,7 @@ io.on("connection", (socket) => {
 	socket.data.currentRoom = "";
 	socket.data.username = "";
 
-	socket.on("updateUsername", (username) => {socket.data.username = username});
+	socket.on("updateUsername", (username) => {callRoomFunction(socket,"updateUsername",username)});
 
 	socket.on("create-room", (seed) => {createRoom(socket,seed,io)});
 	socket.on("join-room", joinRoom);

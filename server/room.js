@@ -26,7 +26,7 @@ class Room {
 		let newPlayer = {
 			score: 0,
 			id: socket.id,
-			username: !!socket.data.username ? socket.data.username : "guest"
+			username: socket.data.username != "Guest" ? socket.data.username : "Guest"
 		};
 		this.players.push(newPlayer);
 	}
@@ -34,10 +34,20 @@ class Room {
 	removePlayer(playerID) {
 		this.players.splice(this.players.findIndex(player => player.id === playerID), 1);
 	}
+	updateUsername(socket, username) {
+		if (username !="" || username !=" ") { //USERNAME check here
+			socket.data.username = username;
+			let player = this.players.find(player => player.id === socket.id);
+			if (player) {
+				player.username = username;
+			}
+			this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
+		}
+	}
 	startGame() {
 		this.gameState = "PLAYING";
 		this.deadPlayers = [];
-		this.io.in(this.id).emit("newGame", this.getRoomData());
+		this.io.in(this.id).emit("newRound", "Game Starting");
 	}
 	playerDied(socket) {
 		let currentPlayer = this.deadPlayers.find(id => id === socket.id);
@@ -48,9 +58,7 @@ class Room {
 			if (this.deadPlayers.length >= this.players.length - 1) { //if only one player is left
 				this.newRound();
 			}
-		};
-
-			
+		};	
 	}
 	newRound() {
 		this.gameState = "PAUSED";
@@ -66,7 +74,7 @@ class Room {
 			this.io.in(this.id).emit("newRound",winner.username);
 			winner.score += scoreToAdd;
 		}
-		this.io.in(this.id).emit("updateLobbyInfo", this.players);
+		this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
 		this.deadPlayers = [];
 		setTimeout(() => {
 			this.gameState = "PLAYING";
