@@ -20,17 +20,17 @@ const themes = {
         title: "#000000",
         background: "#d8d8d8",
         game: {
-            background: "#aaaaaa",
+            background: "#d8d8d8",
             border: "#ffffff"
         },
         scrollbar: "#95A2C6",
         scrollbarHover: "#1f1f1f",
         card: {
             title: "#000000",
-            text: "#2a2a2a",
-            background: "#a7a7a7",
-            field: "#95A2C6",
-            fieldHover: "#1f1f1f"
+            text: "#ffffff",
+            background: "#fafafa",
+            field: "#5694FF",
+            fieldHover: "#000000"
         }
     },
     colorful: {

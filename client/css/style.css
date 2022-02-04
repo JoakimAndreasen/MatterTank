@@ -221,7 +221,7 @@ button {
     border-radius: 10px;
     border: none;
     outline: none;
-    transition: 0.3s ease;
+    transition: 0.15s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
