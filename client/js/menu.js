@@ -13,7 +13,9 @@ let joinLobbyInput = document.getElementById("joinLobbyInput");
 let usernameInput = document.getElementById("usernameInput");
 
 let sendUsername = debounce( (e) => {
-	socket.emit("updateUsername", usernameInput.value);
+	if (usernameInput.value){
+		socket.emit("updateUsername", usernameInput.value);
+	}
 }, 300);
 
 document.addEventListener('keyup', () => {

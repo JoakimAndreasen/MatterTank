@@ -26,7 +26,13 @@ class Room {
 
 	addChatMessage(socket,messageData) {
 		this.chat.push(messageData)
-		console.log(this.chat)
+	}
+
+	getAllMessages(socket) {
+		this.chat.forEach(element => {
+			socket.emit('chat-message', {message: element.message, username: element.username})
+			
+		});
 	}
 
 	addPlayer(socket) {

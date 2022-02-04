@@ -50,7 +50,7 @@ function joinRoom(roomID) {
 		allRooms[roomID].addPlayer(socket);
 		console.log(socket.id + " joined room " + roomID);
 		socket.emit("joinedRoom", allRooms[roomID].getRoomData());
-		
+		callRoomFunction(socket,"getAllMessages")
 		replyToSocket(socket,"Joining room " + roomID, "success");
 	} else {
 		replyToSocket(socket,"Room not found or is full", "error");
