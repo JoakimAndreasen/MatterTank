@@ -150,6 +150,29 @@ p {
     height: 15vh;    
 }
 
+.chatBox {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+    background-color: var(--card-background);
+    border-radius: 30px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    color: #757575;
+    height: 45vh;  
+}
+
+#message-input {
+
+}
+
+#send-button {
+    
+}
+
 .box h2 {
     margin-top: 0.5em;
 }

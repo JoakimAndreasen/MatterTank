@@ -20,6 +20,8 @@
 		    <script src="./js/themes.js"></script>
         <script src="./js/main.js" defer></script>
         <script src="./js/menu.js" defer></script>
+        <script src="./js/themes.js" defer></script>
+        <script src="./js/chat.js" defer></script>
     </head>
     <body>
       <div class="container" >
@@ -109,17 +111,13 @@
             </div>
           </div>
           <!--Chat-->
-          <div class="box">
+          <div class="chatBox">
             <h2>Chat</h2>
-            <div class="fields">
-              <p>Lorem</p>
-            </div>
-            <input
-            id="joinLobbyInput"
-            type="text"
-            name="chat"
-            placeholder="Type something!"
-            />
+            <div id = message-container></div>
+            <form  id="send-container">
+                <input type="text" id="message-input">
+                <button type = "submit" id="send-button">Send</button>
+            </form>
           </div>
         <div class="box">
           <button id="startGameButton">Start Game</button>
