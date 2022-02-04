@@ -91,6 +91,7 @@ h2 {
 
 p {
     font-size: 1.5vh;
+    padding: 0.5rem 0;
 }
 
  /*Game*/
@@ -188,7 +189,13 @@ p {
     justify-content: center;
     height: 100%;
     width: 90%;
+}
 
+.miniFields {
+    background-color: var(--card-field);
+    border-radius: 10px;
+    width: 45%;
+    height: 60;
 }
 
 .themes {
@@ -202,6 +209,12 @@ p {
 
 .theme {
     width: 25%;
+}
+
+.currentLobby {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 button {
@@ -322,4 +335,11 @@ input[type=number] {
 
 #lobbyInfo div + div {
     margin-left: 1em;
+}
+
+#playersInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
 }
