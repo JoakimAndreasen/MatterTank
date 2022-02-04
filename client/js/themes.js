@@ -6,6 +6,8 @@ const themes = {
             background: "#000000",
             border: "#14151f"
         },
+        scrollbar: "#14151f",
+        scrollbarHover: "#333333",
         card: {
             title: "#9c9c9c",
             text: "#494949",
@@ -21,11 +23,13 @@ const themes = {
             background: "#aaaaaa",
             border: "#ffffff"
         },
+        scrollbar: "#95A2C6",
+        scrollbarHover: "#1f1f1f",
         card: {
             title: "#000000",
             text: "#2a2a2a",
             background: "#a7a7a7",
-            field: "#8b92e2",
+            field: "#95A2C6",
             fieldHover: "#1f1f1f"
         }
     },
@@ -36,6 +40,8 @@ const themes = {
             background: "#33FF33",
             border: "#ff6600"
         },
+        scrollbar: "#0015ff",
+        scrollbarHover: "#8c00ff",
         card: {
             title: "#ffd900",
             text: "#ff00d4",
@@ -56,6 +62,8 @@ let r = document.querySelector(':root');
 function changeTheme(theme) {
     r.style.setProperty('--title', theme.title);
     r.style.setProperty('--background', theme.background);
+    r.style.setProperty('--scrollbar', theme.scrollbar);
+    r.style.setProperty('--scrollbar-hover', theme.scrollbarHover);
     r.style.setProperty('--card-title', theme.card.title);
     r.style.setProperty('--card-text', theme.card.text);
     r.style.setProperty('--card-background', theme.card.background);
