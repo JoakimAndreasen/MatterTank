@@ -82,8 +82,9 @@ h3 {
     padding: 1rem 0;
     color: var(--title);
     transition: 0.5s ease-in-out;
-    font-size: 2.5vh;
+    font-size: 1.5vh;
 }
+
 h2 {
     font-size: 2vh;
 }
