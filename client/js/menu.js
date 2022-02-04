@@ -5,7 +5,10 @@ let createLobbyButton = document.getElementById("createLobbyButton");
 let seedInput = document.getElementById("seedInput");
 let notafications = document.getElementById("notifications");
 let startGameButton = document.getElementById("startGameButton");
-let lobbyInfo = document.getElementById("lobbyInfo");
+let playersInfo = document.getElementById("playersInfo");
+let lobbyCode = document.getElementById("lobbyCode");
+let seedText = document.getElementById("seedText");
+
 let joinLobbyInput = document.getElementById("joinLobbyInput");
 let usernameInput = document.getElementById("usernameInput");
 
@@ -17,6 +20,14 @@ document.addEventListener('keyup', () => {
 	sendUsername();
 });
 
+function copyToClipboard(text) {
+	navigator.clipboard.writeText(text);
+	notification("Copied to clipboard","success");
+}
+
+
+lobbyCode.onclick = () => {copyToClipboard(lobbyCode.innerHTML)};
+seedText.onclick = () => {copyToClipboard(seedText.innerHTML)};
 
 createLobbyButton.onclick = function () {
 	socket.emit("create-room", seedInput.value);
@@ -48,7 +59,7 @@ socket.on("joinedRoom", (roomData) => {
 	resetLevel();
 	console.log("ROOMCODE: "+roomData.id);
 
-	updateLobbyInfo(roomData.players);
+	updateLobbyInfo(roomData);
 	
 });
 

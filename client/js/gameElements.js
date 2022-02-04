@@ -158,8 +158,10 @@ function newRound(winner) {
 	
 }
 
-function updateLobbyInfo(players) {
-	lobbyInfo.innerHTML = "";
+function updateLobbyInfo(lobbyData) {
+	console.log(lobbyData);
+	playersInfo.innerHTML = "";
+	let players = lobbyData.players;
 	players.forEach(player => {
 		let playerInfo = document.createElement("div");
 
@@ -171,6 +173,9 @@ function updateLobbyInfo(players) {
 
 		playerInfo.appendChild(name);
 		playerInfo.appendChild(score);
-		lobbyInfo.appendChild(playerInfo);
+		playersInfo.appendChild(playerInfo);
 	});
+
+	lobbyCode.innerHTML = lobbyData.id;
+	seedText.innerHTML = lobbyData.seed;
 }
