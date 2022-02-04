@@ -10,13 +10,17 @@ function randomNumber() {
 
 function createRoom(socket,seed,io) {
 	//Checks if the seed only conatins digits
-	seed = /^\d+$/.test(seed) ? seed : randomNumber();
+	let staticSeed = true
+	if (!/^\d+$/.test(seed)) {
+		seed = randomNumber();
+		staticSeed = false
+	}
 	roomID = randomNumber();
 
 	console.log("Creating room with code: " + roomID, " and seed: " + seed);
 
 	//create and save room instance
-	allRooms[roomID] = new Room(roomID, seed,io);
+	allRooms[roomID] = new Room(roomID, seed ,staticSeed ,io);
 	
 	joinRoom.call(socket, roomID);
 

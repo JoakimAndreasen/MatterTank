@@ -1,7 +1,8 @@
 class Room {
-	constructor(id, seed, io) {
+	constructor(id, seed, staticSeed, io) {
 		this.id = id;
 		this.seed = seed;
+		this.staticSeed = staticSeed
 		this.io = io;
 		this.gameState = "PLAYING";
 		this.players = [];
@@ -58,9 +59,15 @@ class Room {
 		}
 	}
 	startGame() {
-		this.gameState = "PLAYING";
-		this.deadPlayers = [];
-		this.io.in(this.id).emit("newRound", "Game Starting");
+		if(this.players.length > 1){
+			this.gameState = "PLAYING";
+			this.deadPlayers = [];
+			this.io.in(this.id).emit("newRound", "Game Starting");
+		}
+		else{
+			console.log('this.players.length')
+			this.io.in(this.id).emit("error", "You can't start a game with only one player!",'error');
+		}
 	}
 	playerDied(socket) {
 		let currentPlayer = this.deadPlayers.find(id => id === socket.id);
@@ -73,6 +80,13 @@ class Room {
 			}
 		};	
 	}
+
+	randomNumber() {
+		let start = 10000,
+			range = 99999;
+		return String(Math.floor(Math.random() * (range - start) + start));
+	}
+
 	newRound() {
 		this.gameState = "PAUSED";
 		let scoreToAdd = 1;
@@ -82,9 +96,14 @@ class Room {
 		});
 		let IDs = this.players.map(player => player.id);
 		let winnerID = IDs.find(id => !this.deadPlayers.includes(id));
+
+		if(!this.staticSeed){
+			this.seed = this.randomNumber()
+		}
+
 		if (winnerID) {
 			let winner = this.players.find(player => player.id === winnerID);
-			this.io.in(this.id).emit("newRound",winner.username);
+			this.io.in(this.id).emit("newRound",{winner: winner.username, seed: this.seed});
 			winner.score += scoreToAdd;
 		}
 		this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());

@@ -52,9 +52,9 @@ socket.on("joinedRoom", (roomData) => {
 	//set spawn position
 	player.setStartingPos(roomData.playerAmount)
 
-	if (roomData.playerAmount == 4) {
-		startGameButton.style.display = "block";
-	}
+	// if (roomData.playerAmount == 4) {
+	// 	startGameButton.style.display = "block";
+	// }
 	
 	removeOpponents()
 	regenerateLevel(roomData.seed)
@@ -109,3 +109,4 @@ socket.on("playerDied", (id) => {
 socket.on("updateLobbyInfo", updateLobbyInfo);
 
 socket.on("newRound", newRound);
+socket.on("error", errorMessage => notification(errorMessage,'error'));

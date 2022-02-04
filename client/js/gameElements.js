@@ -149,11 +149,12 @@ function showWinner(name) {
 	}, 2000);
 }
 
-function newRound(winner) {
+function newRound(newRoundData) {
 	console.log("New round");
-	if (winner) {showWinner(winner)}
+	if (newRoundData.winner) {showWinner(newRoundData.winner)}
 	pausePlayerControl(3);
 	countDownFrom(3);
+	regenerateLevel(newRoundData.seed)
 	resetLevel();
 	
 }
