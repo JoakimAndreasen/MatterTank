@@ -7,7 +7,6 @@
 			<link rel="icon" href="./assets/favicon - rc.png">
 			<title>Tankz</title>
 			<link rel="stylesheet" href="./css/style.css">
-
         <script src="./lib/socket.io.js"></script>
         <script src="./lib/decomp.min.js" type="text/javascript"></script>
         <script src="./lib/matter.min.js"></script>
@@ -95,23 +94,24 @@
       </div>
       <div class="container"> 
         <div id="notifications"></div>
-        <div class="containerFields">
+        <div class="containerFields right">
           <!--Current lobby-->
           <div class="box">
             <h2>Current Lobby</h2>
             <div class="fields currentLobby">
-              <div class="miniFields">
-                <h3>Lobby Code</h3>
-                <p id="lobbyCode">1234567</p>
-              </div>
-              <div class="miniFields">
-                <h3>Seed</h3>
-                <p id="seedText">2222</p>
-              </div>
+              <button class="miniFields">
+                <p>
+                  Lobby Code <br>
+                  <span id="lobbyCode">1234567</span></p>
+              </button>
+              <button class="miniFields">
+                <p>Seed <br>
+                <span id="seedText">2222</span></p>
+              </button>
             </div>
           </div>
           <!--Chat-->
-          <div class="box tall">
+          <div class="box" id="chat">
             <h2>Chat</h2>
             <div id = message-container></div>
             <form  id="send-container">
