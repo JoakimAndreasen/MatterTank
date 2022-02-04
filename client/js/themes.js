@@ -1,4 +1,4 @@
-const themes = {
+let themes = {
     dark: {
         title: "#9c9c9c",
         background: "#111111",
