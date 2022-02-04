@@ -13,7 +13,7 @@ let themes = {
             text: "#494949",
             background: "#070707",
             field: "#14151f",
-            fieldHover: "#333333"
+            fieldHover: "#7768AE"
         }
     },
     light: {
@@ -30,7 +30,7 @@ let themes = {
             text: "#ffffff",
             background: "#fafafa",
             field: "#5694FF",
-            fieldHover: "#000000"
+            fieldHover: "#FF5666"
         }
     },
     colorful: {
@@ -48,6 +48,23 @@ let themes = {
             background: "#119200",
             field: "#0015ff",
             fieldHover: "#8c00ff"
+        }
+    },
+    prettier: {
+        title: "#9c9c9c",
+        background: "#111111",
+        game: {
+            background: "#000000",
+            border: "#E15554"
+        },
+        scrollbar: "#3BB273",
+        scrollbarHover: "#E1BC29",
+        card: {
+            title: "#9c9c9c",
+            text: "#ffffff",
+            background: "#070707",
+            field: "#4D9DE0",
+            fieldHover: "#7768AE"
         }
     }
 }
@@ -68,6 +85,7 @@ function changeTheme(theme) {
     r.style.setProperty('--card-text', theme.card.text);
     r.style.setProperty('--card-background', theme.card.background);
     r.style.setProperty('--card-field', theme.card.field);
+    r.style.setProperty('--card-field-hover', theme.card.fieldHover);
 
     //Set game background color
     render.options.background = theme.game.background;
@@ -91,4 +109,9 @@ function lightTheme() {
 function colorfulTheme() {
     localStorage.setItem('theme', JSON.stringify(themes.colorful));
     changeTheme(themes.colorful);
+}
+
+function prettierTheme() {
+    localStorage.setItem('theme', JSON.stringify(themes.prettier));
+    changeTheme(themes.prettier);
 }
