@@ -16,7 +16,7 @@ input.addEventListener("keyup", function(event) {
 appendMessage('You joined')
 
 socket.on('chat-message', data => {
-    appendMessage(`${data.username}: ${data.message}`)
+    appendMessage(`${data.username}: ${data.message}`, 'left')
 })
 
 socket.on('user-connected', name => {
@@ -27,12 +27,17 @@ messageForm.addEventListener('submit', e => {
     e.preventDefault()
     const message = messageInput.value
     socket.emit('send-chat-message', message)
-    appendMessage(message)
+    appendMessage(message, "right")
     messageInput.value = ''
 })
 
-function appendMessage(message) {
+function appendMessage(message, side) {
     const messageElement = document.createElement('div')
+    if (side === 'left') {
+        messageElement.style.textAlign = 'left'
+    } else if (side === 'right') {
+        messageElement.style.textAlign = 'right'
+    }
     messageElement.innerText = message
     messageContainer.append(messageElement)
 }
