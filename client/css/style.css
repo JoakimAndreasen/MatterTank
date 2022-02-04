@@ -283,6 +283,7 @@ input[type=number] {
     width: 40em;
     transform: translateX(-50%);
     max-height: 20em;
+    text-align: center;
 }
 .notification {
 
