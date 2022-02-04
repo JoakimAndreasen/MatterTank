@@ -4,13 +4,13 @@ class Player {
 		this.body = createTank(this.tankSize);
 		this.startingPosition = { x: 100, y: 100 };
 		this.color = "hsl()";
-		this.bulletspeed = 0.01;
+		this.bulletspeed = 15;
 		this.bullets = [];
-		this.driveSpeed = 1;
+		this.driveSpeed = 3;
 		this.dir = 1;
 		this.health = 100;
 		this.state = "alive";
-		this.rotationSpeed = 1;
+		this.rotationSpeed = 3;
 		this.canMove = true;
 		this.canFire = true;
 	}
@@ -51,7 +51,7 @@ class Player {
 		if (this.state != "dead" && this.canFire) {
 			let direction = this.getDirection();
 			let pos = Vector.add(this.body.position, Vector.mult(direction, 40));
-			let velocity = Vector.mult(direction, 7);
+			let velocity = Vector.mult(direction, this.bulletspeed);
 			let bullet = new Bullet(pos, velocity);
 			this.bullets.push(bullet);
 			Matter.World.add(engine.world, bullet.body);
