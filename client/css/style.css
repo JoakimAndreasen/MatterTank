@@ -123,13 +123,12 @@ p {
 .containerFields {
     width: 85%;
     height: 100%;
-    
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 1fr);
     justify-items: center;
     row-gap: 2vh;
-    justify-content: center;
+    justify-content: space-evenly;  
 }
 .containerFields.right {
     grid-template-rows: repeat(2, 1fr) 5em;
@@ -145,8 +144,6 @@ p {
     justify-items: center;
     background-color: var(--card-background);
     border-radius: 30px;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
     color: #757575;
     height: 15vh;    
 }
