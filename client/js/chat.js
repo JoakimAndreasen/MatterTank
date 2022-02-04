@@ -3,6 +3,16 @@ const messageForm = document.getElementById('send-container')
 const messageInput = document.getElementById('message-input')
 
 
+var input = document.getElementById("message-input");
+
+input.addEventListener("keyup", function(event) {
+  if (event.key === 'Enter') {
+      console.log('test')
+    // event.preventDefault();
+    // document.getElementById("send-button").click();
+  }
+});
+
 appendMessage('You joined')
 
 socket.on('chat-message', data => {
