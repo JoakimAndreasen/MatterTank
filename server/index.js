@@ -8,9 +8,11 @@ const io = require("socket.io")(3000,options);
 io.on("connection", (socket) => {
 	console.log(socket.id, "joined the server");
 	socket.data.currentRoom = "";
+	socket.data.username = "";
+
+	socket.on("updateUsername", (username) => {socket.data.username = username});
 
 	socket.on("create-room", (seed) => {createRoom(socket,seed,io)});
-
 	socket.on("join-room", joinRoom);
 	socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});
 	socket.on("playerDied", () =>{callRoomFunction(socket,"playerDied")});

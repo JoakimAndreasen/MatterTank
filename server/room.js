@@ -3,7 +3,7 @@ class Room {
 		this.id = id;
 		this.seed = seed;
 		this.io = io;
-		this.gameState = "UNBORN";
+		this.gameState = "PLAYING";
 		this.players = [];
 		this.deadPlayers = [];
 	}
@@ -22,10 +22,11 @@ class Room {
 			player.score += amount;
 		}
 	}*/
-	addPlayer(playerID) {
+	addPlayer(socket) {
 		let newPlayer = {
 			score: 0,
-			id: playerID
+			id: socket.id,
+			username: !!socket.data.username ? socket.data.username : "guest"
 		};
 		this.players.push(newPlayer);
 	}
@@ -36,26 +37,40 @@ class Room {
 	startGame() {
 		this.gameState = "PLAYING";
 		this.deadPlayers = [];
-		this.io.in(this.id).emit("newRound");
+		this.io.in(this.id).emit("newGame", this.getRoomData());
 	}
 	playerDied(socket) {
-		this.deadPlayers.push(socket.id);
-		socket.to(this.id).emit("playerDied", socket.id);
+		let currentPlayer = this.deadPlayers.find(id => id === socket.id);
+		if (!currentPlayer && this.gameState === "PLAYING") {
+			this.deadPlayers.push(socket.id);
+			socket.to(this.id).emit("playerDied", socket.id);
 
-		if (this.deadPlayers.length == this.players.length - 1) { //if only one player is left
-			this.newRound();
-			this.io.in(this.id).emit("newRound");
-		}
+			if (this.deadPlayers.length >= this.players.length - 1) { //if only one player is left
+				this.newRound();
+			}
+		};
+
 			
 	}
 	newRound() {
+		this.gameState = "PAUSED";
 		let scoreToAdd = 1;
-		this.deadPlayers.forEach(id => {
+		this.deadPlayers.reverse().forEach(id => {
 			this.players.find(player => player.id === id).score += scoreToAdd;
 			scoreToAdd++;
 		});
+		let IDs = this.players.map(player => player.id);
+		let winnerID = IDs.find(id => !this.deadPlayers.includes(id));
+		if (winnerID) {
+			let winner = this.players.find(player => player.id === winnerID);
+			this.io.in(this.id).emit("newRound",winner.username);
+			winner.score += scoreToAdd;
+		}
 		this.io.in(this.id).emit("updateLobbyInfo", this.players);
 		this.deadPlayers = [];
+		setTimeout(() => {
+			this.gameState = "PLAYING";
+		}, 2000);
 	}
 }
 

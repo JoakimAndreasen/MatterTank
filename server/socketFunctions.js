@@ -35,7 +35,7 @@ function leaveCurrentRoom(socket) {
 	if (currentRoom != "") {
 		allRooms[currentRoom].removePlayer(socket.id);
 		socket.leave(currentRoom);
-		socket.to(currentRoom).emit("leftRoom", allRooms[roomID].getRoomData(),socket.id);
+		socket.to(currentRoom).emit("leftRoom",socket.id);
 		replyToSocket(socket, "Left Room", "success");
 	}
 }
@@ -47,7 +47,7 @@ function joinRoom(roomID) {
 		socket.join(roomID);
 		socket.data.currentRoom = roomID;
 		
-		allRooms[roomID].addPlayer(socket.id);
+		allRooms[roomID].addPlayer(socket);
 		console.log(socket.id + " joined room " + roomID);
 		socket.emit("joinedRoom", allRooms[roomID].getRoomData());
 		replyToSocket(socket,"Joining room " + roomID, "success");
