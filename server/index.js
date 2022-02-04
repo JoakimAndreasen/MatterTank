@@ -8,7 +8,7 @@ const io = require("socket.io")(3000,options);
 io.on("connection", (socket) => {
 	console.log(socket.id, "joined the server");
 	socket.data.currentRoom = "";
-	socket.data.username = "";
+	socket.data.username = "Guest";
 
 	socket.on("updateUsername", (username) => {socket.data.username = username});
 
@@ -29,9 +29,10 @@ io.on("connection", (socket) => {
 		}
 	});
 
-	
-
-
+	socket.on('send-chat-message',message => {
+        socket.to(socket.data.currentRoom).emit('chat-message', {message: message, username: socket.data.username})
+		console.log(socket.data.username)
+    })
 
 	socket.on("disconnecting", (reason) => {
 		leaveCurrentRoom(socket);
