@@ -2,13 +2,13 @@ let screenSize = 1000;
 
 let socket = io.connect("http://localhost:3000");
 socket.on("connect_error", (err) => {
-	if (err = "xhr poll error") console.log("Couldn't connect to server... trying again."); 
+	if ((err = "xhr poll error"))
+		console.log("Couldn't connect to server... trying again.");
 });
 
 socket.on("connect", () => {
 	notification("Connected to server!", "success");
 });
-
 
 var Engine = Matter.Engine,
 	Render = Matter.Render,
@@ -21,7 +21,7 @@ var engine = Engine.create({
 	gravity: { x: 0, y: 0 },
 	timing: {
 		isFixed: true,
-	}
+	},
 });
 var render = Render.create({
 	canvas: document.getElementById("canvas"),
@@ -29,7 +29,7 @@ var render = Render.create({
 	options: {
 		width: screenSize,
 		height: screenSize,
-		background: 'rgb(0,0,0,255)',
+		background: "rgb(0,0,0,255)",
 		wireframes: false,
 	},
 });
@@ -47,12 +47,6 @@ let bullets = [];
 const d = new Date();
 let time = d.getSeconds();
 powerups = [];
-
-powerups.push(new speedBoost(500, 100));
-powerups.push(new speedBoost(300, 100));
-
-//let powerup = new Powerup(100,100,);
-// add all of the bodies to the world
 Composite.add(engine.world, [
 	player.body,
 	gridComposite,
@@ -60,7 +54,7 @@ Composite.add(engine.world, [
 	opponentsComposite,
 ]);
 
-// run the renderer 
+// run the renderer
 Render.run(render);
 
 // create runner and run the engine

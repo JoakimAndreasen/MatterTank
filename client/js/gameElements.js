@@ -1,10 +1,10 @@
-
 //From underscore.js
 function debounce(func, wait, immediate) {
 	var timeout;
-	return function() {
-		var context = this, args = arguments;
-		var later = function() {
+	return function () {
+		var context = this,
+			args = arguments;
+		var later = function () {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
 		};
@@ -13,10 +13,9 @@ function debounce(func, wait, immediate) {
 		timeout = setTimeout(later, wait);
 		if (callNow) func.apply(context, args);
 	};
-};
+}
 
-
-function notification(message,type) {
+function notification(message, type) {
 	notifications.style.opacity = 1;
 
 	if (type === "success") {
@@ -27,9 +26,10 @@ function notification(message,type) {
 		notifications.classList.add("error");
 	}
 	notifications.textContent = message;
-	
-	setTimeout(() => {notifications.style.opacity = 0},6000)
 
+	setTimeout(() => {
+		notifications.style.opacity = 0;
+	}, 6000);
 }
 function collisions() {
 	let collisions = Matter.Detector.collisions(engine.world, player.body);
@@ -56,7 +56,7 @@ function clearBullets() {
 			Composite.remove(engine.world, bullet.body);
 		});
 	}
-	if (opponents.length !=0) { 
+	if (opponents.length != 0) {
 		opponents.forEach((opponent) => {
 			opponent.bullets.forEach((bullet) => {
 				Composite.remove(engine.world, bullet.body);
@@ -81,8 +81,8 @@ function regenerateLevel(seed) {
 			cell.reset();
 		});
 	});
-	let randFunc = randomSeededFunction(String(seed))
-	generateMaze(grid,randFunc);
+	let randFunc = randomSeededFunction(String(seed));
+	generateMaze(grid, randFunc);
 }
 
 function sendData() {
@@ -134,7 +134,7 @@ function resetLevel() {
 	pausePlayerCollision(2);
 	clearBullets();
 	player.reset();
-	
+
 	opponents.forEach((opponent) => {
 		opponent.reset();
 	});
@@ -149,19 +149,20 @@ function showWinner(name) {
 
 function newRound(newRoundData) {
 	console.log("New round");
-	if (newRoundData.winner) {showWinner(newRoundData.winner)}
+	if (newRoundData.winner) {
+		showWinner(newRoundData.winner);
+	}
 	pausePlayerControl(3);
 	countDownFrom(3);
-	regenerateLevel(newRoundData.seed)
+	regenerateLevel(newRoundData.seed);
 	resetLevel();
-	
 }
 
 function updateLobbyInfo(lobbyData) {
 	console.log(lobbyData);
 	playersInfo.innerHTML = "";
 	let players = lobbyData.players;
-	players.forEach(player => {
+	players.forEach((player) => {
 		let playerInfo = document.createElement("div");
 
 		let name = document.createElement("h2");
@@ -174,7 +175,6 @@ function updateLobbyInfo(lobbyData) {
 		playerInfo.appendChild(score);
 		playersInfo.appendChild(playerInfo);
 	});
-
 
 	lobbyCode.innerHTML = lobbyData.id;
 	seed.innerHTML = lobbyData.seed;
