@@ -152,6 +152,9 @@ function newRound(newRoundData) {
 	if (newRoundData.winner) {
 		showWinner(newRoundData.winner);
 	}
+	powerups.forEach((powerup) => {
+		powerup.die()
+	})
 	pausePlayerControl(3);
 	countDownFrom(3);
 	regenerateLevel(newRoundData.seed);

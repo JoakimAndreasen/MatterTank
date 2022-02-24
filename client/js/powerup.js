@@ -31,6 +31,10 @@ class PowerUp {
 	effect() {
 		console.log("No effect");
 	}
+
+	die() {
+		Matter.World.remove(engine.world, this.body);
+	}
 }
 
 class speedBoost extends PowerUp {

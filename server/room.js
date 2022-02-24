@@ -98,8 +98,8 @@ class Room {
 
 	spawnPowerUp() {
 		this.io.in(this.id).emit("spawnPowerup", {
-			x: Math.floor(Math.random() * 10) * 100,
-			y: Math.floor(Math.random() * 10) * 100,
+			x: (Math.floor(Math.random() * 5) * 200)+100,
+			y: (Math.floor(Math.random() * 5) * 200)+100,
 		});
 	}
 
@@ -126,10 +126,10 @@ class Room {
 		}
 		this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
 		this.deadPlayers = [];
-		this.spawnPowerUp();
 		setTimeout(() => {
 			this.gameState = "PLAYING";
 		}, 2000);
+		let powerupDelay = setInterval(() => this.spawnPowerUp() , 10000);
 	}
 }
 

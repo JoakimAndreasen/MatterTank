@@ -60,9 +60,8 @@ socket.on("playerDied", (id) => {
 	}
 });
 
-socket.on("spawnPowerup", (x, y) => {
+socket.on("spawnPowerup", ({x,y}) => {
 	powerups.push(new speedBoost(x, y));
-	console.log(x, y);
 });
 
 socket.on("updateLobbyInfo", updateLobbyInfo);

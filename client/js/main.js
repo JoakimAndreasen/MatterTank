@@ -1,14 +1,14 @@
 let screenSize = 1000;
 
-let socket = io.connect("http://localhost:3000");
+let socket = io.connect("http://10.74.68.16:3000");
 socket.on("connect_error", (err) => {
-	if ((err = "xhr poll error"))
-		console.log("Couldn't connect to server... trying again.");
+	if (err = "xhr poll error") console.log("Couldn't connect to server... trying again."); 
 });
 
 socket.on("connect", () => {
 	notification("Connected to server!", "success");
 });
+
 
 var Engine = Matter.Engine,
 	Render = Matter.Render,
@@ -21,7 +21,7 @@ var engine = Engine.create({
 	gravity: { x: 0, y: 0 },
 	timing: {
 		isFixed: true,
-	},
+	}
 });
 var render = Render.create({
 	canvas: document.getElementById("canvas"),
@@ -29,7 +29,7 @@ var render = Render.create({
 	options: {
 		width: screenSize,
 		height: screenSize,
-		background: "rgb(0,0,0,255)",
+		background: 'rgb(0,0,0,255)',
 		wireframes: false,
 	},
 });
@@ -46,7 +46,9 @@ let opponents = [];
 let bullets = [];
 const d = new Date();
 let time = d.getSeconds();
-powerups = [];
+let powerups = [];
+
+// add all of the bodies to the world
 Composite.add(engine.world, [
 	player.body,
 	gridComposite,
@@ -59,12 +61,10 @@ Render.run(render);
 
 // create runner and run the engine
 var runner = Runner.create();
-
-// call tick on the runner to run the engine
+//Runner.run(runner, engine);
 setInterval(() => {
 	Matter.Runner.tick(runner, engine, 1000 / 60);
 }, 16);
-
 //Generates a maze from the mazeGenerator.js file
 generateMaze(grid);
 
