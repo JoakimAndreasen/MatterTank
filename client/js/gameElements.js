@@ -17,18 +17,18 @@ function debounce(func, wait, immediate) {
 
 
 function notification(message,type) {
-	let notification = document.createElement("p");
-	notification.innerHTML = message;
-	notification.classList.add("notification");
+	notifications.style.opacity = 1;
+
 	if (type === "success") {
-		notification.classList.add("success");
+		notifications.classList.remove("error");
+		notifications.classList.add("success");
 	} else if (type === "error") {
-		notification.classList.add("error");
+		notifications.classList.remove("success");
+		notifications.classList.add("error");
 	}
-	notifications.appendChild(notification);
+	notifications.textContent = message;
 	
-	setTimeout(() => {notification.style.opacity = 0},6000)
-	setTimeout(() => {notification.style.display = "none"},6450)
+	setTimeout(() => {notifications.style.opacity = 0},6000)
 
 }
 function collisions() {
@@ -120,7 +120,6 @@ function pausePlayerControl(n) {
 }
 
 function countDownFrom(n) {
-	let countDown = document.getElementById("countDown");
 	countDown.innerHTML = n;
 	if (n > 0) {
 		setTimeout(() => {
@@ -142,7 +141,6 @@ function resetLevel() {
 }
 
 function showWinner(name) {
-	let winnerText = document.getElementById("winnerText");
 	winnerText.innerHTML = name + " wins!";
 	setTimeout(() => {
 		winnerText.innerHTML = "";
@@ -177,6 +175,7 @@ function updateLobbyInfo(lobbyData) {
 		playersInfo.appendChild(playerInfo);
 	});
 
+
 	lobbyCode.innerHTML = lobbyData.id;
-	seedText.innerHTML = lobbyData.seed;
+	seed.innerHTML = lobbyData.seed;
 }

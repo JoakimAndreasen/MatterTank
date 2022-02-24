@@ -7,19 +7,20 @@
 			<link rel="icon" href="./assets/favicon - rc.png">
 			<title>Tankz</title>
 			<link rel="stylesheet" href="./css/style.css">
-      <script src="./lib/socket.io.js"></script>
-      <script src="./lib/decomp.min.js" type="text/javascript"></script>
-      <script src="./lib/matter.min.js"></script>
-      <script src="./js/Player.js"></script>
-      <script src="./js/map.js"></script>
-      <script src="./js/mazeGenerator.js"></script>
-      <script src="./js/powerup.js"></script>
-      <script src="./js/gameElements.js"></script>
-      <script src="./js/keypresses.js"></script>
-      <script src="./js/themes.js"></script>
-      <script src="./js/main.js" defer></script>
-      <script src="./js/menu.js" defer></script>
-      <script src="./js/chat.js" defer></script>
+        <script src="./lib/socket.io.js"></script>
+        <script src="./lib/decomp.min.js" type="text/javascript"></script>
+        <script src="./lib/matter.min.js"></script>
+        <script src="./js/Player.js"></script>
+        <script src="./js/map.js"></script>
+        <script src="./js/mazeGenerator.js"></script>
+        <script src="./js/powerup.js"></script>
+        <script src="./js/gameElements.js"></script>
+        <script src="./js/keypresses.js"></script>
+		    <script src="./js/themes.js"></script>
+        <script src="./js/main.js" defer></script>
+        <script src="./js/socketFunctions.js" defer></script>
+        <script src="./js/menu.js" defer></script>
+        <script src="./js/chat.js" defer></script>
     </head>
     <body>
       <div class="container" >
@@ -99,14 +100,14 @@
           <div class="box">
             <h2>Current Lobby</h2>
             <div class="fields currentLobby">
-              <button class="miniFields">
+              <button id="lobbyCodeButton" class="miniFields">
                 <p>
                   Lobby Code <br>
                   <span id="lobbyCode">1234567</span></p>
               </button>
-              <button class="miniFields">
+              <button id="seedButton" class="miniFields">
                 <p>Seed <br>
-                <span id="seedText">2222</span></p>
+                <span id="seed">2222</span></p>
               </button>
             </div>
           </div>
