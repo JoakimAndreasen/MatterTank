@@ -1,16 +1,6 @@
 
 
 //Gets the chat form, input and container from the HTML document
-let createLobbyButton = document.getElementById("createLobbyButton");
-let seedInput = document.getElementById("seedInput");
-let notafications = document.getElementById("notifications");
-let startGameButton = document.getElementById("startGameButton");
-let playersInfo = document.getElementById("playersInfo");
-let lobbyCode = document.getElementById("lobbyCode");
-let seedText = document.getElementById("seedText");
-
-let joinLobbyInput = document.getElementById("joinLobbyInput");
-let usernameInput = document.getElementById("usernameInput");
 
 let sendUsername = debounce( (e) => {
 	if (usernameInput.value){
