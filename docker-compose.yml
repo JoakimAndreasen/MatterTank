@@ -1,0 +1,12 @@
+version: "3"
+services:
+  tankz:
+    image: nginx:alpine
+    ports:
+      - "85:80"
+    volumes:
+      - ./client:/usr/share/nginx/html
+    # depends_on:
+    #   - "server"
+  # server:
+  #   image: postgres
