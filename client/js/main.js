@@ -60,15 +60,17 @@ Composite.add(engine.world, [
 	opponentsComposite,
 ]);
 
-// run the renderer
+// run the renderer 
 Render.run(render);
 
 // create runner and run the engine
 var runner = Runner.create();
-//Runner.run(runner, engine);
+
+// call tick on the runner to run the engine
 setInterval(() => {
 	Matter.Runner.tick(runner, engine, 1000 / 60);
 }, 16);
+
 //Generates a maze from the mazeGenerator.js file
 generateMaze(grid);
 

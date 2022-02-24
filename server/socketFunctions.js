@@ -20,7 +20,7 @@ function createRoom(socket,seed,io) {
 	console.log("Creating room with code: " + roomID, " and seed: " + seed);
 
 	//create and save room instance
-	allRooms[roomID] = new Room(roomID, seed ,staticSeed ,io);
+	allRooms[roomID] = new Room(roomID, seed, staticSeed, io);
 	
 	joinRoom.call(socket, roomID);
 

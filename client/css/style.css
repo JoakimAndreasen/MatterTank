@@ -396,3 +396,11 @@ input[type=number] {
 #startGameButton {
     width: 80%;
 }
+
+.success {
+    color: green!important;
+}
+
+.error {
+    color: red!important;
+}
