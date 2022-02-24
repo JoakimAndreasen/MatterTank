@@ -340,7 +340,7 @@ input[type="number"] {
 #playersInfo {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
 	width: 70%;
 	padding: 1vh;
 }
