@@ -1,6 +1,6 @@
 let screenSize = 1000;
 
-let socket = io.connect("http://10.74.68.16:3000");
+let socket = io.connect("https://server.tankz.dk");
 socket.on("connect_error", (err) => {
 	if (err = "xhr poll error") console.log("Couldn't connect to server... trying again."); 
 });
