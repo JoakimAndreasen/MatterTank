@@ -24,9 +24,9 @@ function randomSeededFunction(seed) {
     return mulberry32(seed());
 }
 //generate maze "Iterative implementation" at https://en.wikipedia.org/wiki/Maze_generation_algorithm 
-function generateMaze(grid, randomFunction=Math.random) {
-    xSize = grid.length;
-    ySize = grid[0].length;
+function generateMaze(grid, randomFunction=Math.random) { 
+    let xSize = grid.length;
+    let ySize = grid[0].length;
     //start at random cell
     let start = grid[0][0];
     start.visited = true;
@@ -69,3 +69,5 @@ function generateMaze(grid, randomFunction=Math.random) {
         } 
     }
 }
+
+export {generateMaze, randomSeededFunction};

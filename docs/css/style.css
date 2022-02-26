@@ -27,7 +27,6 @@
 }
 
 * {
-	/*overflow: hidden;*/
 	margin: 0;
 	font-family: "asap";
 }
@@ -182,17 +181,22 @@ p {
 	height: 60;
 }
 
+.miniFields p {
+	white-space: nowrap;
+}
+
 .themes {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	gap: 10px;
+	column-gap: 10px;
 	overflow: auto;
 }
 
 .theme {
-	width: 25%;
+	width: 45%;
+	
 }
 
 .currentLobby {
@@ -256,24 +260,22 @@ a:active:after {
 }
 
 input {
+	box-sizing: border-box;
 	height: 100%;
 	max-height: 3em;
 	width: 100%;
 	text-align: left;
 	border: none;
-	border-radius: 3px;
-	outline: none;
+
+
 	padding: 0;
 	padding-left: 1vh;
-
+	padding-right: 1vh;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
 	font-size: 2vh;
 	border-radius: 10px;
-	outline: none;
-	-webkit-appearance: none;
-	-ms-appearance: none;
-	-moz-appearance: none;
+
 	appearance: none;
 	background: var(--card-field);
 	color: var(--card-text);
@@ -331,13 +333,27 @@ input[type="number"] {
 
 .credits {
 	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.credits h3 {
+	margin-bottom: 0.5em;
+}
+.credits div {
+	padding: 0.5em;
 }
 
 .credit {
 	background-color: var(--card-field);
-	margin: 0 0.25em;
+	margin: 0.25em;
+	padding: 0.25em;
 	text-decoration: none;
+	margin-top: 100em;
 }
+
 
 #playersInfo {
 	display: flex;
@@ -352,34 +368,44 @@ input[type="number"] {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	overflow-x: hidden;
 }
 
-#chat #message-container {
+#chat .fields {
+	height: auto;
+}
+
+#chat #messageContainer {
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 0.5em;
 	height: 45vh;
-	width: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
+	width: 90%;
+	word-wrap: break-word;
+	
 }
 
-#message-container > :first-child {
+#messageContainer > :first-child {
 	margin-top: auto !important;
 }
 
-#send-container {
+#messageContainer > * {
+	margin-bottom: 0.5em;
+}
+
+#sendContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 }
-#send-container button {
-	width: 30%;
-	border-radius: 0 0 30px 0;
+#sendContainer button {
+	width: 4em;
+	border-left: 1px solid var(--card-text);
+	border-radius: 0 10px 10px 0;
 }
 
-#send-container input {
+#sendContainer input {
 	width: 70%;
 	border-radius: 0 0 0 30px;
 }

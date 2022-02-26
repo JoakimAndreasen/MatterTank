@@ -68,15 +68,14 @@ let themes = {
         }
     }
 }
+import {render} from './matterComponents.js';
+import {grid, border} from './matterComponents.js';
+import {setGridColor,setBorderColor } from "./grid.js";
 
-//Get the last applied theme
-let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : JSON.stringify(themes.dark);
-currentTheme = JSON.parse(currentTheme);
-
-let r = document.querySelector(':root');
 
 /*Theme changer*/
 function changeTheme(theme) {
+    let r = document.querySelector(':root');
     r.style.setProperty('--title', theme.title);
     r.style.setProperty('--background', theme.background);
     r.style.setProperty('--scrollbar', theme.scrollbar);
@@ -92,7 +91,7 @@ function changeTheme(theme) {
 
     //Set border colors
     setGridColor(grid, theme.game.border);
-    setBorderColor(Border, theme.game.border);
+    setBorderColor(border, theme.game.border);
 }
 
 /*Themes*/
@@ -115,3 +114,17 @@ function prettierTheme() {
     localStorage.setItem('theme', JSON.stringify(themes.prettier));
     changeTheme(themes.prettier);
 }
+
+function setupTheme() {
+    darkThemeButton.onclick = darkTheme;
+    lightThemeButton.onclick = lightTheme;
+    colorfulThemeButton.onclick = colorfulTheme;
+    prettierThemeButton.onclick = prettierTheme;
+
+    //Get the last applied theme
+    let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : JSON.stringify(themes.dark);
+    currentTheme = JSON.parse(currentTheme);
+    changeTheme(currentTheme);
+}
+
+export {setupTheme};

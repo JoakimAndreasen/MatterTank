@@ -8,12 +8,12 @@ const io = require("socket.io")(3000,options);
 io.on("connection", (socket) => {
 	console.log(socket.id, "joined the server");
 	socket.data.currentRoom = "";
-	socket.data.username = "Guest";
 
 	socket.on("updateUsername", (username) => {callRoomFunction(socket,"updateUsername",username)});
+	socket.on("updateColor", (color) => {callRoomFunction(socket,"updateColor",color)});
 
 	socket.on("create-room", (seed) => {createRoom(socket,seed,io)});
-	socket.on("join-room", joinRoom);
+	socket.on("join-room", (roomID) => {joinRoom(roomID,socket,io)});
 	socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});
 	socket.on("playerDied", () =>{callRoomFunction(socket,"playerDied")});
 

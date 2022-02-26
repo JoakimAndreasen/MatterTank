@@ -22,7 +22,7 @@ function createRoom(socket,seed,io) {
 	//create and save room instance
 	allRooms[roomID] = new Room(roomID, seed, staticSeed, io);
 	
-	joinRoom.call(socket, roomID);
+	joinRoom(roomID, socket, io);
 
 }
 
@@ -44,20 +44,22 @@ function leaveCurrentRoom(socket) {
 	}
 }
 
-function joinRoom(roomID) {
-	const socket = this;
-	leaveCurrentRoom(socket);
-	if (allRooms[roomID] && allRooms[roomID].players.length < 4) {
-		socket.join(roomID);
-		socket.data.currentRoom = roomID;
-		
-		allRooms[roomID].addPlayer(socket);
-		console.log(socket.id + " joined room " + roomID);
-		socket.emit("joinedRoom", allRooms[roomID].getRoomData());
-		callRoomFunction(socket,"getAllMessages")
-		replyToSocket(socket,"Joining room " + roomID, "success");
-	} else {
-		replyToSocket(socket,"Room not found or is full", "error");
+function joinRoom(roomID,socket,io) {
+	if (socket.data.currentRoom != roomID) {
+		leaveCurrentRoom(socket);
+		if (allRooms[roomID] && allRooms[roomID].players.length < 4) {
+			socket.join(roomID);
+			socket.data.currentRoom = roomID;
+			
+			allRooms[roomID].addPlayer(socket);
+			console.log(socket.id + " joined room " + roomID);
+			socket.emit("joinedRoom", allRooms[roomID].getRoomData());
+			callRoomFunction(socket,"getAllMessages")
+			replyToSocket(socket,"Joining room " + roomID, "success");
+			io.in(roomID).emit("updateLobbyInfo", allRooms[roomID].getRoomData());
+		} else {
+			replyToSocket(socket,"Room not found or is full", "error");
+		}
 	}
 }
 

@@ -1,3 +1,5 @@
+import {gameInstance} from "./main.js";
+
 let keysDown = new Set();
 
 document.addEventListener(
@@ -5,10 +7,10 @@ document.addEventListener(
 	(e) => {
 		if (!e.repeat) {
 			if (e.key == " ") {
-				player.fire();
+				gameInstance.player.fire();
 			} else if (e.key == "b") {
 				for (let x = 0; x < 10; x++) {
-					player.fire();
+					gameInstance.player.fire();
 				}
 			} else {
 				keysDown.add(e.key);
@@ -20,6 +22,7 @@ document.addEventListener(
 document.addEventListener("keyup", (e) => keysDown.delete(e.key), false);
 
 function movement() {
+	let player = gameInstance.player;
 	if (keysDown.has("d")) player.rotate(0.15); //right
 	if (keysDown.has("a")) player.rotate(-0.15); //left
 	if (keysDown.has("w")) player.drive(0.025); //up
@@ -30,3 +33,4 @@ function movement() {
 
 }
 
+export {movement};

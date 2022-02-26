@@ -38,12 +38,30 @@ class Room {
 		});
 	}
 
+	getNextEmptyPlayerNumber() {
+		let playerNumbers = this.players.map((player) => player.number);
+		let nextEmptyPlayerNumber = 1;
+		while (playerNumbers.includes(nextEmptyPlayerNumber)) {
+			nextEmptyPlayerNumber++;
+		}
+		return nextEmptyPlayerNumber;
+	}
+
+	updatePlayerNumbers() {
+		this.players.forEach((player) => {
+			let nextNumber = this.getNextEmptyPlayerNumber()
+			player.number = nextNumber > player.number ? player.number : nextNumber;	
+			
+		});
+	}
+
 	addPlayer(socket) {
 		let newPlayer = {
 			score: 0,
 			id: socket.id,
-			username:
-				socket.data.username != "Guest" ? socket.data.username : "Guest",
+			color: socket.data.color ?? "#00ff00",
+			number: this.getNextEmptyPlayerNumber(),
+			username: socket.data.username ?? "Guest" + Math.floor(Math.random() * 1000),
 		};
 		this.players.push(newPlayer);
 	}
@@ -64,6 +82,15 @@ class Room {
 			}
 			this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
 		}
+	}
+	updateColor(socket, color) {
+		socket.data.color = color;
+		let player = this.players.find((player) => player.id === socket.id);
+		if (player) {
+			player.color = color;
+		}
+		this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
+		
 	}
 	startGame() {
 		if (this.players.length > 1) {
@@ -104,6 +131,7 @@ class Room {
 	}
 
 	newRound() {
+		this.updatePlayerNumbers();
 		this.gameState = "PAUSED";
 		let scoreToAdd = 0;
 		this.deadPlayers.reverse().forEach((id) => {
@@ -121,7 +149,7 @@ class Room {
 			let winner = this.players.find((player) => player.id === winnerID);
 			this.io
 				.in(this.id)
-				.emit("newRound", { winner: winner.username, seed: this.seed });
+				.emit("newRound", { winner: winner.username, seed: this.seed});
 			winner.score += scoreToAdd;
 		}
 		this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
