@@ -157,7 +157,7 @@ class Room {
 		setTimeout(() => {
 			this.gameState = "PLAYING";
 		}, 2000);
-		let powerupDelay = setInterval(() => this.spawnPowerUp() , 10000);
+		//let powerupDelay = setInterval(() => this.spawnPowerUp() , 10000);
 	}
 }
 

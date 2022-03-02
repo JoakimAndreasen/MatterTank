@@ -21,7 +21,7 @@ function setupSocket(socket) {
 
 	socket.on("joinedRoom", (roomData) => {
 		let player = gameInstance.player;
-
+		console.log("joined room");
 		gameInstance.pausePlayerCollision();
 		let playerNumber = roomData.players.find((player) => player.id == socket.id).number
 		//set spawn position

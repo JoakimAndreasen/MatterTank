@@ -15,6 +15,7 @@ class Player extends Tank {
 		this.canMove = true;
 		this.canFire = true;
 		Matter.Body.setPosition(this.body, this.startingPosition);
+		Matter.Composite.add(engine.world, this.body);
 	}
 
 
