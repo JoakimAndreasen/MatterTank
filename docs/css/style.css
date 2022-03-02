@@ -399,6 +399,7 @@ input[type="number"] {
 	align-items: center;
 	width: 100%;
 }
+
 #sendContainer button {
 	width: 4em;
 	border-left: 1px solid var(--card-text);
