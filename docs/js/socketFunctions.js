@@ -45,7 +45,7 @@ function setupSocket(socket) {
 		console.log(gameInstance.opponents);
 		if (opponent) {
 			gameInstance.opponents.splice(gameInstance.opponents.indexOf(opponent), 1);
-			Matter.Composite.remove(engine.world, opponent.body);
+			Matter.Composite.remove(gameInstance.opponentComposite, opponent.body);
 		}
 	});
 	
