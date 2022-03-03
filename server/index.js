@@ -16,6 +16,9 @@ io.on("connection", (socket) => {
 	socket.on("join-room", (roomID) => {joinRoom(roomID,socket,io)});
 	socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});
 	socket.on("playerDied", () =>{callRoomFunction(socket,"playerDied")});
+	// socket.on("deletePowerup", ({pid}) =>{callRoomFunction(socket,"deletePowerup", {pid})});
+	socket.on("deletePowerup", (pid) =>{callRoomFunction(socket,"deletePowerup",pid)});
+
 
 	socket.on("updatePlayers", (playerData) => {
 		if (socket.data.currentRoom) {

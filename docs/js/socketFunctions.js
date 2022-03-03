@@ -81,11 +81,19 @@ function setupSocket(socket) {
 		}
 	});
 
-
-	
-	socket.on("spawnPowerup", ({x,y}) => {
-		gameInstance.powerups.push(new speedBoost(x, y));
+	socket.on("spawnPowerup", ({x,y, pid}) => {
+		gameInstance.powerups.push(new speedBoost(x, y, pid));
+		console.log(pid)
 	});
+
+	socket.on("deletePowerup", ({pid}) => {
+		let powerup = gameInstance.powerups.find((e) => e.id == pid)
+		console.log(pid, powerup)
+		if( powerup ){
+			powerup.die()
+		}
+	});
+
 
 	socket.on("updateLobbyInfo", updateLobbyInfo);
 

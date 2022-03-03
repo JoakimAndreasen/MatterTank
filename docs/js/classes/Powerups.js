@@ -2,13 +2,14 @@ import {engine} from "../matterComponents.js"
 import {createPowerup} from "../matterBodies.js"
 
 class PowerUp {
-	constructor(x, y) {
+	constructor(x, y, id) {
 		this.x = x;
 		this.y = y;
 		this.width = 50;
 		this.height = 50;
 		this.active = true;
 		this.body = createPowerup.call(this,{x, y}, this.width);
+		this.id = id
 		Matter.Composite.add(engine.world, this.body);
 	}
 
@@ -25,8 +26,8 @@ class PowerUp {
 	}
 }
 class speedBoost extends PowerUp {
-	constructor(x, y) {
-		super(x, y);
+	constructor(x, y, id) {
+		super(x, y, id);
 		this.imagePath = "../assets/images/powerup.png";
 	}
 	effect(player) {
@@ -40,8 +41,8 @@ class speedBoost extends PowerUp {
 }
 
 class laser extends PowerUp {
-	constructor(x, y) {
-		super(x, y);
+	constructor(x, y, id) {
+		super(x, y, id);
 		this.imagePath = "../assets/images/powerup.png";
 	}
 	effect(player) {

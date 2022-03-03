@@ -35,6 +35,8 @@ function collisions() {
 			}
 			if (powerup && playerBody) {
 				powerup.object.pickUp(player);
+				console.log(powerup.object.id)
+				socket.emit("deletePowerup",powerup.object.id)
 			}
 		});
 	}
