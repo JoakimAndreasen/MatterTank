@@ -4,7 +4,7 @@ import {Game} from "./classes/Game.js";
 let gameInstance = new Game();
 
 //socket
-let socket = io.connect("http://localhost:3000");
+let socket = io.connect("http://10.74.65.59:3000");
 
 import {setupSocket} from "./socketFunctions.js";
 setupSocket(socket);

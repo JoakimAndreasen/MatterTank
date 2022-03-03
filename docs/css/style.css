@@ -1,3 +1,9 @@
+/*Scroll Bar*/
+@import "scrollBar.css";
+
+/*Modal*/
+@import "modal.css";
+
 /*Fonts*/
 @font-face {
 	font-family: "noodle";
@@ -29,26 +35,6 @@
 * {
 	margin: 0;
 	font-family: "asap";
-}
-
-::-webkit-scrollbar {
-	width: 20px;
-}
-
-::-webkit-scrollbar-track {
-	background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-	background-color: var(--scrollbar);
-	border-radius: 20px;
-	border: 6px solid transparent;
-	background-clip: content-box;
-	transition: 0.5s ease-in-out;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background-color: var(--scrollbar-hover);
 }
 
 body {
@@ -144,6 +130,17 @@ p {
 	background-color: var(--card-background);
 	border-radius: 30px;
 	color: #757575;
+}
+
+.flex {
+	display: flex;
+	gap: 1em;
+	width: 100%;
+}
+
+.settingBox {
+	width: 100%;
+	gap: 1em;
 }
 
 .chatBox {
@@ -401,9 +398,9 @@ input[type="number"] {
 }
 
 #sendContainer button {
-	width: 4em;
+	width: 30%;
 	border-left: 1px solid var(--card-text);
-	border-radius: 0 10px 10px 0;
+	border-radius: 0 0 10px 0;
 }
 
 #sendContainer input {
