@@ -52,8 +52,33 @@ class Player extends Tank {
 			let bullet = new Bullet(pos, velocity);
 			this.bullets.push(bullet);
 			Matter.World.add(engine.world, bullet.body);
+			this.spawnMuzzleFlash(pos,direction);
 		}
 	}
+	spawnMuzzleFlash(pos,direction) {
+		let perpendicular = Matter.Vector.perp(direction);
+		let muzzlePos = Matter.Vector.add(pos, Matter.Vector.mult(perpendicular, -6));
+		Matter.Vector.add(muzzlePos, Matter.Vector.mult(direction, 40),muzzlePos);
+		let container = document.querySelector(".gameContainer");
+		let scale = container.offsetHeight  / 1000;
+		
+		let flash = document.createElement("img");
+		flash.style.height = "10px";
+		flash.style.width = "10px";
+		//flash.style.backgroundColor = "white";
+		flash.style.position = "absolute";
+		flash.style.zIndex = "1";
+		flash.style.top = muzzlePos.y * scale + "px";
+		flash.style.left = muzzlePos.x * scale + "px";
+		flash.style.transform = "rotate(" + (this.body.angle - (Math.PI/2)) + "rad) scale(5)";
+
+		flash.src = "../docs/assets/muzzleflash.gif";
+		setTimeout(() => {
+			container.removeChild(flash);
+		}, 100);
+		container.appendChild(flash);
+	}
+
 	resetPosition() {
 		Matter.Body.setPosition(this.body,this.startingPosition);
 		Matter.Body.setAngle(this.body,0);

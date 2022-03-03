@@ -74,6 +74,10 @@ class Room {
       this.players.findIndex((player) => player.id === playerID),
       1
     );
+	if (this.players.length <= 1) {
+		//if only one player is left
+		this.newRound();
+	}
   }
   updateUsername(socket, username) {
     if (username != "" || username != " ") {

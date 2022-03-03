@@ -90,6 +90,14 @@ p {
 	justify-items: center;
 }
 
+.gameContainer {
+	height: 100%;
+	width: auto;
+	position: relative;
+	max-height: 55vw;
+
+}
+
 #canvas {
 	height: 100%;
 	width: auto;
