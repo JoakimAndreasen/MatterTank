@@ -11,7 +11,7 @@ class Tank {
 		this.bullets = [];
 		this.health = 100;
 		this.state = "alive";
-		Matter.Composite.add(engine.world, this.body);
+		
 	}
 	updateColor(color) {
 		this.color = color;
@@ -27,7 +27,7 @@ class Tank {
 
 	getSecondaryColor() {
 		let HSLArray = hexToHSL(this.color);
-		return `hsl(${HSLArray[0]}, ${HSLArray[1]}%, ${HSLArray[2] - 1 > 0 ? HSLArray[2] - 15 : 0}%)`;
+		return `hsl(${HSLArray[0]}, ${HSLArray[1]}%, ${HSLArray[2] - 15 > 0 ? HSLArray[2] - 15 : 15}%)`;
 	}
 
 	die() {

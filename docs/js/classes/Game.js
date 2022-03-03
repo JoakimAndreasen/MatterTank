@@ -8,6 +8,8 @@ class Game {
         this.player = new Player();
         this.opponents = [];
         this.powerups = [];
+        this.opponentComposite = Matter.Composite.create();
+        Matter.Composite.add(engine.world, this.opponentComposite);
         generateMaze(grid);
     }
     

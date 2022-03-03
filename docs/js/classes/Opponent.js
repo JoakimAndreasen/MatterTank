@@ -2,6 +2,7 @@ import {createTank} from "../matterBodies.js";
 import {Bullet} from "./Bullet.js";
 import {engine} from "../matterComponents.js";
 import {Tank} from './Tank.js';
+import {gameInstance} from '../main.js';
 
 class Opponent extends Tank{
 	constructor(id) {
@@ -11,12 +12,21 @@ class Opponent extends Tank{
 		this.body.collisionFilter.mask = 0x0011;
 		this.position = { x: -100, y: -100 };
 		this.id = id;
+		Matter.Composite.add(gameInstance.opponentComposite, this.body);
+	}
+
+	die() {
+		this.state = "dead";
+		this.health = 0;
+		Matter.Composite.remove(gameInstance.opponentComposite, this.body);
 	}
 
 	reset() {
 		this.state = "alive";
 		this.health = 100;
-		Matter.World.add(engine.world, this.body);
+		if (gameInstance.opponentComposite.bodies.indexOf(this.body) === -1) {
+			Matter.Composite.add(gameInstance.opponentComposite, this.body);
+		}
 	}
 	update(position, angle) {
 		if (this.state !== "dead") {

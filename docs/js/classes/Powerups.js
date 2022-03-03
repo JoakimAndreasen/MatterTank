@@ -1,5 +1,6 @@
 import {engine} from "../matterComponents.js"
 import {createPowerup} from "../matterBodies.js"
+
 class PowerUp {
 	constructor(x, y) {
 		this.x = x;
