@@ -78,6 +78,7 @@ function createBullet(pos, velocity) {
 		label: "bullet",
 	});
 	Matter.Body.setVelocity(body, velocity);
+	body.object = this;
 	return body;
 }
 

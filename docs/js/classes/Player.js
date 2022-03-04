@@ -16,6 +16,8 @@ class Player extends Tank {
 		this.canFire = true;
 		Matter.Body.setPosition(this.body, this.startingPosition);
 		Matter.Composite.add(engine.world, this.body);
+		this.bulletDetector = Matter.Detector.create(engine.worl,this.body);
+		this.currentPowerupTimeout = [];
 	}
 
 
@@ -92,8 +94,11 @@ class Player extends Tank {
 		if (this.state === "dead") {
 			Matter.World.add(engine.world, this.body);
 			this.state = "alive";
-
 		}
+		this.currentPowerupTimeout.forEach(timeout => {
+			clearTimeout(timeout);
+		});
+		this.currentPowerupTimeout = [];
 	}
 	setStartingPos(n) {
 		switch (n) {

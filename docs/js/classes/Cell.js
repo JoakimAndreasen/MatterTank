@@ -18,6 +18,7 @@ function Cell(xSize, ySize, w,x,y) {
         if (wall) {
             wall.render.visible = false;
             wall.isSensor = true;
+            wall.collisionFilter.mask = 0x000;
         }
 
     }
@@ -27,6 +28,7 @@ function Cell(xSize, ySize, w,x,y) {
         this.object.bodies.forEach(element => {
             element.render.visible = true;
             element.isSensor = false;
+            element.collisionFilter.mask = 0x1111;
         });
 
     }

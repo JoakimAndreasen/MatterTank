@@ -17,11 +17,11 @@ function createRoom(socket,seed,io) {
 	}
 	roomID = randomNumber();
 
-	console.log("Creating room with code: " + roomID, " and seed: " + seed);
+	//console.log("Creating room with code: " + roomID, " and seed: " + seed);
 
 	//create and save room instance
 	allRooms[roomID] = new Room(roomID, seed, staticSeed, io);
-	
+	allRooms[roomID].newRound();
 	joinRoom(roomID, socket, io);
 
 }

@@ -20,6 +20,7 @@ function notification(message, type) {
 }
 import {engine} from "./matterComponents.js"
 import {socket} from "./main.js"
+
 function collisions() {
 	let player = gameInstance.player;
 	let collisions = Matter.Detector.collisions(engine.world, player.body);
@@ -27,6 +28,7 @@ function collisions() {
 		collisions.forEach((element) => {
 			let bodies = [element.parentA, element.parentB];
 			let bullet = bodies.find((body) => body.label == "bullet");
+
 			let powerup = bodies.find((body) => body.label == "powerup");
 			let playerBody = bodies.find((body) => body.label == "player");
 			if (bullet && playerBody) {
@@ -38,8 +40,25 @@ function collisions() {
 				console.log(powerup.object.id)
 				socket.emit("deletePowerup",powerup.object.id)
 			}
+
 		});
 	}
+}
+
+function registerBulletWallCollision() {
+	let collisions = Matter.Detector.collisions(gameInstance.bulletDetector);
+	
+
+	collisions.forEach(c => {
+		if(c.bodyA.label == "bullet") {
+			c.bodyA.object.deleteOnWallCollision()
+		} else if (c.bodyB.label == "bullet") {
+			c.bodyB.object.deleteOnWallCollision()
+		}
+		
+	});
+	
+	
 }
 
 function updateLobbyInfo(lobbyData) {
@@ -70,10 +89,10 @@ function updateLobbyInfo(lobbyData) {
 
 	lobbyCode.innerHTML = lobbyData.id;
 	seed.innerHTML = lobbyData.seed;
-	if (mainPlayer.number) gameInstance.player.setStartingPos(mainPlayer.number);
+	if (mainPlayer && mainPlayer.number) gameInstance.player.setStartingPos(mainPlayer.number);
 
 
 }
 
 
-export {notification, collisions, updateLobbyInfo}
+export {notification, collisions, updateLobbyInfo, registerBulletWallCollision}
