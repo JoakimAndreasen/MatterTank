@@ -210,6 +210,10 @@ p {
 	justify-content: space-around;
 }
 
+#startGameButton {
+	display:none;
+}
+
 button,
 a {
 	height: 100%;
