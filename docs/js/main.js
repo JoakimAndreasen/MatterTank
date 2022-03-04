@@ -5,7 +5,7 @@ import { Game } from "./classes/Game.js";
 let gameInstance = new Game();
 
 //socket
-let socket = io.connect("https://tankz-game.herokuapp.com:3000");
+let socket = io.connect("https://tankz-game.herokuapp.com");
 
 import { setupSocket } from "./socketFunctions.js";
 setupSocket(socket);
