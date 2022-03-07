@@ -129,17 +129,22 @@ class Room {
   }
 
   spawnPowerUp() {
-    let pid = String(this.randomNumber());
-    this.powerups.push(pid);
-    this.io.in(this.id).emit("spawnPowerup", {
-      x: Math.floor(Math.random() * 5) * 200 + 100,
-      y: Math.floor(Math.random() * 5) * 200 + 100,
-      pid: pid,
-    });
+    console.log(this.powerups.length,this.powerups)
+    if(this.powerups.length < 3){
+      let pid = String(this.randomNumber());
+      this.powerups.push(pid);
+      this.io.in(this.id).emit("spawnPowerup", {
+        x: Math.floor(Math.random() * 3) * 200 + 300,
+        y: Math.floor(Math.random() * 3) * 200 + 300,
+        pid: pid,
+      });
+    }
   }
 
   deletePowerup(socket,pid) {
-    this.powerups.pop(this.powerups.indexOf(pid))
+    console.log(this.powerups)
+    this.powerups.splice(this.powerups.indexOf(pid),1)
+    console.log(this.powerups)
     this.io.in(this.id).emit("deletePowerup", {pid});
   }
 

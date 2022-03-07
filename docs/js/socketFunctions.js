@@ -88,6 +88,7 @@ function setupSocket(socket) {
 	socket.on("deletePowerup", ({pid}) => {
 		let powerup = gameInstance.powerups.find((e) => e.id == pid)
 		if( powerup ){
+		console.log(powerup)
 			powerup.die()
 		}
 	});

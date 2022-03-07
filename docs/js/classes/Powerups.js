@@ -31,11 +31,11 @@ class speedBoost extends PowerUp {
 		this.imagePath = "../assets/images/powerup.png";
 	}
 	effect(player) {
-		player.driveSpeed = player.driveSpeed * 2;
-		player.rotationSpeed = player.rotationSpeed * 2;
+		player.driveSpeed ++;
+		player.rotationSpeed ++;
 		let timeout = setTimeout(() => {
-			player.driveSpeed = player.driveSpeed / 2;
-			player.rotationSpeed = player.rotationSpeed / 2;
+			player.driveSpeed --;
+			player.rotationSpeed --;
 		}, 5000);
 		player.currentPowerupTimeout.push(timeout);
 	}
