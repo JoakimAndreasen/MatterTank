@@ -1,6 +1,7 @@
 import {createBullet} from "../matterBodies.js";
 import {engine} from "../matterComponents.js"
 import {gameInstance} from "../main.js";
+
 class Bullet {
 	constructor(position, velocity, id) {
 		this.position = position;
@@ -38,6 +39,7 @@ class Bullet {
 	deleteOnWallCollision(){
 		this.currentBounces ++
 		if(this.currentBounces >= this.maxBounces){
+			gameInstance.player.bullets.pop()
 			this.remove()
 		}
 	}

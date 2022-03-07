@@ -9,6 +9,7 @@ class PowerUp {
 		this.height = 50;
 		this.active = true;
 		this.body = createPowerup.call(this,{x, y}, this.width);
+		this.body.render.fillStyle = "#43f"
 		this.id = id
 		Matter.Composite.add(engine.world, this.body);
 	}
