@@ -39,7 +39,7 @@ class Bullet {
 	deleteOnWallCollision(){
 		this.currentBounces ++
 		if(this.currentBounces >= this.maxBounces){
-			gameInstance.player.bullets.pop()
+			gameInstance.player.bullets = gameInstance.player.bullets.filter(bullet => bullet.id != this.id);
 			this.remove()
 		}
 	}
