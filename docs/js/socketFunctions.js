@@ -34,7 +34,9 @@ function setupSocket(socket) {
 		gameInstance.clearOpponents();
 		regenerateLevel(roomData.seed);
 		gameInstance.resetLevel();
-
+		if (usernameInput.value){
+			socket.emit("updateUsername", usernameInput.value);
+		}
 		updateLobbyInfo(roomData);
 	});
 

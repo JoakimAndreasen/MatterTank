@@ -51,6 +51,16 @@ class Opponent extends Tank{
 				}
 			});
 		}
+		//check for removed bullets
+		this.bullets = this.bullets.filter((bullet) => {
+			let bullet = bulletsData.find((e) => e.id == bullet.id);
+			if (!bullet) {
+				Matter.Composite.remove(engine.world, bullet.body);
+				return false;
+			} else {
+				return true;
+			}
+		});
 	}
 }
 export { Opponent };
