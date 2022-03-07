@@ -5,7 +5,7 @@ import {hexToHSL} from '../utils.js';
 class Tank {
 	constructor() {
 		this.tankSize = 50;
-		this.color = "#11820B";
+		this.color = "#1F35FF";
 		this.secondaryColor = this.getSecondaryColor();
 		this.body = createTank(this.tankSize, this.color, this.secondaryColor);
 		this.bullets = [];
