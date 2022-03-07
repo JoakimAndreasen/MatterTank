@@ -149,8 +149,14 @@ function createGrid(screenSize,size, w) {
 
 function createPowerup(pos, width) {
 	let body = Matter.Bodies.circle(pos.x, pos.y, width, {
-		isStatic: false,
+		isStatic: true,
 		label: "powerup",
+		collisionFilter: {
+			mask: 0x010
+		},
+		render: {
+			fillStyle: "#43f"
+		}
 
 	});
 	body.object = this;
