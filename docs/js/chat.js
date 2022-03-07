@@ -20,10 +20,13 @@ function setupChat(socket) {
 
     sendContainer.addEventListener('submit', e => {
         e.preventDefault()
+
         const message = messageInput.value
-        socket.emit('send-chat-message', message)
-        appendMessage(message, "right")
-        messageInput.value = ''
+        if(message != ""){
+            socket.emit('send-chat-message', message)
+            appendMessage(message, "right")
+            messageInput.value = ''
+        }
     })
 
     function appendMessage(message, side) {

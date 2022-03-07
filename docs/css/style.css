@@ -110,6 +110,8 @@ div {
 	width: auto;
 	max-height: 55vw;
 	border-radius: 30px;
+	transition: 0.15s ease in ease-in-out;
+
 }
 
 .container {
