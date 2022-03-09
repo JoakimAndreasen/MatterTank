@@ -100,11 +100,11 @@ class Game {
         this.powerups.forEach((powerup) => {
             powerup.die()
         })
-
+        this.resetLevel();
         this.pausePlayerControl(3);
         this.countDownFrom(3);
         regenerateLevel(newRoundData.seed);
-        this.resetLevel();
+        
     }
 
 

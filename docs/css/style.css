@@ -440,3 +440,16 @@ input[type="number"] {
 .error {
     color: red!important;
 }
+
+#logo {
+	height: 20vh;
+	width: 40vh;
+	background-position: center;
+	background-size: contain;
+	background-image:url("../assets/images/TankzLogo.png");
+	background-repeat: no-repeat;
+}
+
+#logo:hover {
+	background-image:url("../assets/images/TankzLogo.gif");
+}
