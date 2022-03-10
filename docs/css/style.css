@@ -442,8 +442,8 @@ input[type="number"] {
 }
 
 #logo {
-	height: 20vh;
-	width: 40vh;
+	height: 100%;
+	width: 100%;
 	background-position: center;
 	background-size: contain;
 	background-image:url("../assets/images/TankzLogo.png");
