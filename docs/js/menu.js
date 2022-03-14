@@ -35,12 +35,6 @@ function setupLeftMenu(socket) {
 		socket.emit("updateColor", colorPicker.value);
 	};
 
-	seedInput.onfocus = startTyping;
-	seedInput.onblur = stopTyping;
-
-	joinLobbyInput.onfocus = startTyping;
-	joinLobbyInput.onblur = stopTyping;
-
 	messageInput.onfocus = startTyping;
 	messageInput.onblur = stopTyping;
 }
@@ -87,7 +81,9 @@ function setLobbySection(newSetting) {
 		let seed = document.createElement("input");
 		seed.id = "seedInput";
 		seed.type = "text";
-		seed.placeholder = "seed"
+		seed.placeholder = "seed";
+		seed.onfocus = startTyping;
+		seed.onblur = stopTyping;
 		box.append(seed);
 
 		//Create lobby button
@@ -120,6 +116,8 @@ function setLobbySection(newSetting) {
 		lobbyCode.id = "joinLobbyInput";
 		lobbyCode.type = "number";
 		lobbyCode.placeholder = "Lobby Code";
+		lobbyCode.onfocus = startTyping;
+		lobbyCode.onblur = stopTyping;
 		box.append(lobbyCode);
 
 		//Create lobby button

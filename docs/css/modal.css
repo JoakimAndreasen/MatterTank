@@ -1,6 +1,8 @@
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -16,7 +18,6 @@
 /* Modal Content/Box */
 .modal-content {
   background-color: var(--background);
-  margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   width: 30em; /* Could be more or less, depending on screen size */
   border-radius: 30px;
