@@ -33,7 +33,7 @@ let themes = {
             fieldHover: "#FF5666"
         }
     },
-    colorful: {
+    vomit: {
         title: "#ffd900",
         background: "#ff0000",
         game: {
@@ -106,9 +106,9 @@ function lightTheme() {
     changeTheme(themes.light);
 }
 
-function colorfulTheme() {
-    localStorage.setItem('theme', JSON.stringify(themes.colorful));
-    changeTheme(themes.colorful);
+function vomitTheme() {
+    localStorage.setItem('theme', JSON.stringify(themes.vomit));
+    changeTheme(themes.vomit);
 }
 
 function prettierTheme() {
@@ -119,7 +119,7 @@ function prettierTheme() {
 function setupTheme() {
     darkThemeButton.onclick = darkTheme;
     lightThemeButton.onclick = lightTheme;
-    colorfulThemeButton.onclick = colorfulTheme;
+    vomitThemeButton.onclick = vomitTheme;
     prettierThemeButton.onclick = prettierTheme;
 
     //Get the last applied theme

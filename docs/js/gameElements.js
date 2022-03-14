@@ -71,8 +71,6 @@ function updateLobbyInfo(lobbyData) {
 	lobbyCode.innerHTML = lobbyData.id;
 	seed.innerHTML = lobbyData.seed;
 	if (mainPlayer.number) gameInstance.player.setStartingPos(mainPlayer.number);
-
-
 }
 
 

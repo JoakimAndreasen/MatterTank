@@ -19,7 +19,6 @@ io.on("connection", (socket) => {
 	// socket.on("deletePowerup", ({pid}) =>{callRoomFunction(socket,"deletePowerup", {pid})});
 	socket.on("deletePowerup", (pid) =>{callRoomFunction(socket,"deletePowerup",pid)});
 
-
 	socket.on("updatePlayers", (playerData) => {
 		if (socket.data.currentRoom) {
 			socket.to(socket.data.currentRoom).emit("updatePlayers", [playerData, socket.id]);

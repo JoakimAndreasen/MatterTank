@@ -82,6 +82,8 @@ function movement() {
 	if (keysDown.has(controls.player1.backward)) player.drive(-0.025); //down
 	if (keysDown.has(controls.player1.right)) player.rotate(0.15); //right
 	if (keysDown.has(controls.player1.left)) player.rotate(-0.15); //left
+
+	keysDown.has(controls.player1.backward) ? (gameInstance.player.dir = -1) : (gameInstance.player.dir = 1);
 }
 
 export {movement};

@@ -5,6 +5,7 @@ import {engine} from "./matterComponents.js"
 import {Opponent} from "./classes/Opponent.js"
 import {speedBoost} from "./classes/Powerups.js"
 import {gameInstance} from "./main.js"
+import {setLobbySection} from "./menu.js"
 
 function setupSocket(socket) {
 	socket.on("connect_error", (err) => {
@@ -21,7 +22,6 @@ function setupSocket(socket) {
 
 	socket.on("joinedRoom", (roomData) => {
 		let player = gameInstance.player;
-		console.log("joined room");
 		gameInstance.pausePlayerCollision();
 		let playerNumber = roomData.players.find((player) => player.id == socket.id).number
 		//set spawn position
@@ -34,8 +34,8 @@ function setupSocket(socket) {
 		gameInstance.clearOpponents();
 		regenerateLevel(roomData.seed);
 		gameInstance.resetLevel();
-		console.log("ROOMCODE: " + roomData.id);
 
+		setLobbySection("inLobby");
 		updateLobbyInfo(roomData);
 	});
 
@@ -83,7 +83,6 @@ function setupSocket(socket) {
 
 	socket.on("spawnPowerup", ({x,y, pid}) => {
 		gameInstance.powerups.push(new speedBoost(x, y, pid));
-		console.log(pid)
 	});
 
 	socket.on("deletePowerup", ({pid}) => {

@@ -32,34 +32,14 @@
 						/>
 					</div>
 				</div>
-				<!--Create Lobby-->
-				<div class="box">
-					<h2>Create Lobby</h2>
-					<div class="fields" id="createLobbyForm">
-						<input
-						id="seedInput"
-						type="text"
-						placeholder="Seed"
-						/>
-						<button id="createLobbyButton">Create Lobby</button>
-					</div>
-				</div>
-				<!--Join Lobby-->
-				<div class="box">
-					<h2>Join Lobby</h2>
-					<div class="fields" id="joinLobbyForm">
-						<input
-							id="joinLobbyInput"
-							type="number"
-							max="99999"
-							name="chat"
-							placeholder="Lobby Code"
-						/>
-						<button id="joinLobbyButton">Join Lobby</button>
-					</div>
-				</div>
-				<button id="openSettingsModal">Settings</button>
+				<!--Lobby Section-->
+				<div id="lobbySection"></div>
 			</div>
+			<button id="openSettingsModal">Settings</button>
+		</div>
+		<div class="game">
+			<div id="playersInfo"></div>
+			<div class="gameContainer"><canvas id="canvas"></canvas></div>
 			<div class="credits">
 				<h3>Made by:</h3>
 				<div>
@@ -75,33 +55,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="game">
-			<div id="playersInfo"></div>
-			
-			<div class="gameContainer"><canvas id="canvas"></canvas></div>
-			
-		</div>
 		<div class="container">
 			<div id="notifications"></div>
 			<div class="containerFields right">
-				<!--Current lobby-->
-				<div class="box">
-					<h2>Current Lobby</h2>
-					<div class="fields currentLobby">
-						<button id="lobbyCodeButton" class="miniFields">
-							<p>
-								Lobby Code <br />
-								<span id="lobbyCode">1234567</span>
-							</p>
-						</button>
-						<button id="seedButton" class="miniFields">
-							<p>
-								Seed <br />
-								<span id="seed">2222</span>
-							</p>
-						</button>
-					</div>
-				</div>
 				<!--Chat-->
 				<div class="box" id="chat">
 					<h2>Chat</h2>
@@ -111,8 +67,8 @@
 						<button type="submit" id="sendButton">Send</button>
 					</form>
 				</div>
-				<button id="startGameButton">Start Game</button>
 			</div>
+			<button id="startGameButton">Start Game</button>
 		</div>
 		<h2 id="countDown"></h2>
 		<h2 id="winnerText"></h2>
@@ -126,7 +82,7 @@
 				<!--Content-->
 				<div class="flex">
 					<div class="box">
-						<h3>Controls #1</h3>
+						<h3 class="modalTitle">Controls #1</h3>
 						<div class="flex settingBox">
 							<p class="settingDescription">Forward</p>
 							<div id="player1forward" class="setting" tabindex="0"></div>
@@ -149,7 +105,7 @@
 						</div>
 					</div>
 					<div class="box">
-						<h3>Controls #2</h3>
+						<h3 class="modalTitle">Controls #2</h3>
 						<div class="flex settingBox">
 							<p class="settingDescription">Forward</p>
 							<div id="player2forward" class="setting" tabindex="0"></div>
@@ -175,14 +131,14 @@
 				
 				<!--Color Themes-->
 				<div class="box">
-					<h3>Themes</h3>
+					<h3 class="modalTitle">Themes</h3>
 					<div class="fields themes">
 						<button class="theme" id="darkThemeButton">Dark</button>
 						<button class="theme" id="lightThemeButton">
 							Light
 						</button>
-						<button class="theme" id="colorfulThemeButton">
-							Colorful
+						<button class="theme" id="vomitThemeButton">
+							vomit
 						</button>
 						<button class="theme" id="prettierThemeButton">
 							Prettier

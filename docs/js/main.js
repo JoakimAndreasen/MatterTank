@@ -33,7 +33,8 @@ setupTheme();
 import { setupChat } from "./chat.js";
 setupChat(socket);
 
-import { setupLeftMenu } from "./menu.js";
+import { setLobbySection, setupLeftMenu } from "./menu.js";
+setLobbySection("notInLobby"); //Set lobby section to default state.
 setupLeftMenu(socket);
 
 export { socket, gameInstance };

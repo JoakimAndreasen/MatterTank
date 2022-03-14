@@ -72,7 +72,7 @@ class Player extends Tank {
 		flash.style.left = muzzlePos.x * scale + "px";
 		flash.style.transform = "rotate(" + (this.body.angle - (Math.PI/2)) + "rad) scale(5)";
 
-		flash.src = "../docs/assets/muzzleflash.gif";
+		flash.src = "../../assets/muzzleflash.gif";
 		setTimeout(() => {
 			container.removeChild(flash);
 		}, 100);
