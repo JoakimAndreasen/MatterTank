@@ -77,5 +77,4 @@ module.exports = {
 	joinRoom: joinRoom,
 	leaveCurrentRoom: leaveCurrentRoom,
 	callRoomFunction: callRoomFunction
-
 };

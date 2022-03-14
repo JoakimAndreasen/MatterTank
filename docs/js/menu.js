@@ -182,7 +182,10 @@ function setLobbySection(newSetting) {
 		//Back
 		let back = document.createElement("button");
 		back.textContent = "Leave Lobby";
-		back.onclick = () => {setLobbySection("notInLobby")};
+		back.onclick = () => {
+			socket.emit("leave-room");
+			setLobbySection("notInLobby");
+		};
 		box.append(back);
 
 		//Append to dom

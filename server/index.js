@@ -1,5 +1,5 @@
 //Import helper functions
-const {createRoom,joinRoom, callRoomFunction,leaveCurrentRoom } = require("./socketFunctions.js");
+const {createRoom,joinRoom, callRoomFunction, leaveCurrentRoom } = require("./socketFunctions.js");
 
 const options = {cors: {origin: '*'} };
 
@@ -14,7 +14,8 @@ io.on("connection", (socket) => {
 
 	socket.on("create-room", (seed) => {createRoom(socket,seed,io)});
 	socket.on("join-room", (roomID) => {joinRoom(roomID,socket,io)});
-	socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});
+	socket.on("leave-room", () => {leaveCurrentRoom(socket)});
+	//socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});
 	socket.on("playerDied", () =>{callRoomFunction(socket,"playerDied")});
 	// socket.on("deletePowerup", ({pid}) =>{callRoomFunction(socket,"deletePowerup", {pid})});
 	socket.on("deletePowerup", (pid) =>{callRoomFunction(socket,"deletePowerup",pid)});

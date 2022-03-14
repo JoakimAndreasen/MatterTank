@@ -76,7 +76,7 @@ h2 {
 }
 
 p {
-	color: white !important;
+	color: var(--card-text);
 	font-size: 1.5vh;
 	padding: 0.5rem 0;
 	color: var(--title);
