@@ -3,7 +3,7 @@ const {createRoom,joinRoom, callRoomFunction,leaveCurrentRoom } = require("./soc
 
 const options = {cors: {origin: '*'} };
 
-const io = require("socket.io")(3000,options);
+const io = require("socket.io")(process.env.PORT || 3000,options);
 
 io.on("connection", (socket) => {
 	console.log(socket.id, "joined the server");

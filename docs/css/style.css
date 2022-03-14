@@ -72,11 +72,17 @@ h3 {
 h2 {
 	color: var(--title);
 	font-size: 3vh;
+	color: var(--title);
 }
 
 p {
 	font-size: 1.5vh;
 	padding: 0.5rem 0;
+	color: var(--title);
+}
+
+div {
+	color: var(--title);
 }
 
 /*Game*/
@@ -102,6 +108,8 @@ p {
 	width: auto;
 	max-height: 55vw;
 	border-radius: 30px;
+	transition: 0.15s ease in ease-in-out;
+
 }
 
 .container {
@@ -220,6 +228,10 @@ p {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+}
+
+#startGameButton {
+	display:none;
 }
 
 button,
@@ -439,4 +451,17 @@ input[type="number"] {
 
 .error {
     color: red!important;
+}
+
+#logo {
+	height: 100%;
+	width: 100%;
+	background-position: center;
+	background-size: contain;
+	background-image:url("../assets/images/TankzLogo.png");
+	background-repeat: no-repeat;
+}
+
+#logo:hover {
+	background-image:url("../assets/images/TankzLogo.gif");
 }

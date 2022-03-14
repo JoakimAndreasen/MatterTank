@@ -1,6 +1,6 @@
 import {Player} from "./Player.js";
 import {engine} from "../matterComponents.js";
-import {grid} from "../matterComponents.js";
+import {grid, gridComposite} from "../matterComponents.js";
 import {generateMaze} from "../mazeGenerator.js"
 import { regenerateLevel } from "../grid.js";
 class Game {
@@ -11,7 +11,8 @@ class Game {
         this.opponentComposite = Matter.Composite.create();
         Matter.Composite.add(engine.world, this.opponentComposite);
         generateMaze(grid);
-    }
+        this.bulletDetector = Matter.Detector.create({bodies: [...gridComposite.composites.map(e => e.bodies).flat()]});
+    }  
     
     removeFromWorld(objects) {
         objects.forEach((object) => {
@@ -19,13 +20,14 @@ class Game {
         });
     }
     clearOpponents(){
-        this.removeFromWorld(this.opponents);
+        console.log("REMOVING OPPONENTS");
+        Matter.Composite.clear(this.opponentComposite);
         this.opponents = [];
     }
     clearBullets() {
         this.removeFromWorld(this.player.bullets); //clear player bullets
         this.player.bullets = [];
-
+        this.bulletDetector = Matter.Detector.create({bodies: [...gridComposite.composites.map(e => e.bodies).flat()]});
         this.opponents.forEach((opponent) => { //clear opponent bullets
             this.removeFromWorld(opponent.bullets);
         });
@@ -91,17 +93,18 @@ class Game {
     }
 
     newRound(newRoundData) {
+        console.log("NEW ROUND");
         if (newRoundData.winner) {
             this.showWinner(newRoundData.winner);
         }
         this.powerups.forEach((powerup) => {
             powerup.die()
         })
-
+        this.resetLevel();
         this.pausePlayerControl(3);
         this.countDownFrom(3);
         regenerateLevel(newRoundData.seed);
-        this.resetLevel();
+        
     }
 
 

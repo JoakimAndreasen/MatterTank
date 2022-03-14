@@ -66,6 +66,23 @@ let themes = {
             field: "#4D9DE0",
             fieldHover: "#7768AE"
         }
+    },
+    blueish: {
+        title: "#fff",
+        background: "#000214",
+        game: {
+            background: "#000000",
+            border: "#000E8F"
+        },
+        scrollbar: "#788BFF",
+        scrollbarHover: "#9BB1FF",
+        card: {
+            title: "#fff",
+            text: "#ffffff",
+            background: "#000852",
+            field: "#000E8F",
+            fieldHover: "#7768AE"
+        }
     }
 }
 
@@ -116,11 +133,17 @@ function prettierTheme() {
     changeTheme(themes.prettier);
 }
 
+function blueishTheme() {
+    localStorage.setItem('theme', JSON.stringify(themes.blueish));
+    changeTheme(themes.blueish);
+}
+
 function setupTheme() {
     darkThemeButton.onclick = darkTheme;
     lightThemeButton.onclick = lightTheme;
     vomitThemeButton.onclick = vomitTheme;
     prettierThemeButton.onclick = prettierTheme;
+    blueishThemeButton.onclick = blueishTheme;
 
     //Get the last applied theme
     let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : JSON.stringify(themes.dark);

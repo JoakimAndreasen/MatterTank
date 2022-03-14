@@ -16,6 +16,8 @@ class Player extends Tank {
 		this.canFire = true;
 		Matter.Body.setPosition(this.body, this.startingPosition);
 		Matter.Composite.add(engine.world, this.body);
+		this.bulletDetector = Matter.Detector.create(engine.worl,this.body);
+		this.currentPowerupTimeout = [];
 	}
 
 
@@ -45,7 +47,11 @@ class Player extends Tank {
 	}
 
 	fire() {
-		if (this.state != "dead" && this.canFire) {
+		if (this.state != "dead" && this.canFire && this.bullets.length < 4) {
+			this.canFire = false;
+			setTimeout(() => {
+				this.canFire = true;
+			}, 400);
 			let direction = this.getDirection();
 			let pos = Matter.Vector.add(this.body.position, Matter.Vector.mult(direction, 40));
 			let velocity = Matter.Vector.mult(direction, this.bulletspeed);
@@ -92,8 +98,11 @@ class Player extends Tank {
 		if (this.state === "dead") {
 			Matter.World.add(engine.world, this.body);
 			this.state = "alive";
-
 		}
+		this.currentPowerupTimeout.forEach(timeout => {
+			clearTimeout(timeout);
+		});
+		this.currentPowerupTimeout = [];
 	}
 	setStartingPos(n) {
 		switch (n) {

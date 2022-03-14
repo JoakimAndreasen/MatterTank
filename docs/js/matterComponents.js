@@ -26,4 +26,4 @@ let { grid, gridComposite } = createGrid(screenSize,[5, 5], w);
 
 Matter.Composite.add(engine.world, [gridComposite,border]);
 
-export { engine, render, runner, screenSize, border, grid };
+export { engine, render, runner, screenSize, border, grid, gridComposite };

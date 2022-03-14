@@ -35,6 +35,10 @@ function setupSocket(socket) {
 		regenerateLevel(roomData.seed);
 		gameInstance.resetLevel();
 
+		if (usernameInput.value){
+			socket.emit("updateUsername", usernameInput.value);
+		}
+
 		setLobbySection("inLobby");
 		updateLobbyInfo(roomData);
 	});
@@ -87,8 +91,8 @@ function setupSocket(socket) {
 
 	socket.on("deletePowerup", ({pid}) => {
 		let powerup = gameInstance.powerups.find((e) => e.id == pid)
-		console.log(pid, powerup)
 		if( powerup ){
+		console.log(powerup)
 			powerup.die()
 		}
 	});

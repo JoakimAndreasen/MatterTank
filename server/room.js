@@ -104,7 +104,6 @@ class Room {
       this.deadPlayers = [];
       this.io.in(this.id).emit("newRound", "Game Starting");
     } else {
-      console.log("this.players.length");
       this.io
         .in(this.id)
         .emit("error", "You can't start a game with only one player!", "error");
@@ -130,19 +129,30 @@ class Room {
   }
 
   spawnPowerUp() {
-    let pid = String(this.randomNumber());
-	console.log(pid)
-    this.powerups.push(pid);
-    this.io.in(this.id).emit("spawnPowerup", {
-      x: Math.floor(Math.random() * 5) * 200 + 100,
-      y: Math.floor(Math.random() * 5) * 200 + 100,
-      pid: pid,
-    });
+    console.log(this.powerups.length,this.powerups)
+    if(this.powerups.length < 3){
+      let pid = String(this.randomNumber());
+      this.powerups.push(pid);
+      this.io.in(this.id).emit("spawnPowerup", {
+        x: Math.floor(Math.random() * 3) * 200 + 300,
+        y: Math.floor(Math.random() * 3) * 200 + 300,
+        pid: pid,
+      });
+    }
   }
 
   deletePowerup(socket,pid) {
-	this.powerups.pop(this.powerups.indexOf(pid))
-	this.io.in(this.id).emit("deletePowerup", {pid});
+    console.log(this.powerups)
+    this.powerups.splice(this.powerups.indexOf(pid),1)
+    console.log(this.powerups)
+    this.io.in(this.id).emit("deletePowerup", {pid});
+  }
+
+  deleteAllPowerups(){
+    this.powerups.forEach(id => {
+      this.deletePowerup("",id)
+    });
+    this.powerups = []
   }
 
   newRound() {
@@ -166,10 +176,13 @@ class Room {
         .in(this.id)
         .emit("newRound", { winner: winner.username, seed: this.seed });
       winner.score += scoreToAdd;
+    } else {
+      this.io.in(this.id).emit("newRound", { winner: "", seed: this.seed });
     }
     this.io.in(this.id).emit("updateLobbyInfo", this.getRoomData());
     this.deadPlayers = [];
-	this.spawnPowerUp()
+    this.deleteAllPowerups()
+	  this.spawnPowerUp()
     setTimeout(() => {
       this.gameState = "PLAYING";
     }, 2000);

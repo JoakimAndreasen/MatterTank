@@ -2,7 +2,10 @@ import {notification} from "./gameElements.js"
 import { gameInstance } from "./main.js";
 import {debounce} from "./utils.js"
 import {socket} from "./main.js"
+import { startTyping, stopTyping } from "./keypresses.js";
 
+
+//onfocus="focusFunction()" onblur="blurFunction()"
 
 //Copy to clipboard Buttons
 function copyToClipboard(text) {
@@ -17,9 +20,11 @@ function setupLeftMenu(socket) {
 			socket.emit("updateUsername", usernameInput.value);
 		}
 	}, 300);
-	usernameInput.addEventListener('keyup', () => {
+	usernameInput.addEventListener('keyup', (e) => {
 		sendUsername();
 	});
+	usernameInput.onfocus = startTyping;
+	usernameInput.onblur = stopTyping;
 
 	startGameButton.onclick = function () {
 		socket.emit("start-game");
@@ -29,6 +34,15 @@ function setupLeftMenu(socket) {
 		gameInstance.player.updateColor(colorPicker.value)
 		socket.emit("updateColor", colorPicker.value);
 	};
+
+	seedInput.onfocus = startTyping;
+	seedInput.onblur = stopTyping;
+
+	joinLobbyInput.onfocus = startTyping;
+	joinLobbyInput.onblur = stopTyping;
+
+	messageInput.onfocus = startTyping;
+	messageInput.onblur = stopTyping;
 }
 
 function setLobbySection(newSetting) {

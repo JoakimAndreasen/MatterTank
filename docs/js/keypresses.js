@@ -1,11 +1,11 @@
 import {gameInstance} from "./main.js";
 
 let keysDown = new Set();
-
+let typing = false;
 document.addEventListener(
 	"keydown",
 	(e) => {
-		if (!e.repeat) {
+		if (!e.repeat && !typing) {
 			if (e.key == controls.player1.shoot) {
 				gameInstance.player.fire();
 			} else if (e.key == "b") {
@@ -86,4 +86,12 @@ function movement() {
 	keysDown.has(controls.player1.backward) ? (gameInstance.player.dir = -1) : (gameInstance.player.dir = 1);
 }
 
-export {movement};
+function startTyping() {
+	typing = true;
+}
+
+function stopTyping() {
+	typing = false;
+}
+
+export {movement, startTyping, stopTyping};

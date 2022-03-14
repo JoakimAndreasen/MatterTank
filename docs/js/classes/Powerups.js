@@ -9,6 +9,7 @@ class PowerUp {
 		this.height = 50;
 		this.active = true;
 		this.body = createPowerup.call(this,{x, y}, this.width);
+		this.body.render.fillStyle = "#43f"
 		this.id = id
 		Matter.Composite.add(engine.world, this.body);
 	}
@@ -31,12 +32,13 @@ class speedBoost extends PowerUp {
 		this.imagePath = "../assets/images/powerup.png";
 	}
 	effect(player) {
-		player.driveSpeed = player.driveSpeed * 2;
-		player.rotationSpeed = player.rotationSpeed * 2;
-		setTimeout(() => {
-			player.driveSpeed = player.driveSpeed / 2;
-			player.rotationSpeed = player.rotationSpeed / 2;
+		player.driveSpeed ++;
+		player.rotationSpeed ++;
+		let timeout = setTimeout(() => {
+			player.driveSpeed --;
+			player.rotationSpeed --;
 		}, 5000);
+		player.currentPowerupTimeout.push(timeout);
 	}
 }
 
