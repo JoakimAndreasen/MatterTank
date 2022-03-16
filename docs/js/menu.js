@@ -1,7 +1,7 @@
-import {notification} from "./gameElements.js"
+import { notification } from "./gameElements.js"
 import { gameInstance } from "./main.js";
-import {debounce} from "./utils.js"
-import {socket} from "./main.js"
+import { debounce } from "./utils.js"
+import { socket } from "./main.js"
 import { startTyping, stopTyping } from "./keypresses.js";
 
 
@@ -184,6 +184,7 @@ function setLobbySection(newSetting) {
 		back.textContent = "Leave Lobby";
 		back.onclick = () => {
 			socket.emit("leave-room");
+			gameInstance.newRound({winner:""});
 			setLobbySection("notInLobby");
 		};
 		box.append(back);
