@@ -47,18 +47,14 @@ function collisions() {
 
 function registerBulletWallCollision() {
 	let collisions = Matter.Detector.collisions(gameInstance.bulletDetector);
-	
-
 	collisions.forEach(c => {
+		console.log(c.bodyA.label,c.bodyB.label)
 		if(c.bodyA.label == "bullet") {
 			c.bodyA.object.deleteOnWallCollision()
 		} else if (c.bodyB.label == "bullet") {
 			c.bodyB.object.deleteOnWallCollision()
 		}
-		
 	});
-	
-	
 }
 
 function updateLobbyInfo(lobbyData) {

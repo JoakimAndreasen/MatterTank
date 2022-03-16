@@ -154,9 +154,6 @@ function createPowerup(pos, width) {
 		collisionFilter: {
 			mask: 0x010
 		},
-		render: {
-			fillStyle: "#43f"
-		}
 
 	});
 	body.object = this;

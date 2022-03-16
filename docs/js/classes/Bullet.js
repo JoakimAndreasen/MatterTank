@@ -25,6 +25,7 @@ class Bullet {
 	}
 
 	remove() {
+		gameInstance.player.bullets = gameInstance.player.bullets.filter(bullet => bullet.id != this.id);
 		Matter.Composite.remove(engine.world, this.body);
 		let bullet = gameInstance.bulletDetector.bodies.find(body => {
 			if (body.object) {
@@ -39,10 +40,10 @@ class Bullet {
 	deleteOnWallCollision(){
 		this.currentBounces ++
 		if(this.currentBounces >= this.maxBounces){
-			gameInstance.player.bullets = gameInstance.player.bullets.filter(bullet => bullet.id != this.id);
 			this.remove()
 		}
 	}
+
 
 }
 export { Bullet };
