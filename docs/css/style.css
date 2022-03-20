@@ -101,7 +101,6 @@ div {
 	width: auto;
 	position: relative;
 	max-height: 55vw;
-
 }
 
 #canvas {
@@ -230,7 +229,7 @@ div {
 }
 
 #startGameButton {
-	display:none;
+	display: none;
 }
 
 button,
@@ -294,7 +293,6 @@ input {
 	width: 100%;
 	text-align: left;
 	border: none;
-
 
 	padding: 0;
 	padding-left: 1vh;
@@ -382,7 +380,6 @@ input[type="number"] {
 	margin-top: 100em;
 }
 
-
 #playersInfo {
 	display: flex;
 	flex-direction: row;
@@ -441,15 +438,15 @@ input[type="number"] {
 }
 
 #startGameButton {
-    width: 80%;
+	width: 80%;
 }
 
 .success {
-    color: green!important;
+	color: green !important;
 }
 
 .error {
-    color: red!important;
+	color: red !important;
 }
 
 #logo {
@@ -457,10 +454,10 @@ input[type="number"] {
 	width: 100%;
 	background-position: center;
 	background-size: contain;
-	background-image:url("../assets/images/TankzLogo.png");
+	background-image: url("../assets/images/TankzLogo.png");
 	background-repeat: no-repeat;
 }
 
 #logo:hover {
-	background-image:url("../assets/images/TankzLogo.gif");
+	background-image: url("../assets/images/TankzLogo.gif");
 }
