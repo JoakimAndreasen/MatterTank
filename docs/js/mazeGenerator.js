@@ -68,6 +68,8 @@ function generateMaze(grid, randomFunction=Math.random) {
             stack.push(neighbor);
         } 
     }
+    
 }
+     
 
 export {generateMaze, randomSeededFunction};
