@@ -1,5 +1,5 @@
 import { engine, render, runner, grid } from "./matterComponents.js";
-import { registerBulletWallCollision } from "./gameElements.js"
+import { registerBulletWallCollision } from "./gameElements.js";
 
 import { Game } from "./classes/Game.js";
 let gameInstance = new Game();
@@ -16,18 +16,17 @@ Matter.Render.run(render);
 
 // call tick on the runner to run the engine
 setInterval(() => {
-  Matter.Runner.tick(runner, engine, 1000 / 60);
+	Matter.Runner.tick(runner, engine, 1000 / 60);
 }, 16);
-
 
 import { movement } from "./keypresses.js";
 import { collisions } from "./gameElements.js";
 
 Matter.Events.on(runner, "tick", (event) => {
-  movement();
-  collisions();
-  registerBulletWallCollision();
-  gameInstance.sendData(socket);
+	movement();
+	collisions();
+	registerBulletWallCollision();
+	gameInstance.sendData(socket);
 });
 
 //theme

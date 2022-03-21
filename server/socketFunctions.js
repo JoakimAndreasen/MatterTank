@@ -37,14 +37,16 @@ function replyToSocket(socket, message, type) {
 function leaveCurrentRoom(socket) {
 	let currentRoom = socket.data.currentRoom;
 	if (currentRoom != "") {
-		allRooms[currentRoom].removePlayer(socket.id);
 		socket.leave(currentRoom);
+		allRooms[currentRoom].removePlayer(socket.id); //sends newRound to players
 		socket.to(currentRoom).emit("leftRoom",socket.id);
 		replyToSocket(socket, "Left Room", "success");
 		if (allRooms[currentRoom].players.length == 0) {
 			delete allRooms[currentRoom];
 		}
 	}
+	socket.data.currentRoom=""; //fix leave lobby
+
 }
 
 function joinRoom(roomID,socket,io) {

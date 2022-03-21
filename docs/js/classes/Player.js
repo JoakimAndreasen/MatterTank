@@ -47,11 +47,7 @@ class Player extends Tank {
 	}
 
 	fire() {
-		if (this.state != "dead" && this.canFire && this.bullets.length < 4) {
-			this.canFire = false;
-			setTimeout(() => {
-				this.canFire = true;
-			}, 400);
+		if (this.state != "dead" && this.canFire && this.bullets.length < 4) {	
 			let direction = this.getDirection();
 			let pos = Matter.Vector.add(this.body.position, Matter.Vector.mult(direction, 40));
 			let velocity = Matter.Vector.mult(direction, this.bulletspeed);
