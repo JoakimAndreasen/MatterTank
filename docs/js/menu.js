@@ -22,9 +22,11 @@ function setupLeftMenu(socket) {
 	}, 300);
 	usernameInput.addEventListener('keyup', (e) => {
 		sendUsername();
+		localStorage.setItem("username",usernameInput.value)
 	});
 	usernameInput.onfocus = startTyping;
 	usernameInput.onblur = stopTyping;
+	usernameInput.value = localStorage.getItem("username")
 
 	startGameButton.onclick = function () {
 		socket.emit("start-game");
@@ -33,7 +35,9 @@ function setupLeftMenu(socket) {
 	colorPicker.onchange = function () {
 		gameInstance.player.updateColor(colorPicker.value)
 		socket.emit("updateColor", colorPicker.value);
+		localStorage.setItem("tank-color",colorPicker.value)
 	};
+	colorPicker.value = localStorage.getItem("tank-color")
 
 	messageInput.onfocus = startTyping;
 	messageInput.onblur = stopTyping;
