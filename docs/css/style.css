@@ -4,6 +4,9 @@
 /*Modal*/
 @import "modal.css";
 
+/*Slider*/
+@import "slider.css";
+
 /*Fonts*/
 @font-face {
 	font-family: "noodle";

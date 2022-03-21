@@ -81,15 +81,43 @@ function setLobbySection(newSetting) {
 		let seed = document.createElement("input");
 		seed.id = "seedInput";
 		seed.type = "text";
-		seed.placeholder = "seed";
+		seed.placeholder = "Seed";
 		seed.onfocus = startTyping;
 		seed.onblur = stopTyping;
 		box.append(seed);
 
+		//Level Switch
+		let levelSwitchBox = document.createElement("div");
+		levelSwitchBox.className = "levelSwitchBox";
+
+		let defaultLevel = document.createElement("p");
+		defaultLevel.textContent ="Default";
+		levelSwitchBox.append(defaultLevel);
+
+		let levelSwitch = document.createElement("label");
+		levelSwitch.className = "switch";
+
+		let levelSwitchInput = document.createElement("input");
+		levelSwitchInput.type = "checkbox";
+		levelSwitchInput.id ="levelType";
+		levelSwitch.append(levelSwitchInput);
+
+		let levelSwitchSpan = document.createElement("span");
+		levelSwitchSpan.className = "slider";
+		levelSwitch.append(levelSwitchSpan);
+
+		levelSwitchBox.append(levelSwitch);
+
+		let largeLevel = document.createElement("p");
+		largeLevel.textContent ="Large";
+		levelSwitchBox.append(largeLevel);
+
+		box.append(levelSwitchBox);
+
 		//Create lobby button
 		let createLobby = document.createElement("button");
 		createLobby.textContent = "Create Lobby";
-		createLobby.onclick = () => {socket.emit("create-room", document.getElementById("seedInput").value);};
+		createLobby.onclick = () => {socket.emit("create-room", [document.getElementById("seedInput").value, document.getElementById("levelType").checked]);};
 		box.append(createLobby);
 
 		//Back
