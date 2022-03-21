@@ -1,7 +1,7 @@
 
 import {updateLobbyInfo, notification} from "./gameElements.js"
 import {regenerateLevel} from "./grid.js"
-import {engine} from "./matterComponents.js"
+import {changeWorldSize} from "./matterComponents.js"
 import {Opponent} from "./classes/Opponent.js"
 import {speedBoost} from "./classes/Powerups.js"
 import {gameInstance} from "./main.js"
@@ -25,13 +25,18 @@ function setupSocket(socket) {
 		gameInstance.pausePlayerCollision();
 		let playerNumber = roomData.players.find((player) => player.id == socket.id).number
 		//set spawn position
-		player.setStartingPos(playerNumber);
+		player.setStartingPos(playerNumber, roomData.size);
 		player.resetPosition();
 		// if (roomData.playerAmount == 4) {
 		// 	startGameButton.style.display = "block";
 		// }
 
 		gameInstance.clearOpponents();
+		console.log(roomData.size)
+		if (gameInstance.size != roomData.size) {
+			changeWorldSize(roomData.size);
+			gameInstance.size = roomData.size;
+		}
 		regenerateLevel(roomData.seed);
 		gameInstance.resetLevel();
 

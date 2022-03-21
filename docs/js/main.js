@@ -1,4 +1,4 @@
-import { engine, render, runner, grid } from "./matterComponents.js";
+import { engine, render, runner } from "./matterComponents.js";
 import { registerBulletWallCollision } from "./gameElements.js";
 
 import { Game } from "./classes/Game.js";
@@ -39,5 +39,8 @@ setupChat(socket);
 import { setLobbySection, setupLeftMenu } from "./menu.js";
 setLobbySection("notInLobby"); //Set lobby section to default state.
 setupLeftMenu(socket);
+
+
+
 
 export { socket, gameInstance };

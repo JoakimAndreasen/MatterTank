@@ -12,7 +12,7 @@ io.on("connection", (socket) => {
 	socket.on("updateUsername", (username) => {callRoomFunction(socket,"updateUsername",username)});
 	socket.on("updateColor", (color) => {callRoomFunction(socket,"updateColor",color)});
 
-	socket.on("create-room", (seed) => {createRoom(socket,seed,io)});
+	socket.on("create-room", ([seed, size]) => {createRoom(socket,seed,size,io)});
 	socket.on("join-room", (roomID) => {joinRoom(roomID,socket,io)});
 	socket.on("leave-room", () => {leaveCurrentRoom(socket)});
 	//socket.on("start-game", () =>{callRoomFunction(socket,"startGame")});

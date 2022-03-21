@@ -1,15 +1,17 @@
 import {Player} from "./Player.js";
 import {engine} from "../matterComponents.js";
-import {grid, gridComposite} from "../matterComponents.js";
+import {getMapInfo} from "../matterComponents.js";
 import {generateMaze} from "../mazeGenerator.js"
 import { regenerateLevel } from "../grid.js";
 class Game {
     constructor() {
+        this.size = 5;
         this.player = new Player();
         this.opponents = [];
         this.powerups = [];
         this.opponentComposite = Matter.Composite.create();
         Matter.Composite.add(engine.world, this.opponentComposite);
+        let {grid, gridComposite, borderComposite} = getMapInfo();
         generateMaze(grid);
         this.bulletDetector = Matter.Detector.create({bodies: [...gridComposite.composites.map(e => e.bodies).flat()]});
     }  
@@ -27,6 +29,7 @@ class Game {
     clearBullets() {
         this.removeFromWorld(this.player.bullets); //clear player bullets
         this.player.bullets = [];
+        let {grid, gridComposite, borderComposite} = getMapInfo();
         this.bulletDetector = Matter.Detector.create({bodies: [...gridComposite.composites.map(e => e.bodies).flat()]});
         this.opponents.forEach((opponent) => { //clear opponent bullets
             this.removeFromWorld(opponent.bullets);

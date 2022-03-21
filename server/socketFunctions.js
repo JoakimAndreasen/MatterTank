@@ -8,7 +8,7 @@ function randomNumber() {
 	return String(Math.floor(Math.random() * (range - start) + start));
 }
 
-function createRoom(socket,seed,io) {
+function createRoom(socket,seed, size,io) {
 	//Checks if the seed only conatins digits
 	let staticSeed = true
 	if (!/^\d+$/.test(seed)) {
@@ -20,7 +20,7 @@ function createRoom(socket,seed,io) {
 	//console.log("Creating room with code: " + roomID, " and seed: " + seed);
 
 	//create and save room instance
-	allRooms[roomID] = new Room(roomID, seed, staticSeed, io);
+	allRooms[roomID] = new Room(roomID, seed, staticSeed, size, io);
 	allRooms[roomID].newRound();
 	joinRoom(roomID, socket, io);
 
@@ -50,9 +50,10 @@ function leaveCurrentRoom(socket) {
 }
 
 function joinRoom(roomID,socket,io) {
+	let maxPlayerAmount = this.size <= 5 ? 4 : 8;
 	if (socket.data.currentRoom != roomID) {
 		leaveCurrentRoom(socket);
-		if (allRooms[roomID] && allRooms[roomID].players.length < 4) {
+		if (allRooms[roomID] && allRooms[roomID].players.length < maxPlayerAmount) {
 			socket.join(roomID);
 			socket.data.currentRoom = roomID;
 			

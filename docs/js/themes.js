@@ -121,12 +121,13 @@ let themes = {
 }
 
 import {render} from './matterComponents.js';
-import {grid, border} from './matterComponents.js';
+import {getMapInfo} from './matterComponents.js';
 import {setGridColor,setBorderColor } from "./grid.js";
 
 
 /*Theme changer*/
 function changeTheme(newTheme) {
+    let {grid,border} = getMapInfo();
     localStorage.setItem('theme', newTheme);
     let theme = themes[newTheme];
 
@@ -160,7 +161,8 @@ function setupTheme() {
 
     //Get the last applied theme
     let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : "dark";
+    
     changeTheme(currentTheme);
 }
 
-export {setupTheme};
+export {setupTheme, changeTheme};

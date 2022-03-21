@@ -119,7 +119,6 @@ function setLobbySection(newSetting) {
 		createLobby.textContent = "Create Lobby";
 		createLobby.onclick = () => {
 			let size = document.getElementById("levelType").checked ? 9 : 5
-			console.log(size)
 			socket.emit("create-room", [document.getElementById("seedInput").value, size]);
 		};
 		box.append(createLobby);

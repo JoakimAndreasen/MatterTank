@@ -1,4 +1,4 @@
-import {grid} from './matterComponents.js';
+import {getMapInfo} from './matterComponents.js';
 
 function setGridColor(grid, color) {
 	grid.forEach((row) => {
@@ -17,6 +17,8 @@ function setBorderColor(border, color) {
 }
 import {randomSeededFunction,generateMaze} from "./mazeGenerator.js"
 function regenerateLevel(seed) {
+	let {grid} = getMapInfo();
+
 	grid.forEach((row) => {
 		row.forEach((cell) => {
 			cell.reset();

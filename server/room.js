@@ -1,9 +1,10 @@
 class Room {
-	constructor(id, seed, staticSeed, io) {
+	constructor(id, seed, staticSeed,size, io) {
 		this.id = id;
 		this.seed = seed;
 		this.staticSeed = staticSeed;
 		this.io = io;
+		this.size = size;
 		this.gameState = "PLAYING";
 		this.players = [];
 		this.deadPlayers = [];
@@ -16,6 +17,7 @@ class Room {
 		return {
 			seed: this.seed,
 			id: this.id,
+			size: this.size,
 			playerAmount: this.players.length,
 			players: this.players,
 		};

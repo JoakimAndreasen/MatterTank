@@ -86,7 +86,7 @@ function createBorder(screenSize, w) {
 		isStatic: true,
 		isSensor: false,
 		render: {
-			fillStyle: "#000000",
+			fillStyle: "#000",
 			strokeStyle: "rgb(0,0,0,0)",
 			visible: true,
 		},
@@ -118,7 +118,7 @@ function createBox(xSize, ySize, w) {
 		isStatic: true,
 		isSensor: false,
 		render: {
-			fillStyle: "#000000",
+			fillStyle: "#0000000",
 			strokeStyle: "rgb(0,0,0,0)",
 			visible: true,
 		},

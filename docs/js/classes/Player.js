@@ -8,6 +8,24 @@ class Player extends Tank {
 	constructor() {
 		super();
 		this.startingPosition = { x: 100, y: 100 };
+		this.startingPositions = {
+			5:[
+				{ x: 100, y: 100 },
+				{ x: 900, y: 100 },
+				{ x: 100, y: 900 },
+				{ x: 900, y: 900 }
+			],
+			9:[
+				{ x: 100, y: 100 },
+				{ x: 1700, y: 100 },
+				{ x: 100, y: 1700 },
+				{ x: 1700, y: 1700 },
+				{ x: 900, y: 100 },
+				{ x: 100, y: 900 },
+				{ x: 900, y: 900 },
+				{ x: 900, y: 1700 }
+			]
+		};
 		this.bulletspeed = 15;
 		this.driveSpeed = 3;
 		this.dir = 1;
@@ -37,7 +55,7 @@ class Player extends Tank {
 	}
 
 	rotate(rotation) {
-		if (this.state != "dead" && this.canMove) {
+		if (this.state != "dead") {
 			if (this.dir > 0) {
 				this.body.torque += rotation * this.rotationSpeed;
 			} else if (this.dir < 0) {
@@ -54,7 +72,7 @@ class Player extends Tank {
 			let bullet = new Bullet(pos, velocity);
 			this.bullets.push(bullet);
 			Matter.World.add(engine.world, bullet.body);
-			this.spawnMuzzleFlash(pos,direction);
+			//this.spawnMuzzleFlash(pos,direction);
 		}
 	}
 	spawnMuzzleFlash(pos,direction) {
@@ -100,21 +118,9 @@ class Player extends Tank {
 		});
 		this.currentPowerupTimeout = [];
 	}
-	setStartingPos(n) {
-		switch (n) {
-			case 1:
-				this.startingPosition = {"x":100,"y":100};
-				break;
-			case 2:
-				this.startingPosition = {"x":900,"y":100};
-				break;
-			case 3:
-				this.startingPosition = {"x":100,"y":900};
-				break;
-			case 4:
-				this.startingPosition = {"x":900,"y":900};
-				break;
-		}
+	setStartingPos(n, size) {
+		console.log(size)
+		this.startingPosition = this.startingPositions[size][n-1];
 	}
 }
 
