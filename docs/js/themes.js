@@ -67,6 +67,40 @@ let themes = {
             fieldHover: "#7768AE"
         }
     },
+    redish: {
+        title: "#fff",
+        background: "#140002",
+        game: {
+            background: "#000000",
+            border: "#8f000e"
+        },
+        scrollbar: "#FF788B",
+        scrollbarHover: "#FF9BB1",
+        card: {
+            title: "#fff",
+            text: "#ffffff",
+            background: "#520008",
+            field: "#8F000E",
+            fieldHover: "#AE7768"
+        }
+    },
+    greenish: {
+        title: "#fff",
+        background: "#021400",
+        game: {
+            background: "#000000",
+            border: "#0e8f00"
+        },
+        scrollbar: "#8BFF78",
+        scrollbarHover: "#B1FF9B",
+        card: {
+            title: "#fff",
+            text: "#ffffff",
+            background: "#085200",
+            field: "#0E8F00",
+            fieldHover: "#68AE77"
+        }
+    },
     blueish: {
         title: "#fff",
         background: "#000214",
@@ -92,7 +126,10 @@ import {setGridColor,setBorderColor } from "./grid.js";
 
 
 /*Theme changer*/
-function changeTheme(theme) {
+function changeTheme(newTheme) {
+    localStorage.setItem('theme', newTheme);
+    let theme = themes[newTheme];
+
     let r = document.querySelector(':root');
     r.style.setProperty('--title', theme.title);
     r.style.setProperty('--background', theme.background);
@@ -112,42 +149,17 @@ function changeTheme(theme) {
     setBorderColor(border, theme.game.border);
 }
 
-/*Themes*/
-function darkTheme() {
-    localStorage.setItem('theme', JSON.stringify(themes.dark));
-    changeTheme(themes.dark);
-}
-
-function lightTheme() {
-    localStorage.setItem('theme', JSON.stringify(themes.light));
-    changeTheme(themes.light);
-}
-
-function vomitTheme() {
-    localStorage.setItem('theme', JSON.stringify(themes.vomit));
-    changeTheme(themes.vomit);
-}
-
-function prettierTheme() {
-    localStorage.setItem('theme', JSON.stringify(themes.prettier));
-    changeTheme(themes.prettier);
-}
-
-function blueishTheme() {
-    localStorage.setItem('theme', JSON.stringify(themes.blueish));
-    changeTheme(themes.blueish);
-}
-
 function setupTheme() {
-    darkThemeButton.onclick = darkTheme;
-    lightThemeButton.onclick = lightTheme;
-    vomitThemeButton.onclick = vomitTheme;
-    prettierThemeButton.onclick = prettierTheme;
-    blueishThemeButton.onclick = blueishTheme;
+    darkThemeButton.onclick = () => changeTheme("dark");
+    lightThemeButton.onclick = () => changeTheme("light");
+    vomitThemeButton.onclick = () => changeTheme("vomit");
+    prettierThemeButton.onclick = () => changeTheme("prettier");
+    redishThemeButton.onclick = () => changeTheme("redish");
+    greenishThemeButton.onclick = () => changeTheme("greenish");
+    blueishThemeButton.onclick = () => changeTheme("blueish");
 
     //Get the last applied theme
-    let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : JSON.stringify(themes.dark);
-    currentTheme = JSON.parse(currentTheme);
+    let currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : "dark";
     changeTheme(currentTheme);
 }
 
