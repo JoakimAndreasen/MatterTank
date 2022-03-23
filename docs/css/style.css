@@ -387,7 +387,7 @@ input[type="number"] {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	width: 70%;
+	width: 100%;
 	padding: 1vh;
 }
 
