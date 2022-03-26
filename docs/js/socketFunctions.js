@@ -68,7 +68,6 @@ function setupSocket(socket) {
 			gameInstance.pausePlayerCollision();
 			gameInstance.opponents.push(newOpponent);
 
-			socket.emit("updateColor", colorPicker.value); //TEMP FIX FOR INSTANT COLOR CHANGE :D:D:D:D Very bad PLEASE FIX
 		} else {
 			opponent.update(position.position, position.angle);
 		}

@@ -1,7 +1,5 @@
-import {createTank} from "../matterBodies.js";
 import {Bullet} from "./Bullet.js";
 import {engine} from "../matterComponents.js";
-import {hexToHSL} from '../utils.js';
 import {Tank} from './Tank.js';
 
 class Player extends Tank {

@@ -164,7 +164,8 @@ class Room {
 		this.gameState = "PAUSED";
 		let scoreToAdd = 0;
 		this.deadPlayers.reverse().forEach((id) => {
-			this.players.find((player) => player.id === id).score += scoreToAdd;
+			let player = this.players.find((player) => player.id === id);
+			if (player) player.score += scoreToAdd;
 			scoreToAdd++;
 		});
 		let IDs = this.players.map((player) => player.id);
@@ -175,10 +176,12 @@ class Room {
 		}
 		if (winnerID) {
 			let winner = this.players.find((player) => player.id === winnerID);
+			let winnername = "";
+			if (winner) winnername = winner.username;
 			this.io
 				.in(this.id)
-				.emit("newRound", { winner: winner.username, seed: this.seed });
-			winner.score += scoreToAdd;
+				.emit("newRound", { winner: winnername, seed: this.seed });
+			if (winner) winner.score += scoreToAdd;
 		} else {
 			this.io
 				.in(this.id)

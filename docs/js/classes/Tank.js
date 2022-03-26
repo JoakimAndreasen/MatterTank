@@ -1,5 +1,4 @@
 import {createTank} from "../matterBodies.js";
-import {Bullet} from "./Bullet.js";
 import {engine} from "../matterComponents.js";
 import {hexToHSL} from '../utils.js';
 class Tank {

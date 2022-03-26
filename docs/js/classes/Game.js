@@ -1,8 +1,8 @@
-import {Player} from "./Player.js";
-import {engine} from "../matterComponents.js";
-import {getMapInfo} from "../matterComponents.js";
-import {generateMaze} from "../mazeGenerator.js"
+import { Player } from "./Player.js";
+import { engine, getMapInfo } from "../matterComponents.js";
+import { generateMaze } from "../mazeGenerator.js"
 import { regenerateLevel } from "../grid.js";
+
 class Game {
     constructor() {
         this.size = 5;
