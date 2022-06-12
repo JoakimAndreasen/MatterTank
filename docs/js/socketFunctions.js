@@ -43,6 +43,7 @@ function setupSocket(socket) {
 		if (usernameInput.value){
 			socket.emit("updateUsername", usernameInput.value);
 		}
+		socket.emit("updateColor", colorPicker.value ?? "blue");
 
 		setLobbySection("inLobby");
 		updateLobbyInfo(roomData);

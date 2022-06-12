@@ -121,7 +121,6 @@ class Room {
 		if (!currentPlayer && this.gameState === "PLAYING") {
 			this.deadPlayers.push(socket.id);
 			socket.to(this.id).emit("playerDied", socket.id);
-
 			if (this.deadPlayers.length >= this.players.length - 1) {
 				//if only one player is left
 				this.newRound();
@@ -163,19 +162,17 @@ class Room {
 		this.updatePlayerNumbers();
 		this.gameState = "PAUSED";
 		let scoreToAdd = 0;
-		this.deadPlayers.reverse().forEach((id) => {
+		this.deadPlayers.forEach((id) => {
 			let player = this.players.find((player) => player.id === id);
 			if (player) player.score += scoreToAdd;
 			scoreToAdd++;
 		});
-		let IDs = this.players.map((player) => player.id);
-		let winnerID = IDs.find((id) => !this.deadPlayers.includes(id));
-
+		let winner = this.players.find((player) => !this.deadPlayers.includes(player.id));
+		
 		if (!this.staticSeed) {
 			this.seed = this.randomNumber();
 		}
-		if (winnerID) {
-			let winner = this.players.find((player) => player.id === winnerID);
+		if (winner) {
 			let winnername = "";
 			if (winner) winnername = winner.username;
 			this.io

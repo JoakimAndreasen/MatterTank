@@ -38,7 +38,8 @@ function setupLeftMenu(socket) {
 		localStorage.setItem("tank-color",colorPicker.value)
 	};
 	colorPicker.value = localStorage.getItem("tank-color")
-
+	gameInstance.player.updateColor(colorPicker.value)
+	
 	messageInput.onfocus = startTyping;
 	messageInput.onblur = stopTyping;
 }
